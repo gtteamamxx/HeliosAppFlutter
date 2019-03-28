@@ -20,43 +20,25 @@ class _HomePageState extends State<HomePage> {
               currentIndex: viewModel.getSelectedPageIndex(),
               items: [
                 _buildNavigationBarItem(
-                  title: "Główna",
-                  icon: HeliosIcons.home_icon,
-                ),
+                    title: "Główna", icon: HeliosIcons.home_icon),
                 _buildNavigationBarItem(
-                  title: "Cennik",
-                  icon: HeliosIcons.pricing_icon,
-                ),
+                    title: "Cennik", icon: HeliosIcons.pricing_icon),
                 _buildNavigationBarItem(
-                  title: "Repertuar",
-                  icon: HeliosIcons.repertoire_icon,
-                ),
+                    title: "Repertuar", icon: HeliosIcons.repertoire_icon),
                 _buildNavigationBarItem(
-                  title: "Więcej",
-                  icon: HeliosIcons.more_icon,
-                ),
+                    title: "Więcej", icon: HeliosIcons.more_icon),
               ],
               onTap: (index) => viewModel.onChangePage(index),
             ),
-            body: Container(
-              child: Center(
-                child: Text("zawartosc"),
-              ),
-            ),
+            body: Container(child: Center(child: Text("zawartosc"))),
           ),
     );
   }
 
   _buildNavigationBarItem({String title, IconData icon}) {
     return BottomNavigationBarItem(
-      icon: Icon(
-        icon,
-        color: Color.fromARGB(255, 255, 255, 255),
-      ),
-      activeIcon: Icon(
-        icon,
-        color: Color.fromARGB(255, 0, 0, 255),
-      ),
+      icon: Icon(icon, color: Color.fromARGB(255, 255, 255, 255)),
+      activeIcon: Icon(icon, color: Color.fromARGB(255, 0, 0, 255)),
       title: Text(title),
     );
   }

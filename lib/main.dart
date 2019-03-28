@@ -13,9 +13,7 @@ void main() {
   configureRoutes();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
-    (_) => runApp(
-          HeliosApp(),
-        ),
+    (_) => runApp(HeliosApp()),
   );
 }
 
