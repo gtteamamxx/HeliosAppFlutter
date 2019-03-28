@@ -8,6 +8,7 @@ import 'package:helios_app/other/routes.dart';
 import 'package:fluro/fluro.dart';
 
 void main() {
+  debugDisableShadows = false;
   configureServiceLocator();
   configureRoutes();
 
@@ -28,6 +29,8 @@ class HeliosApp extends StatelessWidget {
       store: store,
       child: MaterialApp(
         title: "Helios app",
+        debugShowCheckedModeBanner: false,
+        debugShowMaterialGrid: false,
         theme: ThemeData.dark(),
         home: Container(),
         initialRoute: '/select-cinema',
