@@ -1,0 +1,41 @@
+name: helios_app
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  flutter_redux: any
+  redux: any
+  fluro: any
+  dio: any
+  get_it: any
+  built_value: any
+  built_collection: any
+  shared_preferences: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: any
+  built_value_generator: any
+
+flutter:
+
+  fonts:
+  - family: HeliosIcons
+    fonts:
+      - asset: fonts/HeliosIcons.ttf
+  - family: Poppins
+    fonts:
+      - asset: fonts/Poppins-Regular.TTF
+      - asset: fonts/Poppins-Light.TTF
+      - asset: fonts/Poppins-Medium.TTF
+
+  uses-material-design: true
