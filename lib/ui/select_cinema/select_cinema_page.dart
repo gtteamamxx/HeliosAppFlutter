@@ -64,7 +64,11 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
             contentPadding: EdgeInsets.all(20),
             hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
             filled: true,
-            focusedBorder: UnderlineInputBorder(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.transparent),
+            ),
+            focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: Colors.transparent),
             ),
