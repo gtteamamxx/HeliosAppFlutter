@@ -8,28 +8,16 @@ import 'package:helios_app/ui/select_cinema/select_cinema_page.dart';
 void configureRoutes() {
   Router router = serviceLocator.get<Router>();
 
-  router.define(
-    'home',
-    handler: _buildRoute<HomePage>(
-      HomePage(),
-    ),
-  );
+  router.define('/',
+      handler: _buildRoute<SelectCinemaPage>(SelectCinemaPage()));
 
-  router.define(
-    'select-cinema',
-    handler: _buildRoute<SelectCinemaPage>(
-      SelectCinemaPage(),
-    ),
-  );
+  router.define('home', handler: _buildRoute<HomePage>(HomePage()));
 }
 
-Handler _buildRoute<T extends Widget>(
-  T page,
-) {
-  return new Handler(handlerFunc: (
-    BuildContext context,
-    Map<String, dynamic> params,
-  ) {
-    return page;
-  });
+Handler _buildRoute<T extends Widget>(T page) {
+  return Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      return page;
+    },
+  );
 }

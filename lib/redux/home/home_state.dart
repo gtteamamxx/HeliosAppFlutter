@@ -1,4 +1,4 @@
-import 'package:helios_app/models/home/page_enum.dart';
+import 'package:helios_app/models/ui/home/page_enum.dart';
 import 'package:meta/meta.dart';
 
 class HomeState {

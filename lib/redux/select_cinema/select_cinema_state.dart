@@ -1,10 +1,12 @@
+import 'package:helios_app/models/cinema/cinema_model.dart';
+
 class SelectCinemaState {
   SelectCinemaState({
     this.cinemas,
     this.isLoading,
   });
 
-  final List<String> cinemas;
+  final List<CinemaModel> cinemas;
   final bool isLoading;
 
   static SelectCinemaState initialState() {
@@ -15,7 +17,7 @@ class SelectCinemaState {
   }
 
   SelectCinemaState copyWith({
-    List<String> cinemas,
+    List<CinemaModel> cinemas,
     bool isLoading,
   }) {
     return SelectCinemaState(

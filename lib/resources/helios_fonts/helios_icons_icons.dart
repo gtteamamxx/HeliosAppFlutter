@@ -24,4 +24,10 @@ class HeliosIcons {
   static const IconData more_icon = const IconData(0xe801, fontFamily: _kFontFam);
   static const IconData pricing_icon = const IconData(0xe802, fontFamily: _kFontFam);
   static const IconData repertoire_icon = const IconData(0xe803, fontFamily: _kFontFam);
+  static const IconData pinned_city_icon = const IconData(0xe804, fontFamily: _kFontFam);
+  static const IconData seat_icon = const IconData(0xe805, fontFamily: _kFontFam);
+  static const IconData confirm_icon = const IconData(0xe806, fontFamily: _kFontFam);
+  static const IconData down_arrow_icon = const IconData(0xe807, fontFamily: _kFontFam);
+  static const IconData duo_seat_icon = const IconData(0xe808, fontFamily: _kFontFam);
+  static const IconData left_arrow_icon = const IconData(0xe809, fontFamily: _kFontFam);
 }

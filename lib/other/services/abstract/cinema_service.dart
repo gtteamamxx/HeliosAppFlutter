@@ -1,3 +1,5 @@
+import 'package:helios_app/models/cinema/cinema_model.dart';
+
 abstract class CinemaService {
-  Future<List<String>> getListOfCinemas(String searchText);
+  Future<List<CinemaModel>> getListOfCinemas(String searchText);
 }

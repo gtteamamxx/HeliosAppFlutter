@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/redux/actions/select_cinema/FetchCinemasAction.dart';
+import 'package:helios_app/models/cinema/cinema_model.dart';
+import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
+import 'package:helios_app/redux/actions/select_cinema/fetch_cinemas_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/ui/common/gradient_app_bar.dart';
 import 'package:helios_app/helpers/colors_helper.dart';
 import 'package:helios_app/viewmodels/select_cinema/select_cinema_view_model.dart';
 import 'package:rxdart/subjects.dart';
@@ -17,16 +20,21 @@ class SelectCinemaPage extends StatefulWidget {
 class _SelectCinemaPageState extends State<SelectCinemaPage> {
   final contentPadding = EdgeInsets.symmetric(horizontal: 15);
   final searchCinemaSubject = PublishSubject<Function>();
+  StreamSubscription<Function> streamSubscription;
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, SelectCinemaViewModel>(
-      converter: (store) => SelectCinemaViewModel.fromStore(store),
+      converter: (store) => SelectCinemaViewModel.fromStore(store, context),
       onInit: (store) {
+        store.dispatch(ChangeAppBarTitleAction("Które kino chcesz odwiedzić?"));
         store.dispatch(FetchCinemasAction());
-        searchCinemaSubject.stream
-            .debounce(Duration(milliseconds: 300))
+        this.streamSubscription = searchCinemaSubject.stream
+            .debounce(Duration(milliseconds: 500))
             .listen((fetchCinemasFunction) => fetchCinemasFunction());
+      },
+      onDispose: (_) {
+        streamSubscription.cancel();
       },
       builder: (context, viewModel) {
         return Scaffold(
@@ -34,44 +42,32 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              _buildAppBar(),
               _buildSearchCinemaTextField(viewModel),
               Expanded(
                 child: viewModel.isLoading
                     ? Center(child: CircularProgressIndicator())
-                    : ListView.builder(
-                        itemCount: viewModel.cinemas.length,
-                        padding: contentPadding,
-                        itemBuilder: (_, index) {
-                          return InkWell(
-                            onTap: () {},
-                            child: Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              child: _buildCinemaNameWidget(
-                                  viewModel.cinemas[index]),
-                            ),
-                          );
-                        },
-                      ),
+                    : viewModel.cinemas.isEmpty
+                        ? _buildNoItemsWidget()
+                        : ListView.builder(
+                            itemCount: viewModel.cinemas.length,
+                            padding: contentPadding,
+                            itemBuilder: (_, index) {
+                              return InkWell(
+                                onTap: () => viewModel
+                                    .onCinemaSelected(viewModel.cinemas[index]),
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(vertical: 10),
+                                  child: _buildCinemaNameWidget(
+                                      viewModel.cinemas[index]),
+                                ),
+                              );
+                            },
+                          ),
               ),
             ],
           ),
         );
       },
-    );
-  }
-
-  _buildAppBar() {
-    return GradientAppBar(
-      title: "Które kino chcesz odwiedzić?",
-      colorFrom: Color(getColorHexFromStr("#2A5495")),
-      colorTo: Color(getColorHexFromStr("#0D2A5A")),
-      titleStyle: TextStyle(
-        fontFamily: "Poppins",
-        fontWeight: FontWeight.w100,
-        color: Colors.white,
-        fontSize: 20,
-      ),
     );
   }
 
@@ -105,8 +101,8 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
     );
   }
 
-  _buildCinemaNameWidget(String cinemaName) {
-    List<String> spltitedCinemaName = cinemaName.split('Helios');
+  _buildCinemaNameWidget(CinemaModel cinema) {
+    List<String> spltitedCinemaName = cinema.name.split('Helios');
     String cityName = spltitedCinemaName.first;
     String extendName = spltitedCinemaName.last;
 
@@ -120,6 +116,15 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
             fontWeight: FontWeight.w100,
           ),
         )
+      ],
+    );
+  }
+
+  _buildNoItemsWidget() {
+    return Column(
+      children: <Widget>[
+        Text("Nie mamy kin w tej lokalziacji"),
+        Text("Spróbuj wpisać inną nazwę")
       ],
     );
   }

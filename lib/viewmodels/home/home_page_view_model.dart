@@ -1,4 +1,4 @@
-import 'package:helios_app/models/home/page_enum.dart';
+import 'package:helios_app/models/ui/home/page_enum.dart';
 import 'package:helios_app/redux/actions/home/change_home_page_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:redux/redux.dart';
@@ -23,11 +23,7 @@ class HomePageViewModel {
 
   static changePageByIndex(int index, Store<AppState> store) {
     PageEnum pageToChange = PageEnum.values[index];
-    store.dispatch(
-      ChangeHomePageAction(
-        page: pageToChange,
-      ),
-    );
+    store.dispatch(ChangeHomePageAction(page: pageToChange));
   }
 
   int getSelectedPageIndex() {

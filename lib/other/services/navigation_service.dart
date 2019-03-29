@@ -9,8 +9,11 @@ class NavigationService {
     TransitionType transitionType,
   }) {
     final router = serviceLocator.get<Router>();
+    var contexts =
+        serviceLocator.get<GlobalKey<NavigatorState>>().currentContext;
+
     router.navigateTo(
-      context,
+      contexts,
       route,
       transition: transitionType,
     );

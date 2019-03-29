@@ -1,3 +1,4 @@
+import 'package:helios_app/models/cinema/cinema_model.dart';
 import 'package:helios_app/other/services/abstract/cinema_service.dart';
 
 class CinemaServiceMock implements CinemaService {
@@ -52,13 +53,17 @@ class CinemaServiceMock implements CinemaService {
   ];
 
   @override
-  Future<List<String>> getListOfCinemas(String searchText) {
-    return Future<List<String>>.delayed(Duration(seconds: 1), () {
+  Future<List<CinemaModel>> getListOfCinemas(String searchText) {
+    return Future<List<CinemaModel>>.delayed(Duration(seconds: 1), () {
+      int index = 0;
+      List<CinemaModel> cinemas = _cinemas
+          .map((cinema) => CinemaModel(id: index++, name: cinema))
+          .toList();
       if (searchText.isEmpty) {
-        return _cinemas;
+        return cinemas;
       } else {
-        return _cinemas
-            .where((x) => x.toLowerCase().contains(searchText))
+        return cinemas
+            .where((x) => x.name.toLowerCase().contains(searchText))
             .toList();
       }
     });
