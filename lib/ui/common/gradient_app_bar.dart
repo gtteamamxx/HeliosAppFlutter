@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:helios_app/resources/helios_fonts/helios_icons_icons.dart';
-import 'package:helios_app/viewmodels/gradient_app_bar/gradient_app_bar_view_model.dart';
 
 class GradientAppBar extends StatelessWidget {
   GradientAppBar({

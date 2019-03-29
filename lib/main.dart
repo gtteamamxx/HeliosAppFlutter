@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/helpers/colors_helper.dart';
+import 'package:helios_app/other/helpers/colors_helper.dart';
+import 'package:helios_app/other/helpers/navigator_helper.dart';
 import 'package:helios_app/other/service_locator.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/gradient_app_bar.dart';
@@ -31,7 +32,7 @@ class HeliosApp extends StatelessWidget {
         title: "Helios app",
         theme: ThemeData.dark().copyWith(accentColor: Colors.blue),
         onGenerateRoute: router.generator,
-        navigatorKey: serviceLocator.get<GlobalKey<NavigatorState>>(),
+        navigatorKey: NavigatorHelper.navigatorKey,
         builder: (context, widget) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -63,7 +64,7 @@ class HeliosApp extends StatelessWidget {
         fontSize: 20,
       ),
       showChangeCinemaButton: viewModel.showChangeCinemaButton,
-      onChangeCinemaTap: () => viewModel.onChangeCinemaTap(context),
+      onChangeCinemaTap: () => viewModel.onChangeCinemaTap(),
     );
   }
 }

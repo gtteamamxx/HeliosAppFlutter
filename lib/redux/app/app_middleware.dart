@@ -14,5 +14,5 @@ void appMiddleware(Store<AppState> store, dynamic action, NextDispatcher next) {
 
 _navigateByRoute(NavigateAction navigateAction) {
   var navigationService = serviceLocator.get<NavigationService>();
-  navigationService.navigateTo(navigateAction.context, navigateAction.route);
+  navigationService.navigateTo(navigateAction.route);
 }

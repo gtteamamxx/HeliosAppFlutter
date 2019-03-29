@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:helios_app/models/cinema/cinema_model.dart';
+import 'package:helios_app/other/helpers/colors_helper.dart';
 import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
+import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
 import 'package:helios_app/redux/actions/select_cinema/fetch_cinemas_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/helpers/colors_helper.dart';
 import 'package:helios_app/viewmodels/select_cinema/select_cinema_view_model.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:rxdart/rxdart.dart';
@@ -25,9 +27,11 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, SelectCinemaViewModel>(
-      converter: (store) => SelectCinemaViewModel.fromStore(store, context),
+      converter: (store) => SelectCinemaViewModel.fromStore(store),
       onInit: (store) {
         store.dispatch(ChangeAppBarTitleAction("Które kino chcesz odwiedzić?"));
+        store.dispatch(
+            ChangeVisibilityOfChangeCinemaButtonAction(isVisible: false));
         store.dispatch(FetchCinemasAction());
         this.streamSubscription = searchCinemaSubject.stream
             .debounce(Duration(milliseconds: 500))
@@ -37,34 +41,55 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
         streamSubscription.cancel();
       },
       builder: (context, viewModel) {
-        return Scaffold(
-          backgroundColor: Color(getColorHexFromStr("#3e5275")),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _buildSearchCinemaTextField(viewModel),
-              Expanded(
-                child: viewModel.isLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : viewModel.cinemas.isEmpty
-                        ? _buildNoItemsWidget()
-                        : ListView.builder(
-                            itemCount: viewModel.cinemas.length,
-                            padding: contentPadding,
-                            itemBuilder: (_, index) {
-                              return InkWell(
-                                onTap: () => viewModel
-                                    .onCinemaSelected(viewModel.cinemas[index]),
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-                                  child: _buildCinemaNameWidget(
-                                      viewModel.cinemas[index]),
-                                ),
-                              );
-                            },
-                          ),
-              ),
-            ],
+        return WillPopScope(
+          onWillPop: () {
+            if (viewModel.selectedCinema != null) {
+              viewModel.onCinemaSelected(viewModel.selectedCinema);
+            } else {
+              SystemNavigator.pop();
+            }
+
+            return Future.value(false);
+          },
+          child: Scaffold(
+            backgroundColor: Color(getColorHexFromStr("#3e5275")),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                _buildSearchCinemaTextField(viewModel),
+                Expanded(
+                  child: viewModel.isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : viewModel.cinemas.isEmpty
+                          ? _buildNoItemsWidget()
+                          : ListView.builder(
+                              padding: EdgeInsets.all(0),
+                              itemCount: viewModel.cinemas.length,
+                              itemBuilder: (_, index) {
+                                return Container(
+                                  color: viewModel.isCinemaSelected(
+                                          viewModel.cinemas[index])
+                                      ? Color(getColorHexFromStr("#0D2A5A"))
+                                          .withAlpha(100)
+                                      : Colors.transparent,
+                                  child: InkWell(
+                                    onTap: () => viewModel.onCinemaSelected(
+                                        viewModel.cinemas[index]),
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      padding: contentPadding,
+                                      child: _buildCinemaNameWidget(
+                                        viewModel.cinemas[index],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                ),
+              ],
+            ),
           ),
         );
       },
