@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 import 'package:helios_app/redux/app/app_reducer.dart';
 import 'package:helios_app/redux/app/app_middleware.dart';
+import 'package:helios_app/redux/home/main/main_page_state_middleware.dart';
 
 class AppState {
   AppState({
@@ -57,6 +58,7 @@ Store<AppState> configureStore() {
     middleware: [
       appMiddleware,
       selectCinemaMiddleware,
+      mainPageStateMiddleware,
     ],
   );
 }

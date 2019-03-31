@@ -1,4 +1,5 @@
 import 'package:helios_app/models/cinema/cinema_model.dart';
+import 'package:helios_app/models/featured_movies/featured_movie.dart';
 import 'package:helios_app/other/services/abstract/cinema_service.dart';
 
 class CinemaServiceMock implements CinemaService {
@@ -52,6 +53,23 @@ class CinemaServiceMock implements CinemaService {
     'Wrocław Helios Magnolia Park',
   ];
 
+  List<FeaturedMovieModel> _featuredMovies = [
+    FeaturedMovieModel(
+      imageUrl:
+          "https://g.gazetaprawna.pl/p/_wspolne/pliki/4009000/4009923-thriller-glass-w-kinach-juz-657-323.jpg",
+      title: "Glass",
+      category: "Thriller",
+      trailerUrl: "http://www.youtube.com",
+    ),
+    FeaturedMovieModel(
+      imageUrl:
+          "https://cdn.newsapi.com.au/image/v1/7a89013d506a80498984c698daf7a077?width=1024",
+      title: "Iniemamocni -  wczorajszy dzień byłbardzo mocny ",
+      category: "Komedia, Fantastyka",
+      trailerUrl: "http://www.youtube.com",
+    ),
+  ];
+
   @override
   Future<List<CinemaModel>> getListOfCinemas(String searchText) {
     return Future<List<CinemaModel>>.delayed(Duration(seconds: 1), () {
@@ -66,6 +84,13 @@ class CinemaServiceMock implements CinemaService {
             .where((x) => x.name.toLowerCase().contains(searchText))
             .toList();
       }
+    });
+  }
+
+  @override
+  Future<List<FeaturedMovieModel>> getFeaturedMovies() {
+    return Future<List<FeaturedMovieModel>>.delayed(Duration(seconds: 1), () {
+      return _featuredMovies;
     });
   }
 }

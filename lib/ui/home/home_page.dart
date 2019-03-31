@@ -10,8 +10,21 @@ import 'package:helios_app/resources/helios_fonts/helios_icons_icons.dart';
 import 'package:helios_app/viewmodels/home/home_page_view_model.dart';
 import 'package:flushbar/flushbar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final Duration timeUntilUserCanCloseApp = Duration(seconds: 2);
+  PageController _pageController = PageController(initialPage: 0);
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, HomePageViewModel>(
@@ -23,7 +36,7 @@ class HomePage extends StatelessWidget {
             ChangeVisibilityOfChangeCinemaButtonAction(isVisible: true));
       },
       builder: (context, viewModel) => Scaffold(
-            backgroundColor: HeliosColors.backgroundPrimary,
+            backgroundColor: HeliosColors.backgroundTertiary,
             bottomNavigationBar: Material(
               color: HeliosColors.backgroundSecondary,
               child: Row(
@@ -33,21 +46,25 @@ class HomePage extends StatelessWidget {
                     title: "Główna",
                     icon: HeliosIcons.home_icon,
                     page: PageEnum.Home,
+                    onTap: _changePageByIndex,
                   ),
                   viewModel.buildNavigationItem(
                     title: "Cennik",
                     icon: HeliosIcons.pricing_icon,
                     page: PageEnum.Pricing,
+                    onTap: _changePageByIndex,
                   ),
                   viewModel.buildNavigationItem(
                     title: "Repertuar",
                     icon: HeliosIcons.repertoire_icon,
                     page: PageEnum.Repertoire,
+                    onTap: _changePageByIndex,
                   ),
                   viewModel.buildNavigationItem(
                     title: "Więcej",
                     icon: HeliosIcons.more_icon,
                     page: PageEnum.More,
+                    onTap: _changePageByIndex,
                   )
                 ],
               ),
@@ -59,11 +76,19 @@ class HomePage extends StatelessWidget {
                   ? Container()
                   : PageView(
                       children: viewModel.pages,
-                      controller: viewModel.pageController,
+                      controller: _pageController,
                       onPageChanged: (index) => viewModel.onChangePage(index),
                     ),
             ),
           ),
+    );
+  }
+
+  _changePageByIndex(int index) {
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.ease,
     );
   }
 

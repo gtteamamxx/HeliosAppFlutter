@@ -1,44 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:helios_app/redux/actions/home/main/fetch_featured_movies_action.dart';
+import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/image_carousel.dart';
-import 'package:helios_app/ui/common/image_carousel_item.dart';
+import 'package:helios_app/ui/home/main/repertoire_list.dart';
+import 'package:helios_app/viewmodels/home/main/main_page_view_model.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends StatelessWidget {
   MainPage({Key key}) : super(key: key);
 
-  _MainPageState createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          ImageCarousel(
-            height: 250,
+    return StoreConnector<AppState, MainPageViewModel>(
+      converter: (store) => MainPageViewModel.fromStore(store),
+      onInit: (store) {
+        store.dispatch(FetchFeaturedMoviesAction());
+      },
+      builder: (context, viewModel) => ListView(
+            padding: EdgeInsets.all(0),
             children: [
-              ImageCarouselItem(
-                image: Image.network(
-                  "https://g.gazetaprawna.pl/p/_wspolne/pliki/4009000/4009923-thriller-glass-w-kinach-juz-657-323.jpg",
-                  fit: BoxFit.cover,
-                ),
-                title: "Glass",
-                category: "Thriller",
-                trailerUrl: "http://www.youtube.com",
+              ImageCarousel(
+                height: 250,
+                children: viewModel.featuredMovies,
+                isLoading: viewModel.isFeaturedMoviesLoading,
               ),
-              ImageCarouselItem(
-                image: Image.network(
-                  "https://cdn.newsapi.com.au/image/v1/7a89013d506a80498984c698daf7a077?width=1024",
-                  fit: BoxFit.cover,
-                ),
-                title: "Iniemamocni -  wczorajszy dzień byłbardzo mocny ",
-                category: "Komedia, Fantastyka",
-                trailerUrl: "http://www.youtube.com",
+              RepertoireList(
+                height: 500,
+              ),
+              Container(
+                height: 500,
+                color: Colors.blue,
               )
             ],
           ),
-        ],
-      ),
     );
   }
 }

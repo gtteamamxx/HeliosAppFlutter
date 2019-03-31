@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/ui/common/image_carousel_item.dart';
+import 'package:helios_app/models/featured_movies/featured_movie.dart';
+import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ImageCarousel extends StatefulWidget {
   ImageCarousel({
     @required this.children,
     @required this.height,
+    @required this.isLoading,
   });
 
-  final List<ImageCarouselItem> children;
+  final List<FeaturedMovieModel> children;
   final double height;
+  final bool isLoading;
 
   @override
   _ImageCarouselState createState() => _ImageCarouselState();
@@ -17,7 +20,7 @@ class ImageCarousel extends StatefulWidget {
 
 class _ImageCarouselState extends State<ImageCarousel> {
   final PageController _pageController = PageController(initialPage: 0);
-  int get actualPageIndex => mounted ? _pageController.page.round() : 0;
+  int actualPageIndex = 0;
 
   @override
   void dispose() {
@@ -26,32 +29,37 @@ class _ImageCarouselState extends State<ImageCarousel> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       height: widget.height,
-      child: widget.children.isEmpty
-          ? Center(child: CircularProgressIndicator())
-          : Stack(
-              children: [
-                PageView.builder(
+      child: Stack(
+        children: [
+          widget.isLoading
+              ? Container(
+                  height: widget.height,
+                  width: MediaQuery.of(context).size.width,
+                  color: HeliosColors.backgroundSecondary,
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              : PageView.builder(
                   itemCount: widget.children.length,
                   controller: _pageController,
                   scrollDirection: Axis.horizontal,
                   onPageChanged: (index) {
-                    setState(() {});
+                    setState(() {
+                      actualPageIndex = index;
+                    });
                   },
                   itemBuilder: (context, index) {
-                    ImageCarouselItem item = widget.children[index];
+                    FeaturedMovieModel item = widget.children[index];
                     return Stack(
                       children: [
                         Container(
                           height: widget.height,
-                          child: item.image,
+                          child: Image.network(
+                            item.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -69,10 +77,10 @@ class _ImageCarouselState extends State<ImageCarousel> {
                     );
                   },
                 ),
-                _buildPageDots(),
-                _buildShowTrailer(),
-              ],
-            ),
+          _buildPageDots(),
+          widget.isLoading ? Container() : _buildShowTrailer(),
+        ],
+      ),
     );
   }
 
@@ -120,7 +128,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
           style: TextStyle(decoration: TextDecoration.underline),
         ),
         onTap: () async {
-          String url = widget.children[actualPageIndex].trailerUrl;
+          String url = _getTrailerUrlByIndex(actualPageIndex);
           if (await canLaunch(url)) {
             launch(url);
           }
@@ -131,15 +139,16 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   _buildPageDots() {
     const double size = 8;
+    int length = widget.children.length == 0 ? 1 : widget.children.length;
+
     return Positioned(
       bottom: 13,
-      left:
-          MediaQuery.of(context).size.width / 2 - widget.children.length * size,
+      left: MediaQuery.of(context).size.width / 2 - length * size,
       child: Container(
         height: size,
         width: MediaQuery.of(context).size.width,
         child: ListView.builder(
-          itemCount: widget.children.length,
+          itemCount: length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Container(
