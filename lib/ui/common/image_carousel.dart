@@ -69,7 +69,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
                     );
                   },
                 ),
-                _buildPageDots(context),
+                _buildPageDots(),
                 _buildShowTrailer(),
               ],
             ),
@@ -80,12 +80,16 @@ class _ImageCarouselState extends State<ImageCarousel> {
     return Positioned(
       bottom: 50,
       left: 10,
-      child: Text(
-        title,
-        style: TextStyle(
-          fontFamily: "Poppins",
-          fontSize: 45,
-          fontWeight: FontWeight.w200,
+      child: Container(
+        width: MediaQuery.of(context).size.width - 20,
+        child: Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontFamily: "Poppins",
+            fontSize: 45,
+            fontWeight: FontWeight.w200,
+          ),
         ),
       ),
     );
@@ -125,7 +129,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
     );
   }
 
-  _buildPageDots(BuildContext context) {
+  _buildPageDots() {
     const double size = 8;
     return Positioned(
       bottom: 13,

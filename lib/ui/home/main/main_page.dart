@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
                   "https://cdn.newsapi.com.au/image/v1/7a89013d506a80498984c698daf7a077?width=1024",
                   fit: BoxFit.cover,
                 ),
-                title: "Iniemamocni",
+                title: "Iniemamocni -  wczorajszy dzień byłbardzo mocny ",
                 category: "Komedia, Fantastyka",
                 trailerUrl: "http://www.youtube.com",
               )
