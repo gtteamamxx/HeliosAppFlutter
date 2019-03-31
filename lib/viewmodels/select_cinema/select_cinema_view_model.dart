@@ -9,12 +9,13 @@ typedef OnCinemaNameChanged = Function(String cinemaName);
 typedef OnCinemaSelected = Function(CinemaModel cinema);
 
 class SelectCinemaViewModel {
-  SelectCinemaViewModel(
-      {this.cinemas,
-      this.isLoading,
-      this.onCinemaNameChanged,
-      this.onCinemaSelected,
-      this.selectedCinema});
+  SelectCinemaViewModel({
+    this.cinemas,
+    this.isLoading,
+    this.onCinemaNameChanged,
+    this.onCinemaSelected,
+    this.selectedCinema,
+  });
 
   final List<CinemaModel> cinemas;
   final bool isLoading;

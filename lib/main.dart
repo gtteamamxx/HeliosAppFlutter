@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/other/helpers/colors_helper.dart';
+import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/other/helpers/navigator_helper.dart';
 import 'package:helios_app/other/service_locator.dart';
 import 'package:helios_app/redux/app/app_state.dart';
@@ -30,7 +30,9 @@ class HeliosApp extends StatelessWidget {
       store: store,
       child: MaterialApp(
         title: "Helios app",
-        theme: ThemeData.dark().copyWith(accentColor: Colors.blue),
+        theme: ThemeData.dark().copyWith(
+          accentColor: Colors.blue,
+        ),
         onGenerateRoute: router.generator,
         navigatorKey: NavigatorHelper.navigatorKey,
         builder: (context, widget) {
@@ -55,8 +57,8 @@ class HeliosApp extends StatelessWidget {
   _buildAppBar(BuildContext context, GradientAppBarViewModel viewModel) {
     return GradientAppBar(
       title: viewModel.title,
-      colorFrom: Color(getColorHexFromStr("#2A5495")),
-      colorTo: Color(getColorHexFromStr("#0D2A5A")),
+      colorFrom: HeliosColors.appBarLeft,
+      colorTo: HeliosColors.appBarRight,
       titleStyle: TextStyle(
         fontFamily: "Poppins",
         fontWeight: FontWeight.w100,

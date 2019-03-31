@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:helios_app/models/cinema/cinema_model.dart';
-import 'package:helios_app/other/helpers/colors_helper.dart';
+import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
 import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
 import 'package:helios_app/redux/actions/select_cinema/fetch_cinemas_action.dart';
@@ -52,7 +52,7 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
             return Future.value(false);
           },
           child: Scaffold(
-            backgroundColor: Color(getColorHexFromStr("#3e5275")),
+            backgroundColor: HeliosColors.backgroundPrimary,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -69,7 +69,7 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
                                 return Container(
                                   color: viewModel.isCinemaSelected(
                                           viewModel.cinemas[index])
-                                      ? Color(getColorHexFromStr("#0D2A5A"))
+                                      ? HeliosColors.selectedCinemaBackground
                                           .withAlpha(100)
                                       : Colors.transparent,
                                   child: InkWell(

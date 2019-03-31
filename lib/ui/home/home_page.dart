@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:helios_app/models/ui/home/page_enum.dart';
+import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
 import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
@@ -8,16 +10,8 @@ import 'package:helios_app/resources/helios_fonts/helios_icons_icons.dart';
 import 'package:helios_app/viewmodels/home/home_page_view_model.dart';
 import 'package:flushbar/flushbar.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
-
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
   final Duration timeUntilUserCanCloseApp = Duration(seconds: 2);
-  bool _shouldCloseApp = false;
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, HomePageViewModel>(
@@ -29,30 +23,52 @@ class _HomePageState extends State<HomePage> {
             ChangeVisibilityOfChangeCinemaButtonAction(isVisible: true));
       },
       builder: (context, viewModel) => Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: viewModel.getSelectedPageIndex(),
-              items: [
-                _buildNavigationBarItem(
-                    title: "Główna", icon: HeliosIcons.home_icon),
-                _buildNavigationBarItem(
-                    title: "Cennik", icon: HeliosIcons.pricing_icon),
-                _buildNavigationBarItem(
-                    title: "Repertuar", icon: HeliosIcons.repertoire_icon),
-                _buildNavigationBarItem(
-                    title: "Więcej", icon: HeliosIcons.more_icon)
-              ],
-              onTap: (index) => viewModel.onChangePage(index),
+            backgroundColor: HeliosColors.backgroundPrimary,
+            bottomNavigationBar: Material(
+              color: HeliosColors.backgroundSecondary,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  viewModel.buildNavigationItem(
+                    title: "Główna",
+                    icon: HeliosIcons.home_icon,
+                    page: PageEnum.Home,
+                  ),
+                  viewModel.buildNavigationItem(
+                    title: "Cennik",
+                    icon: HeliosIcons.pricing_icon,
+                    page: PageEnum.Pricing,
+                  ),
+                  viewModel.buildNavigationItem(
+                    title: "Repertuar",
+                    icon: HeliosIcons.repertoire_icon,
+                    page: PageEnum.Repertoire,
+                  ),
+                  viewModel.buildNavigationItem(
+                    title: "Więcej",
+                    icon: HeliosIcons.more_icon,
+                    page: PageEnum.More,
+                  )
+                ],
+              ),
             ),
             body: WillPopScope(
               onWillPop: () => _closeAppWhenRequest(context),
-              child: Container(),
+              child: viewModel.pages.isEmpty ||
+                      viewModel.getSelectedPageIndex() >= viewModel.pages.length
+                  ? Container()
+                  : PageView(
+                      children: viewModel.pages,
+                      controller: viewModel.pageController,
+                      onPageChanged: (index) => viewModel.onChangePage(index),
+                    ),
             ),
           ),
     );
   }
 
   Future<bool> _closeAppWhenRequest(BuildContext context) {
-    _shouldCloseApp = true;
+    bool _shouldCloseApp = true;
 
     Future.delayed(timeUntilUserCanCloseApp, () {
       _shouldCloseApp = false;
@@ -75,13 +91,5 @@ class _HomePageState extends State<HomePage> {
       ..show(context);
 
     return Future.value(false);
-  }
-
-  _buildNavigationBarItem({String title, IconData icon}) {
-    return BottomNavigationBarItem(
-      icon: Icon(icon, color: Color.fromARGB(255, 255, 255, 255)),
-      activeIcon: Icon(icon, color: Color.fromARGB(255, 0, 0, 255)),
-      title: Text(title),
-    );
   }
 }
