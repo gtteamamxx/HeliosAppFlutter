@@ -22,6 +22,8 @@ dependencies:
   rxdart: ^0.21.0
   flushbar: ^1.3.0
   url_launcher: any
+  intl: any
+  shimmer: any
 
 dev_dependencies:
   flutter_test:
@@ -40,5 +42,7 @@ flutter:
       - asset: fonts/Poppins-Regular.TTF
       - asset: fonts/Poppins-Light.TTF
       - asset: fonts/Poppins-Medium.TTF
+  assets:
+  - assets/shimmer_image.gif
 
   uses-material-design: true

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_featured_movies_action.dart';
+import 'package:helios_app/redux/actions/home/main/fetch_repertoire_time_of_the_day_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/image_carousel.dart';
 import 'package:helios_app/ui/home/main/repertoire_list.dart';
@@ -15,6 +16,7 @@ class MainPage extends StatelessWidget {
       converter: (store) => MainPageViewModel.fromStore(store),
       onInit: (store) {
         store.dispatch(FetchFeaturedMoviesAction());
+        store.dispatch(FetchRepertoireAction());
       },
       builder: (context, viewModel) => ListView(
             padding: EdgeInsets.all(0),
@@ -25,7 +27,11 @@ class MainPage extends StatelessWidget {
                 isLoading: viewModel.isFeaturedMoviesLoading,
               ),
               RepertoireList(
-                height: 500,
+                height: 1100,
+                repertoire: viewModel.repertoire,
+                isLoading: viewModel.isRepertoireLoading,
+                selectedTimeOfTheDay: viewModel.selectedRepertoireTimeOfTheDay,
+                onTimeOfTheDayChange: viewModel.onRepertoireTimeOfTheDayChange,
               ),
               Container(
                 height: 500,

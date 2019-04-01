@@ -1,5 +1,6 @@
 import 'package:helios_app/models/cinema/cinema_model.dart';
 import 'package:helios_app/models/featured_movies/featured_movie.dart';
+import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/other/services/abstract/cinema_service.dart';
 
 class CinemaServiceMock implements CinemaService {
@@ -70,6 +71,99 @@ class CinemaServiceMock implements CinemaService {
     ),
   ];
 
+  List<RepertoireModel> _todayRepertoire = [
+    new RepertoireModel(
+      id: 0,
+      category: "Dramat",
+      label: "KINO KONESERA",
+      title: "Fuga",
+      playHours: [
+        new DateTime(2019, 4, 1, 8, 50),
+        new DateTime(2019, 4, 1, 10, 50),
+        new DateTime(2019, 4, 1, 12, 50),
+        new DateTime(2019, 4, 1, 14, 50),
+        new DateTime(2019, 4, 1, 17, 30),
+        new DateTime(2019, 4, 1, 19, 30),
+        new DateTime(2019, 4, 1, 21, 30),
+      ],
+      imageUrl: "https://ssl-gfx.filmweb.pl/po/54/31/755431/7862766.3.jpg",
+      labelHex: "#1d5fa3",
+    ),
+    new RepertoireModel(
+      id: 1,
+      title: "Diablo - Wyścig o wszystko",
+      category: "Akcja",
+      playHours: [
+        new DateTime(2019, 4, 1, 11, 00),
+        new DateTime(2019, 4, 1, 15, 00),
+        new DateTime(2019, 4, 1, 19, 00),
+      ],
+      imageUrl:
+          "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/splay/2018/12/Diablo-Wy%C5%9Bcig-o-wszystko-film.jpg",
+    ),
+    new RepertoireModel(
+      id: 2,
+      title: "Iluzja 2",
+      category: "Akcja / Przygodowy",
+      playHours: [
+        new DateTime(2019, 4, 1, 9, 30),
+        new DateTime(2019, 4, 1, 11, 30),
+        new DateTime(2019, 4, 1, 13, 30),
+        new DateTime(2019, 4, 1, 15, 30),
+        new DateTime(2019, 4, 1, 17, 30),
+        new DateTime(2019, 4, 1, 19, 30),
+      ],
+      imageUrl: "https://ssl-gfx.filmweb.pl/po/64/33/696433/7741332.3.jpg",
+    ),
+    new RepertoireModel(
+      id: 3,
+      title: "Ralph Demolka w internecie",
+      category: "Komedia / Animacja",
+      playHours: [
+        new DateTime(2019, 4, 1, 10, 15),
+        new DateTime(2019, 4, 1, 13, 15),
+        new DateTime(2019, 4, 1, 15, 30),
+        new DateTime(2019, 4, 1, 18, 30),
+      ],
+      imageUrl: "https://i1.fdbimg.pl/31hxayy1/1433x2048_pjjrw3.jpg",
+    ),
+    new RepertoireModel(
+      id: 4,
+      title: "Sekretny świat kotów",
+      category: "Animacja",
+      playHours: [
+        new DateTime(2019, 4, 1, 10, 0),
+        new DateTime(2019, 4, 1, 15, 0),
+        new DateTime(2019, 4, 1, 20, 0),
+      ],
+      label: "PREMIERA",
+      labelHex: "#bb2f38",
+      imageUrl: "https://ssl-gfx.filmweb.pl/po/55/36/815536/7865965.3.jpg",
+    ),
+    new RepertoireModel(
+      id: 5,
+      title: "Bodyguard",
+      category: "Dramat / Thriller",
+      playHours: [
+        new DateTime(2019, 4, 1, 8, 30),
+        new DateTime(2019, 4, 1, 9, 30),
+        new DateTime(2019, 4, 1, 11, 30),
+        new DateTime(2019, 4, 1, 12, 30),
+        new DateTime(2019, 4, 1, 13, 30),
+        new DateTime(2019, 4, 1, 14, 30),
+        new DateTime(2019, 4, 1, 15, 30),
+        new DateTime(2019, 4, 1, 16, 30),
+        new DateTime(2019, 4, 1, 17, 30),
+        new DateTime(2019, 4, 1, 18, 30),
+        new DateTime(2019, 4, 1, 19, 30),
+        new DateTime(2019, 4, 1, 20, 30),
+        new DateTime(2019, 4, 1, 21, 30),
+      ],
+      imageUrl:
+          "https://farm7.staticflickr.com/6081/6087580503_48fb72dc51_b.jpg",
+    ),
+  ];
+
   @override
   Future<List<CinemaModel>> getListOfCinemas(String searchText) {
     return Future<List<CinemaModel>>.delayed(Duration(seconds: 1), () {
@@ -91,6 +185,14 @@ class CinemaServiceMock implements CinemaService {
   Future<List<FeaturedMovieModel>> getFeaturedMovies() {
     return Future<List<FeaturedMovieModel>>.delayed(Duration(seconds: 1), () {
       return _featuredMovies;
+    });
+  }
+
+  @override
+  Future<List<RepertoireModel>> getTodayRepertoire(int cinemaId) {
+    return Future<List<RepertoireModel>>.delayed(Duration(milliseconds: 500),
+        () {
+      return _todayRepertoire;
     });
   }
 }
