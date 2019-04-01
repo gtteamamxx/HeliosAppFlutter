@@ -51,7 +51,7 @@ class MainPageState {
 
     if (now.hour < 12) {
       return TimeOfTheDayEnum.UntilNoon;
-    } else if (now.hour < 18) {
+    } else if (now.hour >= 12 && now.hour < 18) {
       return TimeOfTheDayEnum.InTheAfterNoon;
     } else {
       return TimeOfTheDayEnum.UntilNoon;
