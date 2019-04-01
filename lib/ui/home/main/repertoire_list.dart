@@ -60,13 +60,15 @@ class RepertoireList extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   RepertoireModel repertoireItem = repertoire[index];
+                  List<DateTime> playHours =
+                      _getPlayHoursForRepertoireItem(repertoireItem);
                   return Container(
-                    width: 230,
+                    width: 200,
                     margin: EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       children: [
                         Expanded(
-                          flex: 3,
+                          flex: 75,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(4),
                             child: Stack(
@@ -123,38 +125,49 @@ class RepertoireList extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 1,
+                          flex: 19,
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Text(repertoireItem.title),
-                                    Text(repertoireItem.category)
-                                  ],
+                              SizedBox(height: 8),
+                              Text(
+                                repertoireItem.title,
+                                style: TextStyle(
+                                  fontFamily: "Poppins",
+                                  fontSize: 17,
+                                  height: 0.8,
                                 ),
                               ),
-                              Expanded(
-                                child: ListView.builder(
-                                  padding: EdgeInsets.all(0),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: repertoireItem.playHours.length,
-                                  itemBuilder: (context, item) {
-                                    DateTime playHour =
-                                        repertoireItem.playHours[item];
-                                    return Container(
-                                      child: Text(
-                                        DateFormat("HH:mm").format(playHour),
-                                        style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          fontFamily: "Poppins",
-                                        ),
-                                      ),
-                                    );
-                                  },
+                              Text(
+                                repertoireItem.category,
+                                style: TextStyle(
+                                  color: HeliosColors.categoryFontColor,
+                                  fontSize: 16,
                                 ),
-                              )
+                              ),
                             ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 6,
+                          child: ListView.builder(
+                            padding: EdgeInsets.all(0),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: playHours.length,
+                            itemBuilder: (context, item) {
+                              DateTime playHour = playHours[item];
+                              return Container(
+                                margin: EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  DateFormat("HH:mm").format(playHour),
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontFamily: "Poppins",
+                                    fontSize: 21,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         )
                       ],
@@ -251,5 +264,18 @@ class RepertoireList extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  List<DateTime> _getPlayHoursForRepertoireItem(
+      RepertoireModel repertoireItem) {
+    if (this.selectedTimeOfTheDay == TimeOfTheDayEnum.UntilNoon) {
+      return repertoireItem.playHours.where((x) => x.hour < 12).toList();
+    } else if (this.selectedTimeOfTheDay == TimeOfTheDayEnum.InTheAfterNoon) {
+      return repertoireItem.playHours
+          .where((x) => x.hour >= 12 && x.hour < 18)
+          .toList();
+    } else {
+      return repertoireItem.playHours.where((x) => x.hour >= 18).toList();
+    }
   }
 }

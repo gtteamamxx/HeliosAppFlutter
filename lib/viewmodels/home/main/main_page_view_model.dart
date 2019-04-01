@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:helios_app/models/featured_movies/featured_movie.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';

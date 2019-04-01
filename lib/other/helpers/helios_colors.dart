@@ -19,6 +19,9 @@ class HeliosColors {
   static final Color selectedCinemaBackground =
       getColorByHex(Constants.selectedCinemaBackgroundHex);
 
+  static final Color categoryFontColor =
+      getColorByHex(Constants.categoryColorHex);
+
   static getColorByHex(String hex) {
     return Color(getColorHexFromStr(hex));
   }
