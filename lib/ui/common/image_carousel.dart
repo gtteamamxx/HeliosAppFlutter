@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/featured_movies/featured_movie.dart';
+import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 

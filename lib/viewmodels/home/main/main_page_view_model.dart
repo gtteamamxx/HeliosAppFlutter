@@ -1,7 +1,9 @@
-import 'package:helios_app/models/featured_movies/featured_movie.dart';
+import 'package:helios_app/models/event/event_descripted_model.dart';
+import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 import 'package:helios_app/redux/actions/home/main/change_repertoire_time_of_the_day_action.dart';
+import 'package:helios_app/redux/actions/home/main/fetch_repertoire_time_of_the_day_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/redux/home/main/main_page_state.dart';
 import 'package:helios_app/ui/home/main/repertoire_list.dart';
@@ -15,6 +17,8 @@ class MainPageViewModel {
     this.repertoire,
     this.isRepertoireLoading,
     this.onRepertoireTimeOfTheDayChange,
+    this.events,
+    this.isEventsLoading,
   });
 
   final List<FeaturedMovieModel> featuredMovies;
@@ -24,6 +28,9 @@ class MainPageViewModel {
   final List<RepertoireModel> repertoire;
   final bool isRepertoireLoading;
   final TimeOfTheDayChange onRepertoireTimeOfTheDayChange;
+
+  final List<EventDescriptedModel> events;
+  final bool isEventsLoading;
 
   static MainPageViewModel fromStore(Store<AppState> store) {
     MainPageState state = store.state.homeState.mainPageState;
@@ -35,11 +42,14 @@ class MainPageViewModel {
       isRepertoireLoading: state.isRepertoireLoading,
       onRepertoireTimeOfTheDayChange: (timeOfTheDay) =>
           repertoireTimeOfTheDayChange(timeOfTheDay, store),
+      events: state.events,
+      isEventsLoading: state.isEventsLoading,
     );
   }
 
   static repertoireTimeOfTheDayChange(
       TimeOfTheDayEnum timeOfTheDay, Store<AppState> store) {
     store.dispatch(ChangeRepertoireTimeOfTheDayAction(timeOfTheDay));
+    store.dispatch(FetchRepertoireAction(timeOfTheDay));
   }
 }

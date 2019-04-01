@@ -1,0 +1,85 @@
+import 'package:flutter/material.dart';
+import 'package:helios_app/models/event/event_descripted_model.dart';
+import 'package:helios_app/other/helpers/helios_colors.dart';
+import 'package:helios_app/ui/common/headered_widget.dart';
+
+class EventsList extends StatelessWidget {
+  EventsList({
+    Key key,
+    @required this.isLoading,
+    @required this.events,
+  });
+
+  final bool isLoading;
+  final List<EventDescriptedModel> events;
+
+  @override
+  Widget build(BuildContext context) {
+    return HeaderedWidget(
+      title: "Wydarzenia",
+      backgroundColor: HeliosColors.backgroundFourth,
+      buttonText: "Więcej wydarzeń",
+      onButtonTap: () {},
+      child: Container(
+        height: 550,
+        child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.symmetric(vertical: 5),
+          itemCount: this.events.length,
+          itemBuilder: (context, item) {
+            EventDescriptedModel event = this.events[item];
+            return Container(
+              height: 175,
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    event.title,
+                    style: TextStyle(
+                      fontFamily: "Poppins",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: Image.network(
+                              event.imageUrl,
+                              height: 125,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              event.description,
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 12,
+                                fontWeight: FontWeight.w100,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

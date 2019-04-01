@@ -1,4 +1,5 @@
-import 'package:helios_app/models/featured_movies/featured_movie.dart';
+import 'package:helios_app/models/event/event_descripted_model.dart';
+import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 
@@ -9,6 +10,8 @@ class MainPageState {
     this.selectedRepertoireTimeOfTheDay,
     this.repertoire,
     this.isRepertoireLoading,
+    this.events,
+    this.isEventsLoading,
   });
 
   final List<FeaturedMovieModel> featuredMovies;
@@ -18,6 +21,9 @@ class MainPageState {
   final List<RepertoireModel> repertoire;
   final bool isRepertoireLoading;
 
+  final List<EventDescriptedModel> events;
+  final bool isEventsLoading;
+
   static MainPageState initialState() {
     return MainPageState(
       featuredMovies: [],
@@ -25,6 +31,8 @@ class MainPageState {
       selectedRepertoireTimeOfTheDay: getRepertoireTimeOfTheDayByNow(),
       repertoire: [],
       isRepertoireLoading: false,
+      events: [],
+      isEventsLoading: false,
     );
   }
 
@@ -34,6 +42,8 @@ class MainPageState {
     TimeOfTheDayEnum selectedRepertoireTimeOfTheDay,
     List<RepertoireModel> repertoire,
     bool isRepertoireLoading,
+    List<EventDescriptedModel> events,
+    bool isEventsLoading,
   }) {
     return MainPageState(
       featuredMovies: featuredMovies ?? this.featuredMovies,
@@ -43,6 +53,8 @@ class MainPageState {
           selectedRepertoireTimeOfTheDay ?? this.selectedRepertoireTimeOfTheDay,
       repertoire: repertoire ?? this.repertoire,
       isRepertoireLoading: isRepertoireLoading ?? this.isRepertoireLoading,
+      events: events ?? this.events,
+      isEventsLoading: isEventsLoading ?? this.isEventsLoading,
     );
   }
 

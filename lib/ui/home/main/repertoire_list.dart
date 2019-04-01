@@ -9,172 +9,236 @@ typedef TimeOfTheDayChange = Function(TimeOfTheDayEnum timeOfTheDay);
 
 class RepertoireList extends StatelessWidget {
   RepertoireList({
-    this.height,
     this.repertoire,
     this.isLoading,
     this.onTimeOfTheDayChange,
     this.selectedTimeOfTheDay,
+    this.maximumItemsPerSection = 3,
+    this.maximumSectionsNumber = 2,
+    this.sectionHeight = 350,
+    this.sectionItemWidth = 150,
+    this.infoSectionHeight = 100,
   });
 
-  final double height;
   final List<RepertoireModel> repertoire;
   final bool isLoading;
   final TimeOfTheDayChange onTimeOfTheDayChange;
   final TimeOfTheDayEnum selectedTimeOfTheDay;
 
+  final int maximumItemsPerSection;
+  final int maximumSectionsNumber;
+
+  final double sectionHeight;
+  final double sectionItemWidth;
+  final double infoSectionHeight;
   final EdgeInsets padding = EdgeInsets.symmetric(horizontal: 10);
+  final double itemHoursFontSize = 14;
+  final double itemTitleFontSize = 14;
+  final double itemCategoryFontSize = 13;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
       padding: EdgeInsets.symmetric(vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _buildTitle(),
           _buildButtons(),
-          _buildRepertoireSection(
-            repertoire.take((repertoire.length / 2).round()).toList(),
-            HeliosColors.backgroundFourth,
-          ),
-          _buildRepertoireSection(
-            repertoire.skip((repertoire.length / 2).round()).toList(),
-            HeliosColors.backgroundPrimary,
-          ),
+          _buildContent(),
         ],
+      ),
+    );
+  }
+
+  _buildContent() {
+    if (this.isLoading) {
+      return _buildLoading();
+    }
+
+    if (this.repertoire.isEmpty) {
+      return _buildNoItems();
+    }
+
+    return _buildSections();
+  }
+
+  _buildLoading() {
+    return Container(
+      height: this.sectionHeight,
+      child: Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  _buildSections() {
+    List<Widget> sections = [];
+
+    int offsetIndex = 0;
+
+    for (int i = 0; i < this.maximumSectionsNumber; ++i) {
+      int indexTo =
+          offsetIndex + this.maximumItemsPerSection > this.repertoire.length
+              ? this.repertoire.length
+              : offsetIndex + this.maximumItemsPerSection;
+
+      List<RepertoireModel> repertoireForSection =
+          this.repertoire.getRange(offsetIndex, indexTo).toList();
+
+      offsetIndex = indexTo;
+
+      sections.add(
+        _buildRepertoireSection(
+          repertoireForSection,
+          (i + 1) % 2 == 0
+              ? HeliosColors.backgroundTertiary
+              : HeliosColors.backgroundFourth,
+        ),
+      );
+
+      if (offsetIndex == this.repertoire.length) {
+        break;
+      }
+    }
+
+    return Column(children: sections);
+  }
+
+  _buildNoItems() {
+    return Container(
+      height: this.infoSectionHeight,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Niestety, ale nie mamy filmów o tej porze dnia"),
+            Text("Spróbuj wybrać inną")
+          ],
+        ),
       ),
     );
   }
 
   _buildRepertoireSection(
       List<RepertoireModel> repertoire, Color backgroundColor) {
-    return Expanded(
-      child: Container(
-        color: backgroundColor,
-        child: isLoading
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                padding: padding.copyWith(top: 30, bottom: 30),
-                itemCount: repertoire.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  RepertoireModel repertoireItem = repertoire[index];
-                  List<DateTime> playHours =
-                      _getPlayHoursForRepertoireItem(repertoireItem);
-                  return Container(
-                    width: 200,
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
+    return Container(
+      height: this.sectionHeight,
+      padding: padding.copyWith(top: 20, bottom: 20),
+      color: backgroundColor,
+      child: ListView.builder(
+        itemCount: repertoire.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          RepertoireModel repertoireItem = repertoire[index];
+          return Container(
+            width: this.sectionItemWidth,
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Stack(
+                      fit: StackFit.expand,
                       children: [
-                        Expanded(
-                          flex: 75,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                FadeInImage.assetNetwork(
-                                  image: repertoireItem.imageUrl,
-                                  placeholder: 'assets/shimmer_image.gif',
-                                  fit: BoxFit.fill,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      stops: [0.0, 0.3],
-                                      colors: [
-                                        Colors.black54,
-                                        Colors.transparent
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                repertoireItem.label != null
-                                    ? Positioned(
-                                        top: 10,
-                                        left: 10,
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                            vertical: 2,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                            color: Color(
-                                              getColorHexFromStr(
-                                                  repertoireItem.labelHex),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            repertoireItem.label,
-                                            style: TextStyle(
-                                              fontFamily: "Poppins",
-                                              fontWeight: FontWeight.w100,
-                                              fontSize: 17,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : Container(),
-                              ],
+                        FadeInImage.assetNetwork(
+                          image: repertoireItem.imageUrl,
+                          placeholder: 'assets/shimmer_image.gif',
+                          fit: BoxFit.fill,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              stops: [0.0, 0.3],
+                              colors: [Colors.black54, Colors.transparent],
                             ),
                           ),
                         ),
-                        Expanded(
-                          flex: 19,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              SizedBox(height: 8),
-                              Text(
-                                repertoireItem.title,
-                                style: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontSize: 17,
-                                  height: 0.8,
-                                ),
-                              ),
-                              Text(
-                                repertoireItem.category,
-                                style: TextStyle(
-                                  color: HeliosColors.categoryFontColor,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: ListView.builder(
-                            padding: EdgeInsets.all(0),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: playHours.length,
-                            itemBuilder: (context, item) {
-                              DateTime playHour = playHours[item];
-                              return Container(
-                                margin: EdgeInsets.symmetric(horizontal: 5),
-                                child: Text(
-                                  DateFormat("HH:mm").format(playHour),
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    fontFamily: "Poppins",
-                                    fontSize: 21,
+                        repertoireItem.label != null
+                            ? Positioned(
+                                top: 7,
+                                left: 7,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: Color(
+                                      getColorHexFromStr(
+                                          repertoireItem.labelHex),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    repertoireItem.label,
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 11,
+                                    ),
                                   ),
                                 ),
-                              );
-                            },
-                          ),
-                        )
+                              )
+                            : Container(),
                       ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        SizedBox(height: 8),
+                        Text(
+                          repertoireItem.title,
+                          style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: itemTitleFontSize,
+                            height: 0.8,
+                          ),
+                        ),
+                        Text(
+                          repertoireItem.category,
+                          style: TextStyle(
+                            color: HeliosColors.categoryFontColor,
+                            fontSize: itemCategoryFontSize,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 20,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: repertoireItem.playHours.length,
+                    itemBuilder: (context, item) {
+                      DateTime playHour = repertoireItem.playHours[item];
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        child: Text(
+                          DateFormat("HH:mm").format(playHour),
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontFamily: "Poppins",
+                            fontSize: itemHoursFontSize,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -195,7 +259,7 @@ class RepertoireList extends StatelessWidget {
   }
 
   _buildButton(String title, TimeOfTheDayEnum timeOfTheDay) {
-    bool isSelected = timeOfTheDay == selectedTimeOfTheDay;
+    bool isSelected = timeOfTheDay == this.selectedTimeOfTheDay;
 
     return Expanded(
       child: Container(
@@ -224,7 +288,7 @@ class RepertoireList extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontFamily: "Poppins",
-                  fontSize: 17,
+                  fontSize: 16,
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w100,
                 ),
               ),
@@ -239,10 +303,11 @@ class RepertoireList extends StatelessWidget {
     return Padding(
       padding: padding,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             "Repertuar",
-            style: TextStyle(fontFamily: "Poppins", fontSize: 24),
+            style: TextStyle(fontFamily: "Poppins", fontSize: 22),
           ),
           SizedBox(width: 5),
           Text(
@@ -257,25 +322,12 @@ class RepertoireList extends StatelessWidget {
             "Środa 23.01",
             style: TextStyle(
               fontFamily: "Poppins",
-              fontSize: 17,
+              fontSize: 15,
               fontWeight: FontWeight.w100,
             ),
           ),
         ],
       ),
     );
-  }
-
-  List<DateTime> _getPlayHoursForRepertoireItem(
-      RepertoireModel repertoireItem) {
-    if (this.selectedTimeOfTheDay == TimeOfTheDayEnum.UntilNoon) {
-      return repertoireItem.playHours.where((x) => x.hour < 12).toList();
-    } else if (this.selectedTimeOfTheDay == TimeOfTheDayEnum.InTheAfterNoon) {
-      return repertoireItem.playHours
-          .where((x) => x.hour >= 12 && x.hour < 18)
-          .toList();
-    } else {
-      return repertoireItem.playHours.where((x) => x.hour >= 18).toList();
-    }
   }
 }
