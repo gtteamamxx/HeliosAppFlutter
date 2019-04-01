@@ -22,63 +22,66 @@ class EventsList extends StatelessWidget {
       onButtonTap: () {},
       child: Container(
         height: 550,
-        child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.symmetric(vertical: 5),
-          itemCount: this.events.length,
-          itemBuilder: (context, item) {
-            EventDescriptedModel event = this.events[item];
-            return Container(
-              height: 175,
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    event.title,
-                    style: TextStyle(
-                      fontFamily: "Poppins",
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Expanded(
-                    child: Row(
+        child: this.isLoading
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.symmetric(vertical: 5),
+                itemCount: this.events.length,
+                itemBuilder: (context, item) {
+                  EventDescriptedModel event = this.events[item];
+                  return Container(
+                    height: 175,
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: Image.network(
-                              event.imageUrl,
-                              height: 125,
-                              fit: BoxFit.fill,
-                            ),
+                        Text(
+                          event.title,
+                          style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
+                        SizedBox(height: 10),
                         Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              event.description,
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: 12,
-                                fontWeight: FontWeight.w100,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: FadeInImage.assetNetwork(
+                                    image: event.imageUrl,
+                                    placeholder: 'assets/shimmer_image.gif',
+                                    height: 125,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
-                            ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child: Text(
+                                    event.description,
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                        SizedBox(height: 10),
                       ],
                     ),
-                  ),
-                  SizedBox(height: 10),
-                ],
+                  );
+                },
               ),
-            );
-          },
-        ),
       ),
     );
   }

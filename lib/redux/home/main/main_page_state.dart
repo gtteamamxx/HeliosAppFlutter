@@ -1,3 +1,4 @@
+import 'package:helios_app/models/announcment/announcment_model.dart';
 import 'package:helios_app/models/event/event_descripted_model.dart';
 import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
@@ -12,6 +13,8 @@ class MainPageState {
     this.isRepertoireLoading,
     this.events,
     this.isEventsLoading,
+    this.announcements,
+    this.isAnnouncementsLoading,
   });
 
   final List<FeaturedMovieModel> featuredMovies;
@@ -24,6 +27,9 @@ class MainPageState {
   final List<EventDescriptedModel> events;
   final bool isEventsLoading;
 
+  final List<AnnouncementModel> announcements;
+  final bool isAnnouncementsLoading;
+
   static MainPageState initialState() {
     return MainPageState(
       featuredMovies: [],
@@ -33,6 +39,8 @@ class MainPageState {
       isRepertoireLoading: false,
       events: [],
       isEventsLoading: false,
+      announcements: [],
+      isAnnouncementsLoading: false,
     );
   }
 
@@ -44,6 +52,8 @@ class MainPageState {
     bool isRepertoireLoading,
     List<EventDescriptedModel> events,
     bool isEventsLoading,
+    List<AnnouncementModel> announcements,
+    bool isAnnouncementsLoading,
   }) {
     return MainPageState(
       featuredMovies: featuredMovies ?? this.featuredMovies,
@@ -55,6 +65,9 @@ class MainPageState {
       isRepertoireLoading: isRepertoireLoading ?? this.isRepertoireLoading,
       events: events ?? this.events,
       isEventsLoading: isEventsLoading ?? this.isEventsLoading,
+      announcements: announcements ?? this.announcements,
+      isAnnouncementsLoading:
+          isAnnouncementsLoading ?? this.isAnnouncementsLoading,
     );
   }
 

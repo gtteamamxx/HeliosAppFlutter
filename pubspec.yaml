@@ -44,5 +44,6 @@ flutter:
       - asset: fonts/Poppins-Medium.TTF
   assets:
   - assets/shimmer_image.gif
+  - assets/play_icon.png
 
   uses-material-design: true

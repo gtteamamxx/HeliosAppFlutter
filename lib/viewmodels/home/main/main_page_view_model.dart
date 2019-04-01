@@ -1,3 +1,4 @@
+import 'package:helios_app/models/announcment/announcment_model.dart';
 import 'package:helios_app/models/event/event_descripted_model.dart';
 import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
@@ -19,6 +20,8 @@ class MainPageViewModel {
     this.onRepertoireTimeOfTheDayChange,
     this.events,
     this.isEventsLoading,
+    this.announcements,
+    this.isAnnouncementsLoading,
   });
 
   final List<FeaturedMovieModel> featuredMovies;
@@ -32,6 +35,9 @@ class MainPageViewModel {
   final List<EventDescriptedModel> events;
   final bool isEventsLoading;
 
+  final List<AnnouncementModel> announcements;
+  final bool isAnnouncementsLoading;
+
   static MainPageViewModel fromStore(Store<AppState> store) {
     MainPageState state = store.state.homeState.mainPageState;
     return MainPageViewModel(
@@ -44,6 +50,8 @@ class MainPageViewModel {
           repertoireTimeOfTheDayChange(timeOfTheDay, store),
       events: state.events,
       isEventsLoading: state.isEventsLoading,
+      announcements: state.announcements,
+      isAnnouncementsLoading: state.isAnnouncementsLoading,
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:helios_app/models/announcment/announcment_model.dart';
 import 'package:helios_app/models/cinema/cinema_model.dart';
 import 'package:helios_app/models/event/event_descripted_model.dart';
 import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
@@ -191,6 +192,40 @@ class CinemaServiceMock implements CinemaService {
     )
   ];
 
+  List<AnnouncementModel> _announcements = [
+    AnnouncementModel(
+      id: 0,
+      title: "Miszmasz, czyli Kogel Mogel 3",
+      date: DateTime(2019, 1, 25),
+      imageUrl:
+          "https://static.wirtualnemedia.pl/media/top/MiszmaszczyliKogel-mogel3nowe-655.JPG",
+      videoUrl: "https://www.youtube.com/watch?v=aCcY0z-AnJU",
+    ),
+    AnnouncementModel(
+      id: 1,
+      title: "Planeta singli 3",
+      date: DateTime(2019, 2, 8),
+      imageUrl: "https://ssl-gfx.filmweb.pl/po/45/92/814592/7868675.3.jpg",
+      videoUrl: "https://www.youtube.com/watch?v=2ig9C0rsaMs",
+    ),
+    AnnouncementModel(
+      id: 2,
+      title: "Lego® Przygoda 2",
+      date: DateTime(2019, 1, 8),
+      imageUrl:
+          "http://filmozercy.com/uploads/images/original/the-lego-movie-2-rex-dangervest-poster.jpeg",
+      videoUrl: "https://www.youtube.com/watch?v=WVYvive_iNU",
+    ),
+    AnnouncementModel(
+      id: 3,
+      title: "Alita: Battle Angle",
+      date: DateTime(2019, 2, 14),
+      imageUrl:
+          "http://www.filmawka.pl/wp-content/uploads/2019/02/Alita-1.jpeg",
+      videoUrl: "https://www.youtube.com/watch?v=w7pYhpJaJW8",
+    ),
+  ];
+
   @override
   Future<List<CinemaModel>> getListOfCinemas(String searchText) {
     return Future<List<CinemaModel>>.delayed(Duration(seconds: 1), () {
@@ -236,8 +271,15 @@ class CinemaServiceMock implements CinemaService {
 
   @override
   Future<List<EventDescriptedModel>> getDescriptedEvents({int eventsNum}) {
-    return Future.delayed(Duration(seconds: 3), () {
+    return Future.delayed(Duration(seconds: 4), () {
       return _descriptedEvents;
+    });
+  }
+
+  @override
+  Future<List<AnnouncementModel>> getAnnouncementsLight() {
+    return Future.delayed(Duration(seconds: 5), () {
+      return _announcements;
     });
   }
 

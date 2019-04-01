@@ -1,3 +1,4 @@
+import 'package:helios_app/models/announcment/announcment_model.dart';
 import 'package:helios_app/models/cinema/cinema_model.dart';
 import 'package:helios_app/models/event/event_descripted_model.dart';
 import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
@@ -10,4 +11,5 @@ abstract class CinemaService {
   Future<List<RepertoireModel>> getTodayRepertoire(
       int cinemaId, TimeOfTheDayEnum timeOfTheDay);
   Future<List<EventDescriptedModel>> getDescriptedEvents({int eventsNum});
+  Future<List<AnnouncementModel>> getAnnouncementsLight();
 }
