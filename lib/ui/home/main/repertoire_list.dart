@@ -17,7 +17,7 @@ class RepertoireList extends StatelessWidget {
     this.maximumSectionsNumber = 2,
     this.sectionHeight = 350,
     this.sectionItemWidth = 150,
-    this.infoSectionHeight = 100,
+    this.infoSectionHeight = 350,
   });
 
   final List<RepertoireModel> repertoire;
@@ -66,6 +66,7 @@ class RepertoireList extends StatelessWidget {
   _buildLoading() {
     return Container(
       height: this.sectionHeight,
+      color: HeliosColors.backgroundFourth,
       child: Center(child: CircularProgressIndicator()),
     );
   }
@@ -122,7 +123,7 @@ class RepertoireList extends StatelessWidget {
       List<RepertoireModel> repertoire, Color backgroundColor) {
     return Container(
       height: this.sectionHeight,
-      padding: padding.copyWith(top: 20, bottom: 20),
+      padding: EdgeInsets.only(top: 20, bottom: 20),
       color: backgroundColor,
       child: ListView.builder(
         itemCount: repertoire.length,

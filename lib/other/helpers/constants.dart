@@ -11,4 +11,6 @@ class Constants {
 
   static final categoryColorHex = "#8c95a3";
   static final selectedCinemaBackgroundHex = '#0D2A5A';
+
+  static final pricingPagePricingTypeColorHex = '#496287';
 }

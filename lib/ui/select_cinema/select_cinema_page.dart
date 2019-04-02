@@ -63,7 +63,7 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
                       : viewModel.cinemas.isEmpty
                           ? _buildNoItemsWidget()
                           : ListView.builder(
-                              padding: EdgeInsets.all(0),
+                              padding: EdgeInsets.zero,
                               itemCount: viewModel.cinemas.length,
                               itemBuilder: (_, index) {
                                 return Container(

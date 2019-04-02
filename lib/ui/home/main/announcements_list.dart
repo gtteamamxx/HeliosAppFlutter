@@ -27,7 +27,7 @@ class AnnouncementsList extends StatelessWidget {
             ? Center(child: CircularProgressIndicator())
             : ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.all(0),
+                padding: EdgeInsets.zero,
                 itemCount: this.announcements.length,
                 itemBuilder: (context, item) {
                   AnnouncementModel announcement = this.announcements[item];

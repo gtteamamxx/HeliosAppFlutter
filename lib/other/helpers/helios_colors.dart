@@ -22,7 +22,10 @@ class HeliosColors {
   static final Color categoryFontColor =
       getColorByHex(Constants.categoryColorHex);
 
-  static getColorByHex(String hex) {
+  static final Color pricingPagePricingTypeColor =
+      getColorByHex(Constants.pricingPagePricingTypeColorHex);
+
+  static Color getColorByHex(String hex) {
     return Color(getColorHexFromStr(hex));
   }
 }

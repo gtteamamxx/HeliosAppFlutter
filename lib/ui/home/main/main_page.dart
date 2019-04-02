@@ -31,7 +31,7 @@ class MainPage extends StatelessWidget {
         store.dispatch(FetchAnnouncementsLightAction());
       },
       builder: (context, viewModel) => ListView(
-            padding: EdgeInsets.all(0),
+            padding: EdgeInsets.zero,
             children: [
               ImageCarousel(
                 height: 250,

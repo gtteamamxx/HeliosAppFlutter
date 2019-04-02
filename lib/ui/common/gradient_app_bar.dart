@@ -34,11 +34,7 @@ class GradientAppBar extends StatelessWidget {
             flex: 9,
             child: Material(
               color: Colors.transparent,
-              child: Text(
-                title,
-                style: titleStyle,
-                textAlign: TextAlign.left,
-              ),
+              child: Text(title, style: titleStyle, textAlign: TextAlign.left),
             ),
           ),
           this.showChangeCinemaButton
@@ -51,10 +47,7 @@ class GradientAppBar extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.all(Radius.circular(45)),
                         customBorder: InputBorder.none,
-                        child: Icon(
-                          HeliosIcons.pinned_city_icon,
-                          size: 30,
-                        ),
+                        child: Icon(HeliosIcons.pinned_city_icon, size: 30),
                         onTap: () => this.onChangeCinemaTap(),
                       ),
                     ),

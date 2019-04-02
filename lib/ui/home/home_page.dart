@@ -39,34 +39,37 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: HeliosColors.backgroundTertiary,
             bottomNavigationBar: Material(
               color: HeliosColors.backgroundSecondary,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  viewModel.buildNavigationItem(
-                    title: "Główna",
-                    icon: HeliosIcons.home_icon,
-                    page: PageEnum.Home,
-                    onTap: _changePageByIndex,
-                  ),
-                  viewModel.buildNavigationItem(
-                    title: "Cennik",
-                    icon: HeliosIcons.pricing_icon,
-                    page: PageEnum.Pricing,
-                    onTap: _changePageByIndex,
-                  ),
-                  viewModel.buildNavigationItem(
-                    title: "Repertuar",
-                    icon: HeliosIcons.repertoire_icon,
-                    page: PageEnum.Repertoire,
-                    onTap: _changePageByIndex,
-                  ),
-                  viewModel.buildNavigationItem(
-                    title: "Więcej",
-                    icon: HeliosIcons.more_icon,
-                    page: PageEnum.More,
-                    onTap: _changePageByIndex,
-                  )
-                ],
+              child: Container(
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    viewModel.buildNavigationItem(
+                      title: "Główna",
+                      icon: HeliosIcons.home_icon,
+                      page: PageEnum.Home,
+                      onTap: _changePageByIndex,
+                    ),
+                    viewModel.buildNavigationItem(
+                      title: "Cennik",
+                      icon: HeliosIcons.pricing_icon,
+                      page: PageEnum.Pricing,
+                      onTap: _changePageByIndex,
+                    ),
+                    viewModel.buildNavigationItem(
+                      title: "Repertuar",
+                      icon: HeliosIcons.repertoire_icon,
+                      page: PageEnum.Repertoire,
+                      onTap: _changePageByIndex,
+                    ),
+                    viewModel.buildNavigationItem(
+                      title: "Więcej",
+                      icon: HeliosIcons.more_icon,
+                      page: PageEnum.More,
+                      onTap: _changePageByIndex,
+                    )
+                  ],
+                ),
               ),
             ),
             body: WillPopScope(
