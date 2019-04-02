@@ -21,7 +21,7 @@ class PricingPageViewModel {
   static PricingPageViewModel fromStore(Store<AppState> store) {
     PricingPageState state = store.state.homeState.pricingPageState;
     return PricingPageViewModel(
-      isLoading: state.isError,
+      isLoading: state.isLoading,
       isError: state.isError,
       pricing: state.pricing,
       onRefreshClick: () => _refreshPricing(store),

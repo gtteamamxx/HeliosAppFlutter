@@ -479,7 +479,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
 
   @override
   Future<List<PricingModel>> getPricingForCinema(int cinemaId) {
-    return Future.delayed(Duration(seconds: 1, milliseconds: 500), () {
+    return Future.delayed(Duration(seconds: 2, milliseconds: 500), () {
       return _pricing;
     });
   }

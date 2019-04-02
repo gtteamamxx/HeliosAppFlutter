@@ -21,7 +21,6 @@ class _PricingPageState extends State<PricingPage>
   int _selectedPricingIndex = 0;
   int _lastSelectedIndex = 0;
   AnimationController _animationController;
-  Animation<double> _changeOpacityAnimation;
   Animation<Color> _changeColorAnimation;
   Animation<Color> _changeColorBackAnimation;
 
@@ -43,9 +42,6 @@ class _PricingPageState extends State<PricingPage>
     _changeColorBackAnimation = ColorTween(
             begin: HeliosColors.pricingPagePricingTypeColor, end: Colors.white)
         .animate(_animationController);
-
-    _changeOpacityAnimation =
-        Tween<double>(begin: 0, end: 1).animate(_animationController);
 
     super.initState();
   }
@@ -75,7 +71,7 @@ class _PricingPageState extends State<PricingPage>
         return ListView(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           children: <Widget>[
-            _buildPriceTabs(tabs: viewModel.pricing),
+            _buildPriceTabs(pricing: viewModel.pricing),
             _buildPriceGrid(pricing: viewModel.pricing),
             _buildDescription(pricing: viewModel.pricing),
           ],
@@ -175,11 +171,11 @@ class _PricingPageState extends State<PricingPage>
     return Center(child: CircularProgressIndicator());
   }
 
-  _buildPriceTabs({@required List<PricingModel> tabs}) {
+  _buildPriceTabs({@required List<PricingModel> pricing}) {
     List<Widget> tabsWidgets = [];
 
-    for (int i = 0; i < tabs.length; ++i) {
-      PricingModel pricingModel = tabs[i];
+    for (int i = 0; i < pricing.length; ++i) {
+      PricingModel pricingModel = pricing[i];
 
       tabsWidgets.add(
         Container(
