@@ -25,6 +25,9 @@ class HeliosColors {
   static final Color pricingPagePricingTypeColor =
       getColorByHex(Constants.pricingPagePricingTypeColorHex);
 
+  static final Color pricingPagePricingGridBackground =
+      getColorByHex(Constants.pricingPagePricingGridBackgroundColorHex);
+
   static Color getColorByHex(String hex) {
     return Color(getColorHexFromStr(hex));
   }

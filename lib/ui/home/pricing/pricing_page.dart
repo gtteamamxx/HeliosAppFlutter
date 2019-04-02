@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:helios_app/models/pricing/price_model.dart';
 import 'package:helios_app/models/pricing/pricing_model.dart';
+import 'package:helios_app/models/ticket/ticket_model.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/home/pricing/fetch_pricing_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
@@ -26,7 +30,7 @@ class _PricingPageState extends State<PricingPage>
     _animationController = AnimationController(
         vsync: this,
         duration: Duration(
-          milliseconds: 700,
+          milliseconds: 400,
         ))
       ..addListener(() {
         setState(() {});
@@ -67,13 +71,87 @@ class _PricingPageState extends State<PricingPage>
           return _buildError(refreshClick: viewModel.onRefreshClick);
         }
 
+        assert(viewModel.pricing != null);
         return ListView(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           children: <Widget>[
             _buildPriceTabs(tabs: viewModel.pricing),
+            _buildPriceGrid(pricing: viewModel.pricing),
+            _buildDescription(pricing: viewModel.pricing),
           ],
         );
       },
+    );
+  }
+
+  _buildDescription({List<PricingModel> pricing}) {
+    String description = pricing[_selectedPricingIndex].ruleDescription;
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      child: Text(description),
+    );
+  }
+
+  _buildPriceGrid({List<PricingModel> pricing}) {
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      padding: EdgeInsets.all(10).copyWith(bottom: 2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: HeliosColors.pricingPagePricingGridBackground,
+      ),
+      child: _buildPriceGridFromPricing(pricing),
+    );
+  }
+
+  _buildPriceGridFromPricing(List<PricingModel> pricingList) {
+    PricingModel pricing = pricingList[_selectedPricingIndex];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _buildPriceGridHeader(pricing),
+      ]..addAll(_buildTicketsSections(pricing)),
+    );
+  }
+
+  _buildTicketsSections(PricingModel pricing) {
+    Map<TicketModel, List<PriceModel>> ticketPriceDict =
+        _getTicketPriceDict(pricing);
+    List<Widget> widgets = [];
+
+    for (TicketModel ticket in ticketPriceDict.keys) {
+      List<PriceModel> prices = ticketPriceDict[ticket];
+      widgets.addAll([
+        SizedBox(height: 10),
+        Text(
+          ticket.name,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+        ),
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: prices.map((price) {
+            return Text("${price.price.toStringAsFixed(2)} zł");
+          }).toList(),
+        ),
+        SizedBox(height: 4),
+        Container(
+          color: Colors.black.withAlpha(30),
+          height: 1,
+        ),
+        SizedBox(height: 6),
+      ]);
+    }
+    return widgets;
+  }
+
+  _buildPriceGridHeader(PricingModel pricing) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: pricing.days.map((day) {
+        return Text(day.dayName, style: TextStyle(fontWeight: FontWeight.w400));
+      }).toList(),
     );
   }
 
@@ -113,7 +191,7 @@ class _PricingPageState extends State<PricingPage>
                   return;
                 }
                 _selectedPricingIndex = i;
-                if (_animationController.status == AnimationStatus.completed) {
+                if (_animationController.isCompleted) {
                   _animationController.reverse();
                 } else {
                   _animationController.forward();
@@ -144,20 +222,44 @@ class _PricingPageState extends State<PricingPage>
   }
 
   Color _getColorForButtonIndex({@required int index}) {
-    if (_animationController.status == AnimationStatus.completed) {
+    if (!_animationController.isAnimating) {
       if (index == _selectedPricingIndex) {
         return Colors.white;
       } else {
         return HeliosColors.pricingPagePricingTypeColor;
       }
     } else {
+      bool isAnimForrward =
+          _animationController.status == AnimationStatus.forward;
       if (index == _selectedPricingIndex) {
-        return _changeColorAnimation.value;
+        return isAnimForrward
+            ? _changeColorBackAnimation.value
+            : _changeColorAnimation.value;
       } else if (index == _lastSelectedIndex) {
-        return _changeColorBackAnimation.value;
-      } else {
-        return HeliosColors.pricingPagePricingTypeColor;
+        return isAnimForrward
+            ? _changeColorAnimation.value
+            : _changeColorBackAnimation.value;
+      }
+
+      return HeliosColors.pricingPagePricingTypeColor;
+    }
+  }
+
+  Map<TicketModel, List<PriceModel>> _getTicketPriceDict(PricingModel pricing) {
+    var tickets = Map<TicketModel, List<PriceModel>>();
+
+    for (List<PriceModel> prices in pricing.days.map((x) => x.prices)) {
+      for (PriceModel price in prices) {
+        if (!tickets.keys.any((x) => x.id == price.ticket.id)) {
+          tickets[price.ticket] = List<PriceModel>()..add(price);
+        } else {
+          List<PriceModel> pair =
+              tickets[tickets.keys.firstWhere((x) => x.id == price.ticket.id)];
+          pair.add(price);
+        }
       }
     }
+
+    return tickets;
   }
 }

@@ -13,4 +13,5 @@ class Constants {
   static final selectedCinemaBackgroundHex = '#0D2A5A';
 
   static final pricingPagePricingTypeColorHex = '#496287';
+  static final pricingPagePricingGridBackgroundColorHex = '#2e3f58';
 }
