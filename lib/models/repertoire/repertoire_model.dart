@@ -7,6 +7,10 @@ class RepertoireModel {
     this.playHours,
     this.label,
     this.labelHex,
+    this.minYear,
+    this.duration,
+    this.productionCountries,
+    this.productionYear,
   });
 
   final int id;
@@ -16,6 +20,10 @@ class RepertoireModel {
   final List<DateTime> playHours;
   final String label;
   final String labelHex;
+  final int minYear;
+  final Duration duration;
+  final List<String> productionCountries;
+  final int productionYear;
 
   RepertoireModel copyWithPlayHours({List<DateTime> playHours}) {
     return RepertoireModel(

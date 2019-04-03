@@ -44,7 +44,7 @@ void _fetchRepertoireAction(
   var cinemaService = serviceLocator.get<CinemaService>();
 
   cinemaService
-      .getTodayRepertoire(store.state.selectedCinema.id, timeOfTheDay)
+      .getTodayRepertoireForCinema(store.state.selectedCinema.id, timeOfTheDay)
       .then(
         (repertoire) =>
             next(FinishFetchRepertoireAction(repertoire: repertoire)),

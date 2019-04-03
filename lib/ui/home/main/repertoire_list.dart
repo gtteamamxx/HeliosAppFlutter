@@ -5,6 +5,7 @@ import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 import 'package:helios_app/other/helpers/colors_helper.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
+import 'package:helios_app/ui/common/play_hours_builder.dart';
 import 'package:intl/intl.dart';
 
 typedef TimeOfTheDayChange = Function(TimeOfTheDayEnum timeOfTheDay);
@@ -234,7 +235,10 @@ class RepertoireList extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 4),
                   child: RichText(
                     text: TextSpan(
-                      children: _buildPlayHours(repertoireItem.playHours),
+                      children: buildPlayHours(
+                        repertoireItem.playHours,
+                        fontSize: itemHoursFontSize,
+                      ),
                     ),
                   ),
                 ),
@@ -244,27 +248,6 @@ class RepertoireList extends StatelessWidget {
         },
       ),
     );
-  }
-
-  _buildPlayHours(List<DateTime> playHours) {
-    List<TextSpan> textSpans = [];
-
-    playHours.forEach((playHour) {
-      textSpans.add(
-        TextSpan(
-          text: "${DateFormat("HH:mm").format(playHour)}",
-          style: TextStyle(
-            decoration: TextDecoration.underline,
-            fontFamily: "Poppins",
-            fontSize: itemHoursFontSize,
-          ),
-        ),
-      );
-
-      textSpans.add(TextSpan(text: "  "));
-    });
-
-    return textSpans;
   }
 
   _buildButtons() {

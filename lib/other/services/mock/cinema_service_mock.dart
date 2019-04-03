@@ -5,6 +5,7 @@ import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/models/pricing/price_day_model.dart';
 import 'package:helios_app/models/pricing/price_model.dart';
 import 'package:helios_app/models/pricing/pricing_model.dart';
+import 'package:helios_app/models/repertoire/repertoire_date_model.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/models/ticket/ticket_model.dart';
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
@@ -80,22 +81,25 @@ class CinemaServiceMock implements CinemaService {
 
   List<RepertoireModel> _todayRepertoire = [
     new RepertoireModel(
-      id: 0,
-      category: "Dramat",
-      label: "KINO KONESERA",
-      title: "Fuga",
-      playHours: [
-        new DateTime(2019, 4, 1, 8, 50),
-        new DateTime(2019, 4, 1, 10, 50),
-        new DateTime(2019, 4, 1, 12, 50),
-        new DateTime(2019, 4, 1, 14, 50),
-        new DateTime(2019, 4, 1, 17, 30),
-        new DateTime(2019, 4, 1, 19, 30),
-        new DateTime(2019, 4, 1, 21, 30),
-      ],
-      imageUrl: "https://ssl-gfx.filmweb.pl/po/54/31/755431/7862766.3.jpg",
-      labelHex: "#1d5fa3",
-    ),
+        id: 0,
+        category: "Dramat",
+        label: "KINO KONESERA",
+        title: "Fuga",
+        playHours: [
+          new DateTime(2019, 4, 1, 8, 50),
+          new DateTime(2019, 4, 1, 10, 50),
+          new DateTime(2019, 4, 1, 12, 50),
+          new DateTime(2019, 4, 1, 14, 50),
+          new DateTime(2019, 4, 1, 17, 30),
+          new DateTime(2019, 4, 1, 19, 30),
+          new DateTime(2019, 4, 1, 21, 30),
+        ],
+        imageUrl: "https://ssl-gfx.filmweb.pl/po/54/31/755431/7862766.3.jpg",
+        labelHex: "#1d5fa3",
+        duration: Duration(minutes: 103),
+        minYear: 15,
+        productionCountries: ["Czechy", "Polska", "Słowacja"],
+        productionYear: 2018),
     new RepertoireModel(
       id: 1,
       title: "Diablo - Wyścig o wszystko",
@@ -107,6 +111,10 @@ class CinemaServiceMock implements CinemaService {
       ],
       imageUrl:
           "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/splay/2018/12/Diablo-Wy%C5%9Bcig-o-wszystko-film.jpg",
+      duration: Duration(minutes: 143),
+      minYear: 15,
+      productionCountries: ["USA"],
+      productionYear: 2019,
     ),
     new RepertoireModel(
       id: 2,
@@ -121,6 +129,13 @@ class CinemaServiceMock implements CinemaService {
         new DateTime(2019, 4, 1, 19, 30),
       ],
       imageUrl: "https://ssl-gfx.filmweb.pl/po/64/33/696433/7741332.3.jpg",
+      minYear: 12,
+      productionCountries: [
+        "USA",
+        "Kanada",
+      ],
+      productionYear: 2018,
+      duration: Duration(minutes: 115),
     ),
     new RepertoireModel(
       id: 3,
@@ -133,6 +148,10 @@ class CinemaServiceMock implements CinemaService {
         new DateTime(2019, 4, 1, 18, 30),
       ],
       imageUrl: "https://i1.fdbimg.pl/31hxayy1/1433x2048_pjjrw3.jpg",
+      duration: Duration(minutes: 113),
+      productionCountries: ["USA"],
+      productionYear: 2018,
+      minYear: 6,
     ),
     new RepertoireModel(
       id: 4,
@@ -146,6 +165,10 @@ class CinemaServiceMock implements CinemaService {
       label: "PREMIERA",
       labelHex: "#bb2f38",
       imageUrl: "https://ssl-gfx.filmweb.pl/po/55/36/815536/7865965.3.jpg",
+      duration: Duration(minutes: 97),
+      minYear: 7,
+      productionCountries: ["Chiny"],
+      productionYear: 2018,
     ),
     new RepertoireModel(
       id: 5,
@@ -168,6 +191,10 @@ class CinemaServiceMock implements CinemaService {
       ],
       imageUrl:
           "https://farm7.staticflickr.com/6081/6087580503_48fb72dc51_b.jpg",
+      minYear: 13,
+      duration: Duration(minutes: 124),
+      productionCountries: ["USA"],
+      productionYear: 2019,
     ),
   ];
 
@@ -330,13 +357,13 @@ Zastrzegamy sobie prawo do zmian w repertuarze. Cennik nie dotyczy seansów spec
       title: "Bilety 3D",
       ruleDescription: """+ dopłata 3 zł za okulary
 
-Aby obejrzeć film 3D, niezbędne są specjalne okulary 3D – do nabycia w kasach kina. Cena biletu nie zawiera opłaty za okulary 3D. Jest ona doliczana w trakcie zakupu biletu na seans i wynosi 3 zł, a okulary wręczane są w kasie biletowej. Po obejrzeniu filmu nie wyrzucaj okularów. Zabierz je ze sobą na kolejny seans 3D, a nie będziesz ponosić opłaty za okulary 3D przy zakupie biletu na inne filmy w tej technologii.  
+Aby obejrzeć film 3D, niezbędne są specjalne okulary 3D – do nabycia w kasach kina. Cena biletu nie zawiera opłaty za okulary 3D. Jest ona doliczana w trakcie zakupu biletu na seans i wynosi 3 zł, a okulary wręczane są w kasie biletowej. Po obejrzeniu filmu nie wyrzucaj okularów. Zabierz je ze sobą na kolejny seans 3D, a nie będziesz ponosić opłaty za okulary 3D przy zakupie biletu na inne filmy w tej technologii.
 
 Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efektu trójwymiaru może być utrudnione. W takim przypadku możesz zakupić nową parę okularów przy kolejnej wizycie w kinie.
 
-  Prosimy o sprawdzenie, czy okulary 3D nie są uszkodzone lub zarysowane zaraz po zakupie. Okulary używane nie podlegają reklamacji.
+(**) Prosimy o sprawdzenie, czy okulary 3D nie są uszkodzone lub zarysowane zaraz po zakupie. Okulary używane nie podlegają reklamacji.
 
-  Informujemy, że okulary 3D mogą nie działać w innym kinie niż to, w którym zostały zakupione.""",
+(***) Informujemy, że okulary 3D mogą nie działać w innym kinie niż to, w którym zostały zakupione.""",
       days: [
         PriceDayModel(
           id: 4,
@@ -420,6 +447,16 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
     )
   ];
 
+  List<RepertoireDateModel> _repertoire = [
+    RepertoireDateModel(date: DateTime(2019, 4, 2)),
+    RepertoireDateModel(date: DateTime(2019, 4, 3)),
+    RepertoireDateModel(date: DateTime(2019, 4, 4)),
+    RepertoireDateModel(date: DateTime(2019, 4, 5)),
+    RepertoireDateModel(date: DateTime(2019, 4, 6)),
+    RepertoireDateModel(date: DateTime(2019, 4, 7)),
+    RepertoireDateModel(date: DateTime(2019, 4, 8)),
+  ];
+
   @override
   Future<List<CinemaModel>> getListOfCinemas(String searchText) {
     return Future<List<CinemaModel>>.delayed(Duration(seconds: 1), () {
@@ -445,7 +482,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
   }
 
   @override
-  Future<List<RepertoireModel>> getTodayRepertoire(
+  Future<List<RepertoireModel>> getTodayRepertoireForCinema(
       int cinemaId, TimeOfTheDayEnum timeOfTheDay) {
     return Future<List<RepertoireModel>>.delayed(Duration(milliseconds: 500),
         () {
@@ -479,8 +516,15 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
 
   @override
   Future<List<PricingModel>> getPricingForCinema(int cinemaId) {
-    return Future.delayed(Duration(seconds: 2, milliseconds: 500), () {
+    return Future.delayed(Duration(seconds: 1), () {
       return _pricing;
+    });
+  }
+
+  @override
+  Future<List<RepertoireDateModel>> getRepertoireForCinema(int cinemaId) {
+    return Future.delayed(Duration(seconds: 1), () {
+      return _repertoire;
     });
   }
 

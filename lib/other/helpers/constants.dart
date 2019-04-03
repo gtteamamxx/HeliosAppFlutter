@@ -14,4 +14,6 @@ class Constants {
 
   static final pricingPagePricingTypeColorHex = '#496287';
   static final pricingPagePricingGridBackgroundColorHex = '#2e3f58';
+
+  static final spaceBetweenPlayHours = '   ';
 }
