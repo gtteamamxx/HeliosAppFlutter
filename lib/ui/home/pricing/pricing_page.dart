@@ -24,16 +24,13 @@ class _PricingPageState extends State<PricingPage>
   Animation<Color> _changeColorAnimation;
   Animation<Color> _changeColorBackAnimation;
 
+  List<int> _priceGridHeaderDaysIds;
+
   @override
   void initState() {
-    _animationController = AnimationController(
-        vsync: this,
-        duration: Duration(
-          milliseconds: 400,
-        ))
-      ..addListener(() {
-        setState(() {});
-      });
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400))
+          ..addListener(() => setState(() {}));
 
     _changeColorAnimation = ColorTween(
             begin: Colors.white, end: HeliosColors.pricingPagePricingTypeColor)
@@ -112,12 +109,12 @@ class _PricingPageState extends State<PricingPage>
   }
 
   _buildTicketsSections(PricingModel pricing) {
-    Map<TicketModel, List<PriceModel>> ticketPriceDict =
+    Map<TicketModel, List<PriceIndentifiedByDayModel>> ticketPriceDict =
         _getTicketPriceDict(pricing);
     List<Widget> widgets = [];
 
     for (TicketModel ticket in ticketPriceDict.keys) {
-      List<PriceModel> prices = ticketPriceDict[ticket];
+      List<PriceIndentifiedByDayModel> prices = ticketPriceDict[ticket];
       widgets.addAll([
         SizedBox(height: 10),
         Text(
@@ -127,8 +124,20 @@ class _PricingPageState extends State<PricingPage>
         SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: prices.map((price) {
-            return Text("${price.price.toStringAsFixed(2)} zł");
+          children: _priceGridHeaderDaysIds.map((dayId) {
+            PriceIndentifiedByDayModel price = prices
+                .firstWhere((x) => x.priceDayId == dayId, orElse: () => null);
+            int index = _priceGridHeaderDaysIds.indexOf(dayId) + 1;
+            return Expanded(
+              child: price == null
+                  ? Container()
+                  : Text(
+                      "${price.price.toStringAsFixed(2)} zł",
+                      textAlign: index == _priceGridHeaderDaysIds.length
+                          ? TextAlign.right
+                          : index == 1 ? TextAlign.left : TextAlign.center,
+                    ),
+            );
           }).toList(),
         ),
         SizedBox(height: 4),
@@ -143,10 +152,23 @@ class _PricingPageState extends State<PricingPage>
   }
 
   _buildPriceGridHeader(PricingModel pricing) {
+    _priceGridHeaderDaysIds = [];
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: pricing.days.map((day) {
-        return Text(day.dayName, style: TextStyle(fontWeight: FontWeight.w400));
+        _priceGridHeaderDaysIds.add(day.id);
+        return Expanded(
+          child: Text(
+            day.dayName,
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+            ),
+            textAlign: _priceGridHeaderDaysIds.length == pricing.days.length
+                ? TextAlign.right
+                : _priceGridHeaderDaysIds.length == 1
+                    ? TextAlign.left
+                    : TextAlign.center,
+          ),
+        );
       }).toList(),
     );
   }
@@ -241,21 +263,35 @@ class _PricingPageState extends State<PricingPage>
     }
   }
 
-  Map<TicketModel, List<PriceModel>> _getTicketPriceDict(PricingModel pricing) {
-    var tickets = Map<TicketModel, List<PriceModel>>();
+  Map<TicketModel, List<PriceIndentifiedByDayModel>> _getTicketPriceDict(
+      PricingModel pricing) {
+    var tickets = Map<TicketModel, List<PriceIndentifiedByDayModel>>();
 
-    for (List<PriceModel> prices in pricing.days.map((x) => x.prices)) {
+    for (var dayPrice in pricing.days.map((x) => [x.id, x.prices])) {
+      List<PriceModel> prices = dayPrice[1];
+      int dayId = dayPrice[0];
+
       for (PriceModel price in prices) {
         if (!tickets.keys.any((x) => x.id == price.ticket.id)) {
-          tickets[price.ticket] = List<PriceModel>()..add(price);
+          tickets[price.ticket] = List<PriceIndentifiedByDayModel>()
+            ..add(mapToPriceIndentifiedByDayModel(dayId, price));
         } else {
-          List<PriceModel> pair =
+          List<PriceIndentifiedByDayModel> pair =
               tickets[tickets.keys.firstWhere((x) => x.id == price.ticket.id)];
-          pair.add(price);
+          pair.add(mapToPriceIndentifiedByDayModel(dayId, price));
         }
       }
     }
 
     return tickets;
+  }
+
+  mapToPriceIndentifiedByDayModel(int dayId, PriceModel price) {
+    return PriceIndentifiedByDayModel(
+      id: price.id,
+      price: price.price,
+      ticket: price.ticket,
+      priceDayId: dayId,
+    );
   }
 }

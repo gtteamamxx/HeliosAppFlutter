@@ -12,6 +12,8 @@ class EventsList extends StatelessWidget {
 
   final bool isLoading;
   final List<EventDescriptedModel> events;
+  final double eventHeaderFontSize = 15;
+  final double eventDescriptionFontSize = 13;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class EventsList extends StatelessWidget {
                           event.title,
                           style: TextStyle(
                             fontFamily: "Poppins",
-                            fontSize: 14,
+                            fontSize: eventHeaderFontSize,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -67,7 +69,7 @@ class EventsList extends StatelessWidget {
                                     event.description,
                                     style: TextStyle(
                                       fontFamily: "Poppins",
-                                      fontSize: 12,
+                                      fontSize: eventDescriptionFontSize,
                                       fontWeight: FontWeight.w100,
                                     ),
                                   ),

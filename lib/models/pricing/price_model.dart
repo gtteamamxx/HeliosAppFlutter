@@ -11,3 +11,14 @@ class PriceModel {
   final TicketModel ticket;
   final double price;
 }
+
+class PriceIndentifiedByDayModel extends PriceModel {
+  PriceIndentifiedByDayModel({
+    this.priceDayId,
+    id,
+    ticket,
+    price,
+  }) : super(id: id, ticket: ticket, price: price);
+
+  final int priceDayId;
+}

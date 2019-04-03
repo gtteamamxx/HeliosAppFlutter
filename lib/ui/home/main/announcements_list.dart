@@ -13,6 +13,7 @@ class AnnouncementsList extends StatelessWidget {
 
   final List<AnnouncementModel> announcements;
   final bool isLoading;
+  final double headerFontSize = 15;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +74,7 @@ class AnnouncementsList extends StatelessWidget {
                                   style: TextStyle(
                                     fontFamily: "Poppins",
                                     fontWeight: FontWeight.w100,
+                                    fontSize: headerFontSize,
                                   ),
                                 ),
                                 SizedBox(width: 5),
@@ -81,6 +83,7 @@ class AnnouncementsList extends StatelessWidget {
                                   style: TextStyle(
                                     fontFamily: "Poppins",
                                     fontWeight: FontWeight.w600,
+                                    fontSize: headerFontSize,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 )

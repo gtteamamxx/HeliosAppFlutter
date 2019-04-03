@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
@@ -32,9 +34,18 @@ class RepertoireList extends StatelessWidget {
   final double sectionItemWidth;
   final double infoSectionHeight;
   final EdgeInsets padding = EdgeInsets.symmetric(horizontal: 10);
-  final double itemHoursFontSize = 14;
-  final double itemTitleFontSize = 14;
-  final double itemCategoryFontSize = 13;
+
+  final double itemHoursFontSize = 15;
+  final double itemTitleFontSize = 15;
+  final double itemCategoryFontSize = 14;
+  final double additionalHeightForExtraPlayHour = 15;
+
+  get playHourMaxRowsInLine {
+    const playHourCharNumber = 4;
+    int maxRows =
+        ((sectionItemWidth / itemHoursFontSize) / playHourCharNumber).ceil();
+    return maxRows;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +132,10 @@ class RepertoireList extends StatelessWidget {
 
   _buildRepertoireSection(
       List<RepertoireModel> repertoire, Color backgroundColor) {
+    double additionalSectionHeight = _getAddtionalSectionHeight(repertoire);
     return Container(
-      height: this.sectionHeight,
-      padding: EdgeInsets.only(top: 20, bottom: 20),
+      height: this.sectionHeight + additionalSectionHeight,
+      padding: EdgeInsets.only(top: 20, bottom: 10),
       color: backgroundColor,
       child: ListView.builder(
         itemCount: repertoire.length,
@@ -134,9 +146,12 @@ class RepertoireList extends StatelessWidget {
             width: this.sectionItemWidth,
             margin: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Expanded(
-                  flex: 3,
+                Container(
+                  height: 225,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4),
                     child: Stack(
@@ -188,12 +203,12 @@ class RepertoireList extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 1,
+                Flexible(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         SizedBox(height: 8),
                         Text(
@@ -215,33 +230,41 @@ class RepertoireList extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  height: 20,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: repertoireItem.playHours.length,
-                    itemBuilder: (context, item) {
-                      DateTime playHour = repertoireItem.playHours[item];
-                      return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        child: Text(
-                          DateFormat("HH:mm").format(playHour),
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontFamily: "Poppins",
-                            fontSize: itemHoursFontSize,
-                          ),
-                        ),
-                      );
-                    },
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  child: RichText(
+                    text: TextSpan(
+                      children: _buildPlayHours(repertoireItem.playHours),
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           );
         },
       ),
     );
+  }
+
+  _buildPlayHours(List<DateTime> playHours) {
+    List<TextSpan> textSpans = [];
+
+    playHours.forEach((playHour) {
+      textSpans.add(
+        TextSpan(
+          text: "${DateFormat("HH:mm").format(playHour)}",
+          style: TextStyle(
+            decoration: TextDecoration.underline,
+            fontFamily: "Poppins",
+            fontSize: itemHoursFontSize,
+          ),
+        ),
+      );
+
+      textSpans.add(TextSpan(text: "  "));
+    });
+
+    return textSpans;
   }
 
   _buildButtons() {
@@ -330,5 +353,20 @@ class RepertoireList extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  double _getAddtionalSectionHeight(List<RepertoireModel> repertoire) {
+    if (repertoire.isEmpty) {
+      return 0;
+    }
+
+    int playHoursMaxNumber =
+        repertoire.map((x) => x.playHours.length).reduce(max);
+
+    double additionalHeight =
+        (playHoursMaxNumber / this.playHourMaxRowsInLine).ceil() *
+            this.additionalHeightForExtraPlayHour;
+
+    return additionalHeight;
   }
 }
