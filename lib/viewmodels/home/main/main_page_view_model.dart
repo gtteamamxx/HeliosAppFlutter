@@ -4,7 +4,7 @@ import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 import 'package:helios_app/redux/actions/home/main/change_repertoire_time_of_the_day_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_repertoire_time_of_the_day_action.dart';
+import 'package:helios_app/redux/actions/home/main/fetch_repertoire_for_time_of_the_day_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/redux/home/main/main_page_state.dart';
 import 'package:helios_app/ui/home/main/repertoire_list.dart';
@@ -47,7 +47,7 @@ class MainPageViewModel {
       repertoire: state.repertoire,
       isRepertoireLoading: state.isRepertoireLoading,
       onRepertoireTimeOfTheDayChange: (timeOfTheDay) =>
-          repertoireTimeOfTheDayChange(timeOfTheDay, store),
+          repertoireTimeOfTheDayChange(timeOfTheDay, store, state),
       events: state.events,
       isEventsLoading: state.isEventsLoading,
       announcements: state.announcements,
@@ -56,8 +56,15 @@ class MainPageViewModel {
   }
 
   static repertoireTimeOfTheDayChange(
-      TimeOfTheDayEnum timeOfTheDay, Store<AppState> store) {
+    TimeOfTheDayEnum timeOfTheDay,
+    Store<AppState> store,
+    MainPageState state,
+  ) {
+    if (state.selectedRepertoireTimeOfTheDay == timeOfTheDay) {
+      return;
+    }
+
     store.dispatch(ChangeRepertoireTimeOfTheDayAction(timeOfTheDay));
-    store.dispatch(FetchRepertoireAction(timeOfTheDay));
+    store.dispatch(FetchRepertoireForTimeOfTheDayAction(timeOfTheDay));
   }
 }

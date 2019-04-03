@@ -5,6 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:helios_app/models/pricing/price_model.dart';
 import 'package:helios_app/models/pricing/pricing_model.dart';
 import 'package:helios_app/models/ticket/ticket_model.dart';
+import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/home/pricing/fetch_pricing_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
@@ -57,23 +58,29 @@ class _PricingPageState extends State<PricingPage>
         store.dispatch(FetchPricingAction());
       },
       builder: (context, viewModel) {
-        if (viewModel.isLoading) {
-          return _buildLoading();
-        }
-        if (viewModel.isError) {
-          return _buildError(refreshClick: viewModel.onRefreshClick);
-        }
-
-        assert(viewModel.pricing != null);
-        return ListView(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          children: <Widget>[
-            _buildPriceTabs(pricing: viewModel.pricing),
-            _buildPriceGrid(pricing: viewModel.pricing),
-            _buildDescription(pricing: viewModel.pricing),
-          ],
+        return AnimatedSwitcher(
+          duration: Constants.fadeInDuration,
+          child: _buildContent(viewModel),
         );
       },
+    );
+  }
+
+  _buildContent(PricingPageViewModel viewModel) {
+    if (viewModel.isLoading) {
+      return _buildLoading();
+    }
+    if (viewModel.isError) {
+      return _buildError(refreshClick: viewModel.onRefreshClick);
+    }
+
+    return ListView(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      children: <Widget>[
+        _buildPriceTabs(pricing: viewModel.pricing),
+        _buildPriceGrid(pricing: viewModel.pricing),
+        _buildDescription(pricing: viewModel.pricing),
+      ],
     );
   }
 

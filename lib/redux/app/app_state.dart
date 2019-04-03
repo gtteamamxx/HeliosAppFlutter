@@ -1,13 +1,14 @@
 import 'package:helios_app/models/cinema/cinema_model.dart';
 import 'package:helios_app/redux/home/home_state.dart';
 import 'package:helios_app/redux/select_cinema/select_cinema_state.dart';
-import 'package:helios_app/redux/select_cinema/select_cinema_middleware.dart';
+import 'package:helios_app/redux/select_cinema/select_cinema_state_middleware.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
-import 'package:helios_app/redux/app/app_reducer.dart';
-import 'package:helios_app/redux/app/app_middleware.dart';
+import 'package:helios_app/redux/app/app_state_reducer.dart';
+import 'package:helios_app/redux/app/app_state_middleware.dart';
 import 'package:helios_app/redux/home/main/main_page_state_middleware.dart';
-import 'package:helios_app/redux/home/pricing/pricing_page_middleware.dart';
+import 'package:helios_app/redux/home/pricing/pricing_page_state_middleware.dart';
+import 'package:helios_app/redux/home/repertoire/repertoire_page_state_middleware.dart';
 
 class AppState {
   AppState({
@@ -54,13 +55,14 @@ class AppState {
 
 Store<AppState> configureStore() {
   return Store<AppState>(
-    appReducer,
+    appStateReducer,
     initialState: AppState.initial(),
     middleware: [
-      appMiddleware,
-      selectCinemaMiddleware,
+      appStateMiddleware,
+      selectCinemaStateMiddleware,
       mainPageStateMiddleware,
       pricingPageStateMiddleware,
+      repertoirePageStateMiddleware,
     ],
   );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
+import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,49 +35,52 @@ class _ImageCarouselState extends State<ImageCarousel> {
       height: widget.height,
       child: Stack(
         children: [
-          widget.isLoading
-              ? Container(
-                  height: widget.height,
-                  width: MediaQuery.of(context).size.width,
-                  color: HeliosColors.backgroundSecondary,
-                  child: Center(child: CircularProgressIndicator()),
-                )
-              : PageView.builder(
-                  itemCount: widget.children.length,
-                  controller: _pageController,
-                  scrollDirection: Axis.horizontal,
-                  onPageChanged: (index) {
-                    setState(() {
-                      actualPageIndex = index;
-                    });
-                  },
-                  itemBuilder: (context, index) {
-                    FeaturedMovieModel item = widget.children[index];
-                    return Stack(
-                      children: [
-                        Container(
-                          height: widget.height,
-                          child: Image.network(
-                            item.imageUrl,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              stops: [0.0, 0.5],
-                              colors: [Colors.black54, Colors.transparent],
+          AnimatedSwitcher(
+            duration: Constants.fadeInDuration,
+            child: widget.isLoading
+                ? Container(
+                    height: widget.height,
+                    width: MediaQuery.of(context).size.width,
+                    color: HeliosColors.backgroundSecondary,
+                    child: Center(child: CircularProgressIndicator()),
+                  )
+                : PageView.builder(
+                    itemCount: widget.children.length,
+                    controller: _pageController,
+                    scrollDirection: Axis.horizontal,
+                    onPageChanged: (index) {
+                      setState(() {
+                        actualPageIndex = index;
+                      });
+                    },
+                    itemBuilder: (context, index) {
+                      FeaturedMovieModel item = widget.children[index];
+                      return Stack(
+                        children: [
+                          Container(
+                            height: widget.height,
+                            child: Image.network(
+                              item.imageUrl,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                        _buildTitle(item.title),
-                        _buildCategory(item.category),
-                      ],
-                    );
-                  },
-                ),
+                          Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                stops: [0.0, 0.5],
+                                colors: [Colors.black54, Colors.transparent],
+                              ),
+                            ),
+                          ),
+                          _buildTitle(item.title),
+                          _buildCategory(item.category),
+                        ],
+                      );
+                    },
+                  ),
+          ),
           _buildPageDots(),
           widget.isLoading ? Container() : _buildShowTrailer(),
         ],

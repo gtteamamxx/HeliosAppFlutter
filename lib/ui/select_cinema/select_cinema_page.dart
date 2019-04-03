@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:helios_app/models/cinema/cinema_model.dart';
+import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
 import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
@@ -34,7 +35,7 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
             ChangeVisibilityOfChangeCinemaButtonAction(isVisible: false));
         store.dispatch(FetchCinemasAction());
         this.streamSubscription = searchCinemaSubject.stream
-            .debounce(Duration(milliseconds: 500))
+            .debounce(Duration(milliseconds: 800))
             .listen((fetchCinemasFunction) => fetchCinemasFunction());
       },
       onDispose: (_) {
@@ -58,35 +59,38 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
               children: <Widget>[
                 _buildSearchCinemaTextField(viewModel),
                 Expanded(
-                  child: viewModel.isLoading
-                      ? Center(child: CircularProgressIndicator())
-                      : viewModel.cinemas.isEmpty
-                          ? _buildNoItemsWidget()
-                          : ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount: viewModel.cinemas.length,
-                              itemBuilder: (_, index) {
-                                return Container(
-                                  color: viewModel.isCinemaSelected(
-                                          viewModel.cinemas[index])
-                                      ? HeliosColors.selectedCinemaBackground
-                                          .withAlpha(100)
-                                      : Colors.transparent,
-                                  child: InkWell(
-                                    onTap: () => viewModel.onCinemaSelected(
-                                        viewModel.cinemas[index]),
-                                    child: Container(
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 10),
-                                      padding: contentPadding,
-                                      child: _buildCinemaNameWidget(
-                                        viewModel.cinemas[index],
+                  child: AnimatedSwitcher(
+                    duration: Duration(milliseconds: 200),
+                    child: viewModel.isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : viewModel.cinemas.isEmpty
+                            ? _buildNoItemsWidget()
+                            : ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: viewModel.cinemas.length,
+                                itemBuilder: (_, index) {
+                                  return Container(
+                                    color: viewModel.isCinemaSelected(
+                                            viewModel.cinemas[index])
+                                        ? HeliosColors.selectedCinemaBackground
+                                            .withAlpha(100)
+                                        : Colors.transparent,
+                                    child: InkWell(
+                                      onTap: () => viewModel.onCinemaSelected(
+                                          viewModel.cinemas[index]),
+                                      child: Container(
+                                        margin:
+                                            EdgeInsets.symmetric(vertical: 10),
+                                        padding: contentPadding,
+                                        child: _buildCinemaNameWidget(
+                                          viewModel.cinemas[index],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
+                                  );
+                                },
+                              ),
+                  ),
                 ),
               ],
             ),

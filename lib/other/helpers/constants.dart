@@ -16,4 +16,9 @@ class Constants {
   static final pricingPagePricingGridBackgroundColorHex = '#2e3f58';
 
   static final spaceBetweenPlayHours = '   ';
+
+  static final double bottomBarHeight = 50;
+  static final shimmerPath = 'assets/shimmer_image.gif';
+
+  static final Duration fadeInDuration = Duration(milliseconds: 500);
 }

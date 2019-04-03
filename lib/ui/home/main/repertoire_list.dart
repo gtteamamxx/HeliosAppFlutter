@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 import 'package:helios_app/other/helpers/colors_helper.dart';
+import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/ui/common/play_hours_builder.dart';
-import 'package:intl/intl.dart';
 
 typedef TimeOfTheDayChange = Function(TimeOfTheDayEnum timeOfTheDay);
 
@@ -57,7 +57,19 @@ class RepertoireList extends StatelessWidget {
         children: [
           _buildTitle(),
           _buildButtons(),
-          _buildContent(),
+          AnimatedSwitcher(
+            duration: Constants.fadeInDuration,
+            layoutBuilder: (widget, _) => widget,
+            transitionBuilder: (widget, transition) {
+              return FadeTransition(
+                opacity: this.isLoading
+                    ? Tween<double>(begin: 1, end: 1).animate(transition)
+                    : transition,
+                child: widget,
+              );
+            },
+            child: _buildContent(),
+          ),
         ],
       ),
     );
@@ -160,7 +172,7 @@ class RepertoireList extends StatelessWidget {
                       children: [
                         FadeInImage.assetNetwork(
                           image: repertoireItem.imageUrl,
-                          placeholder: 'assets/shimmer_image.gif',
+                          placeholder: Constants.shimmerPath,
                           fit: BoxFit.fill,
                         ),
                         Container(

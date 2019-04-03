@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helios_app/models/announcment/announcment_model.dart';
+import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/ui/common/headered_widget.dart';
 import 'package:intl/intl.dart';
@@ -24,78 +25,83 @@ class AnnouncementsList extends StatelessWidget {
       onButtonTap: () {},
       child: Container(
         height: 800,
-        child: isLoading
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.zero,
-                itemCount: this.announcements.length,
-                itemBuilder: (context, item) {
-                  AnnouncementModel announcement = this.announcements[item];
-                  return Container(
-                    height: 200,
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: InkWell(
-                      onTap: () async {
-                        if (await canLaunch(announcement.videoUrl)) {
-                          launch(announcement.videoUrl);
-                        }
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(
-                            child: Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: FadeInImage.assetNetwork(
-                                    image: announcement.imageUrl,
-                                    placeholder: 'assets/shimmer_image.gif',
-                                    fit: BoxFit.cover,
+        child: AnimatedSwitcher(
+          duration: Constants.fadeInDuration,
+          child: isLoading
+              ? Center(child: CircularProgressIndicator())
+              : ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  itemCount: this.announcements.length,
+                  itemBuilder: (context, item) {
+                    AnnouncementModel announcement = this.announcements[item];
+                    return Container(
+                      height: 200,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      child: InkWell(
+                        onTap: () async {
+                          if (await canLaunch(announcement.videoUrl)) {
+                            launch(announcement.videoUrl);
+                          }
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(4),
+                                    child: FadeInImage.assetNetwork(
+                                      image: announcement.imageUrl,
+                                      placeholder: Constants.shimmerPath,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                Image.asset(
-                                  'assets/play_icon.png',
-                                  color: Colors.white.withAlpha(180),
-                                  scale: 2,
-                                ),
-                              ],
+                                  Image.asset(
+                                    'assets/play_icon.png',
+                                    color: Colors.white.withAlpha(180),
+                                    scale: 2,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  DateFormat("dd.MM").format(announcement.date),
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w100,
-                                    fontSize: headerFontSize,
+                            Padding(
+                              padding: EdgeInsets.all(5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    DateFormat("dd.MM")
+                                        .format(announcement.date),
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: headerFontSize,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  announcement.title,
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: headerFontSize,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                              ],
+                                  SizedBox(width: 5),
+                                  Text(
+                                    announcement.title,
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: headerFontSize,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              ),
+                    );
+                  },
+                ),
+        ),
       ),
     );
   }

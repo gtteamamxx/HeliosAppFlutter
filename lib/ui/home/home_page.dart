@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:helios_app/models/ui/home/page_enum.dart';
+import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
 import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
             bottomNavigationBar: Material(
               color: HeliosColors.backgroundSecondary,
               child: Container(
-                height: 50,
+                height: Constants.bottomBarHeight,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[

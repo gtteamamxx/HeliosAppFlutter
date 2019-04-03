@@ -4,11 +4,11 @@ import 'package:helios_app/other/services/abstract/cinema_service.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_announcements_light_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_descripted_events_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_featured_movies_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_repertoire_time_of_the_day_action.dart';
+import 'package:helios_app/redux/actions/home/main/fetch_repertoire_for_time_of_the_day_action.dart';
 import 'package:helios_app/redux/actions/home/main/finish_fetch_announcements_light_action.dart';
 import 'package:helios_app/redux/actions/home/main/finish_fetch_descripted_events_action.dart';
 import 'package:helios_app/redux/actions/home/main/finish_fetch_featured_movies.action.dart';
-import 'package:helios_app/redux/actions/home/main/finish_fetch_repertoire_action.dart';
+import 'package:helios_app/redux/actions/home/main/finish_fetch_repertoire_for_time_of_the_day_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -16,7 +16,7 @@ void mainPageStateMiddleware(
     Store<AppState> store, action, NextDispatcher next) {
   if (action is FetchFeaturedMoviesAction) {
     _fetchFeaturedMoviesAction(next);
-  } else if (action is FetchRepertoireAction) {
+  } else if (action is FetchRepertoireForTimeOfTheDayAction) {
     _fetchRepertoireAction(action.timeOfTheDay, store, next);
   } else if (action is FetchDescriptedEventsAction) {
     _fetchDescriptedEventsAction(next);
@@ -46,11 +46,11 @@ void _fetchRepertoireAction(
   cinemaService
       .getTodayRepertoireForCinema(store.state.selectedCinema.id, timeOfTheDay)
       .then(
-        (repertoire) =>
-            next(FinishFetchRepertoireAction(repertoire: repertoire)),
+        (repertoire) => next(
+            FinishFetchRepertoireForTimeOfTheDayAction(repertoire: repertoire)),
       )
       .catchError(
-        (_) => next(FinishFetchRepertoireAction(repertoire: [])),
+        (_) => next(FinishFetchRepertoireForTimeOfTheDayAction(repertoire: [])),
       );
 }
 

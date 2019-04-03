@@ -1,7 +1,11 @@
 import 'package:helios_app/models/repertoire/repertoire_date_model.dart';
 
 class RepertoirePageState {
-  RepertoirePageState({this.isLoading, this.isError, this.repertoire});
+  RepertoirePageState({
+    this.isLoading,
+    this.isError,
+    this.repertoire,
+  });
 
   final bool isLoading;
   final bool isError;

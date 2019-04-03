@@ -5,7 +5,7 @@ import 'package:helios_app/redux/actions/select_cinema/finish_fetch_cinemas_acti
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:redux/redux.dart';
 
-void selectCinemaMiddleware(
+void selectCinemaStateMiddleware(
     Store<AppState> store, dynamic action, NextDispatcher next) {
   if (action is FetchCinemasAction) {
     _fetchCinemas(action, next);

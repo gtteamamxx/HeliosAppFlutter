@@ -4,7 +4,8 @@ import 'package:helios_app/redux/actions/navigate_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:redux/redux.dart';
 
-void appMiddleware(Store<AppState> store, dynamic action, NextDispatcher next) {
+void appStateMiddleware(
+    Store<AppState> store, dynamic action, NextDispatcher next) {
   if (action is NavigateAction) {
     _navigateByRoute(action);
   } else {
