@@ -6,6 +6,7 @@ import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 import 'package:helios_app/other/helpers/colors_helper.dart';
 import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
+import 'package:helios_app/ui/common/helios_selection_button.dart';
 import 'package:helios_app/ui/common/play_hours_builder.dart';
 
 typedef TimeOfTheDayChange = Function(TimeOfTheDayEnum timeOfTheDay);
@@ -281,39 +282,10 @@ class RepertoireList extends StatelessWidget {
     bool isSelected = timeOfTheDay == this.selectedTimeOfTheDay;
 
     return Expanded(
-      child: Container(
-        height: 50,
-        margin: EdgeInsets.symmetric(vertical: 10),
-        decoration: isSelected
-            ? BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(
-                  color: Colors.white,
-                  width: 2,
-                ),
-                color: isSelected
-                    ? HeliosColors.backgroundFourth
-                    : Colors.transparent,
-              )
-            : null,
-        child: InkWell(
-          onTap: () {
-            this.onTimeOfTheDayChange(timeOfTheDay);
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Center(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontFamily: "Poppins",
-                  fontSize: 16,
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w100,
-                ),
-              ),
-            ),
-          ),
-        ),
+      child: HeliosSelectionButton(
+        isSelected: isSelected,
+        title: title,
+        onTap: () => this.onTimeOfTheDayChange(timeOfTheDay),
       ),
     );
   }

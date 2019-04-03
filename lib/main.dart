@@ -10,6 +10,7 @@ import 'package:helios_app/viewmodels/gradient_app_bar/gradient_app_bar_view_mod
 import 'package:redux/redux.dart';
 import 'package:helios_app/other/routes.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   configureServiceLocator();
@@ -30,6 +31,11 @@ class HeliosApp extends StatelessWidget {
       store: store,
       child: MaterialApp(
         title: "Helios app",
+        supportedLocales: [const Locale("pl", "PL")],
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         theme: ThemeData.dark().copyWith(
           accentColor: Colors.blue,
         ),

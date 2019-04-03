@@ -5,6 +5,7 @@ class Constants {
   static final backgroundSecondaryColorHex = '#1c2c44';
   static final backgroundTertiaryColorHex = '#25344b';
   static final backgroundFourthColorHex = '#455163';
+  static final backgroundFifthColorHex = '#2e3f58';
 
   static final homeIconColorHex = '#ffffff';
   static final homeIconNotActiveHex = '#435b7e';
@@ -13,7 +14,6 @@ class Constants {
   static final selectedCinemaBackgroundHex = '#0D2A5A';
 
   static final pricingPagePricingTypeColorHex = '#496287';
-  static final pricingPagePricingGridBackgroundColorHex = '#2e3f58';
 
   static final spaceBetweenPlayHours = '   ';
 

@@ -12,7 +12,7 @@ import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 import 'package:helios_app/other/services/abstract/cinema_service.dart';
 
 class CinemaServiceMock implements CinemaService {
-  List<String> _cinemas = [
+  static List<String> _cinemas = [
     'Bełchatów Helios',
     'Białystok Helios Alfa',
     'Białystok Helios Biała',
@@ -62,7 +62,7 @@ class CinemaServiceMock implements CinemaService {
     'Wrocław Helios Magnolia Park',
   ];
 
-  List<FeaturedMovieModel> _featuredMovies = [
+  static List<FeaturedMovieModel> _featuredMovies = [
     FeaturedMovieModel(
       imageUrl:
           "https://g.gazetaprawna.pl/p/_wspolne/pliki/4009000/4009923-thriller-glass-w-kinach-juz-657-323.jpg",
@@ -79,126 +79,9 @@ class CinemaServiceMock implements CinemaService {
     ),
   ];
 
-  List<RepertoireModel> _todayRepertoire = [
-    new RepertoireModel(
-        id: 0,
-        category: "Dramat",
-        label: "KINO KONESERA",
-        title: "Fuga",
-        playHours: [
-          new DateTime(2019, 4, 1, 8, 50),
-          new DateTime(2019, 4, 1, 10, 50),
-          new DateTime(2019, 4, 1, 12, 50),
-          new DateTime(2019, 4, 1, 14, 50),
-          new DateTime(2019, 4, 1, 17, 30),
-          new DateTime(2019, 4, 1, 19, 30),
-          new DateTime(2019, 4, 1, 21, 30),
-        ],
-        imageUrl: "https://ssl-gfx.filmweb.pl/po/54/31/755431/7862766.3.jpg",
-        labelHex: "#1d5fa3",
-        duration: Duration(minutes: 103),
-        minYear: 15,
-        productionCountries: ["Czechy", "Polska", "Słowacja"],
-        productionYear: 2018),
-    new RepertoireModel(
-      id: 1,
-      title: "Diablo - Wyścig o wszystko",
-      category: "Akcja",
-      playHours: [
-        new DateTime(2019, 4, 1, 11, 00),
-        new DateTime(2019, 4, 1, 15, 00),
-        new DateTime(2019, 4, 1, 19, 00),
-      ],
-      imageUrl:
-          "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/splay/2018/12/Diablo-Wy%C5%9Bcig-o-wszystko-film.jpg",
-      duration: Duration(minutes: 143),
-      minYear: 15,
-      productionCountries: ["USA"],
-      productionYear: 2019,
-    ),
-    new RepertoireModel(
-      id: 2,
-      title: "Iluzja 2",
-      category: "Akcja / Przygodowy",
-      playHours: [
-        new DateTime(2019, 4, 1, 9, 30),
-        new DateTime(2019, 4, 1, 11, 30),
-        new DateTime(2019, 4, 1, 13, 30),
-        new DateTime(2019, 4, 1, 15, 30),
-        new DateTime(2019, 4, 1, 17, 30),
-        new DateTime(2019, 4, 1, 19, 30),
-      ],
-      imageUrl: "https://ssl-gfx.filmweb.pl/po/64/33/696433/7741332.3.jpg",
-      minYear: 12,
-      productionCountries: [
-        "USA",
-        "Kanada",
-      ],
-      productionYear: 2018,
-      duration: Duration(minutes: 115),
-    ),
-    new RepertoireModel(
-      id: 3,
-      title: "Ralph Demolka w internecie",
-      category: "Komedia / Animacja",
-      playHours: [
-        new DateTime(2019, 4, 1, 10, 15),
-        new DateTime(2019, 4, 1, 13, 15),
-        new DateTime(2019, 4, 1, 15, 30),
-        new DateTime(2019, 4, 1, 18, 30),
-      ],
-      imageUrl: "https://i1.fdbimg.pl/31hxayy1/1433x2048_pjjrw3.jpg",
-      duration: Duration(minutes: 113),
-      productionCountries: ["USA"],
-      productionYear: 2018,
-      minYear: 6,
-    ),
-    new RepertoireModel(
-      id: 4,
-      title: "Sekretny świat kotów",
-      category: "Animacja",
-      playHours: [
-        new DateTime(2019, 4, 1, 10, 0),
-        new DateTime(2019, 4, 1, 15, 0),
-        new DateTime(2019, 4, 1, 20, 0),
-      ],
-      label: "PREMIERA",
-      labelHex: "#bb2f38",
-      imageUrl: "https://ssl-gfx.filmweb.pl/po/55/36/815536/7865965.3.jpg",
-      duration: Duration(minutes: 97),
-      minYear: 7,
-      productionCountries: ["Chiny"],
-      productionYear: 2018,
-    ),
-    new RepertoireModel(
-      id: 5,
-      title: "Bodyguard",
-      category: "Dramat / Thriller",
-      playHours: [
-        new DateTime(2019, 4, 1, 8, 30),
-        new DateTime(2019, 4, 1, 9, 30),
-        new DateTime(2019, 4, 1, 11, 30),
-        new DateTime(2019, 4, 1, 12, 30),
-        new DateTime(2019, 4, 1, 13, 30),
-        new DateTime(2019, 4, 1, 14, 30),
-        new DateTime(2019, 4, 1, 15, 30),
-        new DateTime(2019, 4, 1, 16, 30),
-        new DateTime(2019, 4, 1, 17, 30),
-        new DateTime(2019, 4, 1, 18, 30),
-        new DateTime(2019, 4, 1, 19, 30),
-        new DateTime(2019, 4, 1, 20, 30),
-        new DateTime(2019, 4, 1, 21, 30),
-      ],
-      imageUrl:
-          "https://farm7.staticflickr.com/6081/6087580503_48fb72dc51_b.jpg",
-      minYear: 13,
-      duration: Duration(minutes: 124),
-      productionCountries: ["USA"],
-      productionYear: 2019,
-    ),
-  ];
+  static List<RepertoireModel> _todayRepertoire = _createTodayRepertoire(false);
 
-  List<EventDescriptedModel> _descriptedEvents = [
+  static List<EventDescriptedModel> _descriptedEvents = [
     EventDescriptedModel(
       id: 0,
       title: "„Lista schindera” powraca na ekrany po 25 latach!",
@@ -223,7 +106,7 @@ class CinemaServiceMock implements CinemaService {
     )
   ];
 
-  List<AnnouncementModel> _announcements = [
+  static List<AnnouncementModel> _announcements = [
     AnnouncementModel(
       id: 0,
       title: "Miszmasz, czyli Kogel Mogel 3",
@@ -257,7 +140,7 @@ class CinemaServiceMock implements CinemaService {
     ),
   ];
 
-  List<PricingModel> _pricing = [
+  static List<PricingModel> _pricing = [
     PricingModel(
       id: 0,
       title: "Bilety 2D",
@@ -447,14 +330,28 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
     )
   ];
 
-  List<RepertoireDateModel> _repertoire = [
-    RepertoireDateModel(date: DateTime(2019, 4, 2)),
-    RepertoireDateModel(date: DateTime(2019, 4, 3)),
-    RepertoireDateModel(date: DateTime(2019, 4, 4)),
-    RepertoireDateModel(date: DateTime(2019, 4, 5)),
-    RepertoireDateModel(date: DateTime(2019, 4, 6)),
-    RepertoireDateModel(date: DateTime(2019, 4, 7)),
-    RepertoireDateModel(date: DateTime(2019, 4, 8)),
+  static List<RepertoireDateModel> _repertoire = [
+    RepertoireDateModel(
+        date: DateTime(2019, 4, 2),
+        repertoire: _createTodayRepertoire(true)..shuffle()),
+    RepertoireDateModel(
+        date: DateTime(2019, 4, 3),
+        repertoire: _createTodayRepertoire(true)..shuffle()),
+    RepertoireDateModel(
+        date: DateTime(2019, 4, 4),
+        repertoire: _createTodayRepertoire(true)..shuffle()),
+    RepertoireDateModel(
+        date: DateTime(2019, 4, 5),
+        repertoire: _createTodayRepertoire(true)..shuffle()),
+    RepertoireDateModel(
+        date: DateTime(2019, 4, 6),
+        repertoire: _createTodayRepertoire(true)..shuffle()),
+    RepertoireDateModel(
+        date: DateTime(2019, 4, 7),
+        repertoire: _createTodayRepertoire(true)..shuffle()),
+    RepertoireDateModel(
+        date: DateTime(2019, 4, 8),
+        repertoire: _createTodayRepertoire(true)..shuffle()),
   ];
 
   @override
@@ -490,7 +387,12 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
 
       for (RepertoireModel repertoire in _todayRepertoire) {
         List<DateTime> playHours =
-            _getPlayHoursForRepertoireItem(repertoire, timeOfTheDay);
+            _getPlayHoursForRepertoireItem(repertoire, timeOfTheDay)
+              ..removeWhere(
+                (playHour) => playHour
+                    .isBefore(DateTime.now().subtract(Duration(minutes: 10))),
+              );
+
         if (playHours.isNotEmpty) {
           result.add(repertoire.copyWithPlayHours(playHours: playHours));
         }
@@ -539,5 +441,126 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
     } else {
       return repertoireItem.playHours.where((x) => x.hour >= 18).toList();
     }
+  }
+
+  static _createTodayRepertoire(bool trimHours) {
+    return [
+      new RepertoireModel(
+          id: 0,
+          category: "Dramat",
+          label: "KINO KONESERA",
+          title: "Fuga",
+          playHours: [
+            new DateTime(2019, 4, 12, 8, 50),
+            new DateTime(2019, 4, 12, 10, 50),
+            new DateTime(2019, 4, 12, 12, 50),
+            new DateTime(2019, 4, 12, 14, 50),
+            new DateTime(2019, 4, 12, 17, 30),
+            new DateTime(2019, 4, 12, 19, 30),
+            new DateTime(2019, 4, 12, 21, 30),
+          ],
+          imageUrl: "https://ssl-gfx.filmweb.pl/po/54/31/755431/7862766.3.jpg",
+          labelHex: "#1d5fa3",
+          duration: Duration(minutes: 103),
+          minYear: 15,
+          productionCountries: ["Czechy", "Polska", "Słowacja"],
+          productionYear: 2018),
+      new RepertoireModel(
+        id: 1,
+        title: "Diablo - Wyścig o wszystko",
+        category: "Akcja",
+        playHours: [
+          new DateTime(2019, 4, 12, 11, 00),
+          new DateTime(2019, 4, 12, 15, 00),
+          new DateTime(2019, 4, 12, 19, 00),
+        ],
+        imageUrl:
+            "https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/splay/2018/12/Diablo-Wy%C5%9Bcig-o-wszystko-film.jpg",
+        duration: Duration(minutes: 143),
+        minYear: 15,
+        productionCountries: ["USA"],
+        productionYear: 2019,
+      ),
+      new RepertoireModel(
+        id: 2,
+        title: "Iluzja 2",
+        category: "Akcja / Przygodowy",
+        playHours: [
+          new DateTime(2019, 4, 12, 9, 30),
+          new DateTime(2019, 4, 12, 11, 30),
+          new DateTime(2019, 4, 12, 13, 30),
+          new DateTime(2019, 4, 12, 15, 30),
+          new DateTime(2019, 4, 12, 17, 30),
+          new DateTime(2019, 4, 12, 19, 30),
+        ],
+        imageUrl: "https://ssl-gfx.filmweb.pl/po/64/33/696433/7741332.3.jpg",
+        minYear: 12,
+        productionCountries: [
+          "USA",
+          "Kanada",
+        ],
+        productionYear: 2018,
+        duration: Duration(minutes: 115),
+      ),
+      new RepertoireModel(
+        id: 3,
+        title: "Ralph Demolka w internecie",
+        category: "Komedia / Animacja",
+        playHours: [
+          new DateTime(2019, 4, 12, 10, 15),
+          new DateTime(2019, 4, 12, 13, 15),
+          new DateTime(2019, 4, 12, 15, 30),
+          new DateTime(2019, 4, 12, 18, 30),
+        ],
+        imageUrl: "https://i1.fdbimg.pl/31hxayy1/1433x2048_pjjrw3.jpg",
+        duration: Duration(minutes: 113),
+        productionCountries: ["USA"],
+        productionYear: 2018,
+        minYear: 6,
+      ),
+      new RepertoireModel(
+        id: 4,
+        title: "Sekretny świat kotów",
+        category: "Animacja",
+        playHours: [
+          new DateTime(2019, 4, 12, 10, 0),
+          new DateTime(2019, 4, 12, 15, 0),
+          new DateTime(2019, 4, 12, 20, 0),
+        ],
+        label: "PREMIERA",
+        labelHex: "#bb2f38",
+        imageUrl: "https://ssl-gfx.filmweb.pl/po/55/36/815536/7865965.3.jpg",
+        duration: Duration(minutes: 97),
+        minYear: 7,
+        productionCountries: ["Chiny"],
+        productionYear: 2018,
+      ),
+      new RepertoireModel(
+        id: 5,
+        title: "Bodyguard",
+        category: "Dramat / Thriller",
+        playHours: [
+          new DateTime(2019, 4, 12, 8, 30),
+          new DateTime(2019, 4, 12, 9, 30),
+          new DateTime(2019, 4, 12, 11, 30),
+          new DateTime(2019, 4, 12, 12, 30),
+          new DateTime(2019, 4, 12, 13, 30),
+          new DateTime(2019, 4, 12, 14, 30),
+          new DateTime(2019, 4, 12, 15, 30),
+          new DateTime(2019, 4, 12, 16, 30),
+          new DateTime(2019, 4, 12, 17, 30),
+          new DateTime(2019, 4, 12, 18, 30),
+          new DateTime(2019, 4, 12, 19, 30),
+          new DateTime(2019, 4, 12, 20, 30),
+          new DateTime(2019, 4, 12, 21, 30),
+        ],
+        imageUrl:
+            "https://farm7.staticflickr.com/6081/6087580503_48fb72dc51_b.jpg",
+        minYear: 13,
+        duration: Duration(minutes: 124),
+        productionCountries: ["USA"],
+        productionYear: 2019,
+      ),
+    ];
   }
 }

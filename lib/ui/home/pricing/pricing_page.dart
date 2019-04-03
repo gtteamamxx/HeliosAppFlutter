@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:helios_app/models/pricing/price_model.dart';
@@ -98,7 +96,7 @@ class _PricingPageState extends State<PricingPage>
       padding: EdgeInsets.all(10).copyWith(bottom: 2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: HeliosColors.pricingPagePricingGridBackground,
+        color: HeliosColors.backgroundFifthColorHex,
       ),
       child: _buildPriceGridFromPricing(pricing),
     );

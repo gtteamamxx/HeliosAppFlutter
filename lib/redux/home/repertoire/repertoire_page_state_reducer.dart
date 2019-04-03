@@ -21,7 +21,7 @@ RepertoirePageState repertoirePageStateReducer(
     return state.copyWith(
       isLoading: false,
       isError: false,
-      repertoire: [],
+      repertoire: action.repertoire,
     );
   }
   return state;
