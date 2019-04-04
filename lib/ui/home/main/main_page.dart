@@ -52,10 +52,14 @@ class MainPage extends StatelessWidget {
               EventsList(
                 events: viewModel.events,
                 isLoading: viewModel.isEventsLoading,
+                isError: viewModel.isEventsError,
+                refreshClick: viewModel.onRefreshEvents,
               ),
               AnnouncementsList(
                 announcements: viewModel.announcements,
                 isLoading: viewModel.isAnnouncementsLoading,
+                isError: viewModel.isAnnouncementsError,
+                refreshClick: viewModel.onRefreshAnnouncements,
               )
             ],
           ),

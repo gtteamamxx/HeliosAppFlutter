@@ -15,8 +15,10 @@ class MainPageState {
     this.isRepertoireError,
     this.events,
     this.isEventsLoading,
+    this.isEventsError,
     this.announcements,
     this.isAnnouncementsLoading,
+    this.isAnnouncementsError,
   });
 
   final List<FeaturedMovieModel> featuredMovies;
@@ -30,23 +32,27 @@ class MainPageState {
 
   final List<EventDescriptedModel> events;
   final bool isEventsLoading;
+  final bool isEventsError;
 
   final List<AnnouncementModel> announcements;
   final bool isAnnouncementsLoading;
+  final bool isAnnouncementsError;
 
   static MainPageState initialState() {
     return MainPageState(
       featuredMovies: [],
       isFeaturedMoviesLoading: false,
+      isFeaturedMoviesError: false,
       selectedRepertoireTimeOfTheDay: getRepertoireTimeOfTheDayByNow(),
       repertoire: [],
       isRepertoireLoading: false,
       isRepertoireError: false,
       events: [],
       isEventsLoading: false,
+      isEventsError: false,
       announcements: [],
       isAnnouncementsLoading: false,
-      isFeaturedMoviesError: false,
+      isAnnouncementsError: false,
     );
   }
 
@@ -60,8 +66,10 @@ class MainPageState {
     bool isRepertoireError,
     List<EventDescriptedModel> events,
     bool isEventsLoading,
+    bool isEventsError,
     List<AnnouncementModel> announcements,
     bool isAnnouncementsLoading,
+    bool isAnnouncementsError,
   }) {
     return MainPageState(
       featuredMovies: featuredMovies ?? this.featuredMovies,
@@ -76,9 +84,11 @@ class MainPageState {
       isRepertoireError: isRepertoireError ?? this.isRepertoireError,
       events: events ?? this.events,
       isEventsLoading: isEventsLoading ?? this.isEventsLoading,
+      isEventsError: isEventsError ?? this.isEventsError,
       announcements: announcements ?? this.announcements,
       isAnnouncementsLoading:
           isAnnouncementsLoading ?? this.isAnnouncementsLoading,
+      isAnnouncementsError: isAnnouncementsError ?? this.isAnnouncementsError,
     );
   }
 

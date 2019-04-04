@@ -5,6 +5,8 @@ import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 import 'package:helios_app/redux/actions/home/main/change_repertoire_time_of_the_day_action.dart';
+import 'package:helios_app/redux/actions/home/main/fetch_announcements_light_action.dart';
+import 'package:helios_app/redux/actions/home/main/fetch_descripted_events_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_featured_movies_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_repertoire_for_time_of_the_day_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
@@ -26,8 +28,12 @@ class MainPageViewModel {
     this.onRepertoireTimeOfTheDayChange,
     this.events,
     this.isEventsLoading,
+    this.isEventsError,
+    this.onRefreshEvents,
     this.announcements,
     this.isAnnouncementsLoading,
+    this.isAnnouncementsError,
+    this.onRefreshAnnouncements,
   });
 
   final List<FeaturedMovieModel> featuredMovies;
@@ -40,13 +46,17 @@ class MainPageViewModel {
   final bool isRepertoireLoading;
   final bool isRepertoireError;
   final TimeOfTheDayChange onRepertoireTimeOfTheDayChange;
-  final List<EventDescriptedModel> events;
   final VoidCallback onRefreshRepertoire;
 
+  final List<EventDescriptedModel> events;
   final bool isEventsLoading;
+  final bool isEventsError;
+  final VoidCallback onRefreshEvents;
 
   final List<AnnouncementModel> announcements;
   final bool isAnnouncementsLoading;
+  final bool isAnnouncementsError;
+  final VoidCallback onRefreshAnnouncements;
 
   static MainPageViewModel fromStore(Store<AppState> store) {
     MainPageState state = store.state.homeState.mainPageState;
@@ -65,8 +75,12 @@ class MainPageViewModel {
           _repertoireTimeOfTheDayChange(timeOfTheDay, store, state),
       events: state.events,
       isEventsLoading: state.isEventsLoading,
+      isEventsError: state.isEventsError,
+      onRefreshEvents: () => _refreshEvents(store),
       announcements: state.announcements,
       isAnnouncementsLoading: state.isAnnouncementsLoading,
+      isAnnouncementsError: state.isAnnouncementsError,
+      onRefreshAnnouncements: () => _refreshAnnouncements(store),
     );
   }
 
@@ -91,5 +105,13 @@ class MainPageViewModel {
       Store<AppState> store, TimeOfTheDayEnum selectedRepertoireTimeOfTheDay) {
     store.dispatch(
         FetchRepertoireForTimeOfTheDayAction(selectedRepertoireTimeOfTheDay));
+  }
+
+  static _refreshEvents(Store<AppState> store) {
+    store.dispatch(FetchDescriptedEventsAction());
+  }
+
+  static _refreshAnnouncements(Store<AppState> store) {
+    store.dispatch(FetchAnnouncementsLightAction());
   }
 }

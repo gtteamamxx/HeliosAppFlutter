@@ -1,4 +1,6 @@
 import 'package:helios_app/redux/actions/home/main/change_repertoire_time_of_the_day_action.dart';
+import 'package:helios_app/redux/actions/home/main/error_fetching_announcements_light_action.dart';
+import 'package:helios_app/redux/actions/home/main/error_fetching_descripted_events_action.dart';
 import 'package:helios_app/redux/actions/home/main/error_fetching_featured_movies_action.dart';
 import 'package:helios_app/redux/actions/home/main/error_fetching_repertoire_for_time_of_the_day_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_announcements_light_action.dart';
@@ -51,18 +53,40 @@ MainPageState mainPageStateReducer(MainPageState state, dynamic action) {
   } else if (action is ChangeRepertoireTimeOfTheDayAction) {
     return state.copyWith(selectedRepertoireTimeOfTheDay: action.timeOfTheDay);
   } else if (action is FetchDescriptedEventsAction) {
-    return state.copyWith(isEventsLoading: true);
+    return state.copyWith(
+      isEventsLoading: true,
+      isEventsError: false,
+      events: [],
+    );
   } else if (action is FinishFetchDescriptedEventsAction) {
     return state.copyWith(
       isEventsLoading: false,
+      isEventsError: false,
       events: action.events,
     );
+  } else if (action is ErrorFetchingDescriptedEventsAction) {
+    return state.copyWith(
+      isEventsLoading: false,
+      isEventsError: true,
+      events: [],
+    );
   } else if (action is FetchAnnouncementsLightAction) {
-    return state.copyWith(isAnnouncementsLoading: true);
+    return state.copyWith(
+      isAnnouncementsLoading: true,
+      isAnnouncementsError: false,
+      announcements: [],
+    );
   } else if (action is FinishFetchAnnouncementsLightAction) {
     return state.copyWith(
       isAnnouncementsLoading: false,
+      isAnnouncementsError: false,
       announcements: action.announcments,
+    );
+  } else if (action is ErrorFetchingAnnouncementsLightAction) {
+    return state.copyWith(
+      isAnnouncementsLoading: false,
+      isAnnouncementsError: true,
+      announcements: [],
     );
   }
 

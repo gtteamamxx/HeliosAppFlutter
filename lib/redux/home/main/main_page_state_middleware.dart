@@ -1,6 +1,8 @@
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 import 'package:helios_app/other/service_locator.dart';
 import 'package:helios_app/other/services/abstract/cinema_service.dart';
+import 'package:helios_app/redux/actions/home/main/error_fetching_announcements_light_action.dart';
+import 'package:helios_app/redux/actions/home/main/error_fetching_descripted_events_action.dart';
 import 'package:helios_app/redux/actions/home/main/error_fetching_featured_movies_action.dart';
 import 'package:helios_app/redux/actions/home/main/error_fetching_repertoire_for_time_of_the_day_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_announcements_light_action.dart';
@@ -35,7 +37,7 @@ void _fetchDescriptedEventsAction(NextDispatcher next) {
   cinemaService
       .getDescriptedEvents()
       .then((events) => next(FinishFetchDescriptedEventsAction(events)))
-      .catchError((_) => next(FinishFetchDescriptedEventsAction([])));
+      .catchError((_) => next(ErrorFetchingDescriptedEventsAction()));
 }
 
 void _fetchRepertoireAction(
@@ -69,5 +71,5 @@ void _fetchAnnouncementsLight(NextDispatcher next) {
       .getAnnouncementsLight()
       .then((announcements) =>
           next(FinishFetchAnnouncementsLightAction(announcements)))
-      .catchError((_) => next(FinishFetchAnnouncementsLightAction([])));
+      .catchError((_) => next(ErrorFetchingAnnouncementsLightAction()));
 }
