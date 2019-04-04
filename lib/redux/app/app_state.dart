@@ -17,6 +17,7 @@ class AppState {
     @required this.homeState,
     @required this.selectCinemaState,
     @required this.selectedCinema,
+    @required this.isAppBarVisible,
   });
 
   final String appBarTitle;
@@ -24,6 +25,7 @@ class AppState {
   final SelectCinemaState selectCinemaState;
   final CinemaModel selectedCinema;
   final bool showChangeCinemaButton;
+  final bool isAppBarVisible;
 
   static AppState initial() {
     return AppState(
@@ -32,6 +34,7 @@ class AppState {
       selectedCinema: null,
       appBarTitle: "",
       showChangeCinemaButton: false,
+      isAppBarVisible: true,
     );
   }
 
@@ -41,6 +44,7 @@ class AppState {
     CinemaModel selectedCinema,
     String appBarTitle,
     bool showChangeCinemaButton,
+    bool isAppBarVisible,
   }) {
     return AppState(
       homeState: homeState ?? this.homeState,
@@ -49,6 +53,7 @@ class AppState {
       appBarTitle: appBarTitle ?? this.appBarTitle,
       showChangeCinemaButton:
           showChangeCinemaButton ?? this.showChangeCinemaButton,
+      isAppBarVisible: isAppBarVisible ?? this.isAppBarVisible,
     );
   }
 }

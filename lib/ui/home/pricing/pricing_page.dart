@@ -8,7 +8,6 @@ import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/home/pricing/fetch_pricing_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/error_button.dart';
-import 'package:helios_app/ui/common/helios_button.dart';
 import 'package:helios_app/viewmodels/home/pricing/pricing_page_view_model.dart';
 
 class PricingPage extends StatefulWidget {

@@ -1,4 +1,5 @@
 import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
+import 'package:helios_app/redux/actions/app/change_app_bar_visibility_action.dart';
 import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
 import 'package:helios_app/redux/actions/select_cinema/select_cinema_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
@@ -12,6 +13,8 @@ AppState appStateReducer(AppState state, dynamic action) {
     return state.copyWith(appBarTitle: action.title);
   } else if (action is ChangeVisibilityOfChangeCinemaButtonAction) {
     return state.copyWith(showChangeCinemaButton: action.isVisible);
+  } else if (action is ChangeAppBarVisibilityAction) {
+    return state.copyWith(isAppBarVisible: action.isVisible);
   }
 
   return state.copyWith(

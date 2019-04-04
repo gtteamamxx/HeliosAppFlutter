@@ -8,16 +8,19 @@ class GradientAppBarViewModel {
     this.title,
     this.showChangeCinemaButton,
     this.onChangeCinemaTap,
+    this.isVisible,
   });
 
   final String title;
   final bool showChangeCinemaButton;
   final VoidCallback onChangeCinemaTap;
+  final bool isVisible;
 
   static GradientAppBarViewModel fromStore(Store<AppState> store) {
     return GradientAppBarViewModel(
       title: store.state.appBarTitle,
       showChangeCinemaButton: store.state.showChangeCinemaButton,
+      isVisible: store.state.isAppBarVisible,
       onChangeCinemaTap: () => _showChangeCinemaPage(store),
     );
   }

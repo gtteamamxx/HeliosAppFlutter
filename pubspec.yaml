@@ -26,6 +26,7 @@ dependencies:
   url_launcher: any
   intl: any
   shimmer: any
+  connectivity: any
 
 dev_dependencies:
   flutter_test:

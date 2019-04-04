@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/other/helpers/navigator_helper.dart';
+import 'package:helios_app/other/helpers/network_watcher.dart';
 import 'package:helios_app/other/service_locator.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/gradient_app_bar.dart';
@@ -12,9 +13,10 @@ import 'package:helios_app/other/routes.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() {
+void main() async {
   configureServiceLocator();
   configureRoutes();
+  await startNetworkWatcher();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (_) => runApp(HeliosApp()),
@@ -47,8 +49,15 @@ class HeliosApp extends StatelessWidget {
             children: <Widget>[
               StoreConnector<AppState, GradientAppBarViewModel>(
                 converter: (store) => GradientAppBarViewModel.fromStore(store),
-                builder: (context, viewModel) =>
-                    _buildAppBar(context, viewModel),
+                onDispose: (store) {
+                  connectivitySubscription?.cancel();
+                },
+                builder: (context, viewModel) => viewModel.isVisible
+                    ? _buildAppBar(context, viewModel)
+                    : Container(
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
+                      ),
               ),
               Flexible(
                 child: widget,

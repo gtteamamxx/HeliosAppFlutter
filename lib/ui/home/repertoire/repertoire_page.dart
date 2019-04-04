@@ -8,7 +8,6 @@ import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/home/repertoire/fetch_repertoire_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/error_button.dart';
-import 'package:helios_app/ui/common/helios_button.dart';
 import 'package:helios_app/ui/common/helios_selection_button.dart';
 import 'package:helios_app/viewmodels/home/repertoire/repertoire_page_view_model.dart';
 import 'package:helios_app/ui/common/play_hours_builder.dart';
