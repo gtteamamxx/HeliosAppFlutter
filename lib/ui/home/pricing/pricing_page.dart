@@ -7,6 +7,7 @@ import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/home/pricing/fetch_pricing_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app/ui/common/error_button.dart';
 import 'package:helios_app/ui/common/helios_button.dart';
 import 'package:helios_app/viewmodels/home/pricing/pricing_page_view_model.dart';
 
@@ -69,7 +70,10 @@ class _PricingPageState extends State<PricingPage>
       return _buildLoading();
     }
     if (viewModel.isError) {
-      return _buildError(refreshClick: viewModel.onRefreshClick);
+      return ErrorButton(
+        title: "Wystąpił problem podczas pobierania cennika",
+        refreshClick: viewModel.onRefreshClick,
+      );
     }
 
     return ListView(
@@ -175,22 +179,6 @@ class _PricingPageState extends State<PricingPage>
           ),
         );
       }).toList(),
-    );
-  }
-
-  _buildError({VoidCallback refreshClick}) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            "Wystapił problem podczas pobierania cennika",
-            style: TextStyle(fontFamily: "Poppins", fontSize: 16),
-          ),
-          SizedBox(height: 10),
-          HeliosButton(content: "Spróbuj ponownie", onTap: refreshClick),
-        ],
-      ),
     );
   }
 

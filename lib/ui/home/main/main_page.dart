@@ -38,12 +38,16 @@ class MainPage extends StatelessWidget {
                 height: 250,
                 children: viewModel.featuredMovies,
                 isLoading: viewModel.isFeaturedMoviesLoading,
+                isError: viewModel.isFeaturedMoviesError,
+                refreshClick: viewModel.onRefreshFeaturedMovies,
               ),
               RepertoireList(
                 repertoire: viewModel.repertoire,
                 isLoading: viewModel.isRepertoireLoading,
                 selectedTimeOfTheDay: viewModel.selectedRepertoireTimeOfTheDay,
                 onTimeOfTheDayChange: viewModel.onRepertoireTimeOfTheDayChange,
+                isError: viewModel.isRepertoireError,
+                refreshClick: viewModel.onRefreshRepertoire,
               ),
               EventsList(
                 events: viewModel.events,

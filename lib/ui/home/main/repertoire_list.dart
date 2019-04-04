@@ -6,6 +6,7 @@ import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 import 'package:helios_app/other/helpers/colors_helper.dart';
 import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
+import 'package:helios_app/ui/common/error_button.dart';
 import 'package:helios_app/ui/common/helios_selection_button.dart';
 import 'package:helios_app/ui/common/play_hours_builder.dart';
 
@@ -15,6 +16,8 @@ class RepertoireList extends StatelessWidget {
   RepertoireList({
     this.repertoire,
     this.isLoading,
+    this.isError,
+    this.refreshClick,
     this.onTimeOfTheDayChange,
     this.selectedTimeOfTheDay,
     this.maximumItemsPerSection = 3,
@@ -26,6 +29,8 @@ class RepertoireList extends StatelessWidget {
 
   final List<RepertoireModel> repertoire;
   final bool isLoading;
+  final bool isError;
+  final VoidCallback refreshClick;
   final TimeOfTheDayChange onTimeOfTheDayChange;
   final TimeOfTheDayEnum selectedTimeOfTheDay;
 
@@ -52,7 +57,9 @@ class RepertoireList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: this.isError || this.isLoading
+          ? EdgeInsets.only(top: 8)
+          : EdgeInsets.symmetric(vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -81,6 +88,10 @@ class RepertoireList extends StatelessWidget {
       return _buildLoading();
     }
 
+    if (this.isError) {
+      return _buildError();
+    }
+
     if (this.repertoire.isEmpty) {
       return _buildNoItems();
     }
@@ -88,10 +99,19 @@ class RepertoireList extends StatelessWidget {
     return _buildSections();
   }
 
+  _buildError() {
+    return Container(
+      height: this.sectionHeight,
+      child: ErrorButton(
+        title: "Wystąpił problem podczas wczytywania repertuaru",
+        refreshClick: this.refreshClick,
+      ),
+    );
+  }
+
   _buildLoading() {
     return Container(
       height: this.sectionHeight,
-      color: HeliosColors.backgroundFourth,
       child: Center(child: CircularProgressIndicator()),
     );
   }

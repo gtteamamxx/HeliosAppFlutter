@@ -7,6 +7,7 @@ import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/home/repertoire/fetch_repertoire_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app/ui/common/error_button.dart';
 import 'package:helios_app/ui/common/helios_button.dart';
 import 'package:helios_app/ui/common/helios_selection_button.dart';
 import 'package:helios_app/viewmodels/home/repertoire/repertoire_page_view_model.dart';
@@ -27,6 +28,7 @@ class _RepertoirePageState extends State<RepertoirePage> {
   final double playHourItemFontSize = 15;
   final double maxPlayHoursItemsInRow = 5;
   final double additionalHeightForPlayHours = 10;
+  final double infoFontSize = 14;
   final double imageWidth = 100;
 
   @override
@@ -50,7 +52,10 @@ class _RepertoirePageState extends State<RepertoirePage> {
       return _buildLoading();
     }
     if (viewModel.isError) {
-      return _buildError(refreshClick: viewModel.onRefreshClick);
+      return ErrorButton(
+        title: "Wystapił problem podczas pobierania reperturaru",
+        refreshClick: viewModel.onRefreshClick,
+      );
     }
 
     return viewModel.repertoire.isEmpty
@@ -94,10 +99,12 @@ class _RepertoirePageState extends State<RepertoirePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text(
-                      _capitalize(DateFormat("EE",
-                              Localizations.localeOf(context).languageCode)
-                          .format(repertoire.date)
-                          .replaceFirst(".", "")),
+                      _capitalize(
+                        DateFormat("EE",
+                                Localizations.localeOf(context).languageCode)
+                            .format(repertoire.date)
+                            .replaceFirst(".", ""),
+                      ),
                       style: TextStyle(
                         fontSize: 15,
                         color: fontColor,
@@ -197,14 +204,21 @@ class _RepertoirePageState extends State<RepertoirePage> {
                       RichText(
                           text: TextSpan(
                         children: [
-                          TextSpan(text: "Od lat: ${item.minYear}"),
                           TextSpan(
-                              text:
-                                  ", Czas trwania: ${item.duration.inMinutes} min."),
+                            text: "Od lat: ${item.minYear}",
+                            style: TextStyle(fontSize: infoFontSize),
+                          ),
+                          TextSpan(
+                            text:
+                                ", Czas trwania: ${item.duration.inMinutes} min.",
+                            style: TextStyle(fontSize: infoFontSize),
+                          ),
                         ],
                       )),
                       Text(
-                          "Produkcja: ${item.productionCountries.join(", ")} [${item.productionYear}]"),
+                        "Produkcja: ${item.productionCountries.join(", ")} [${item.productionYear}]",
+                        style: TextStyle(fontSize: infoFontSize),
+                      ),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -233,24 +247,6 @@ class _RepertoirePageState extends State<RepertoirePage> {
 
   _buildLoading() {
     return Center(child: CircularProgressIndicator());
-  }
-
-  _buildError({VoidCallback refreshClick}) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            "Wystapił problem podczas pobierania reperturaru",
-            style: TextStyle(fontFamily: "Poppins", fontSize: 16),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 10),
-          HeliosButton(content: "Spróbuj ponownie", onTap: refreshClick),
-        ],
-      ),
-    );
   }
 
   String _capitalize(String text) {

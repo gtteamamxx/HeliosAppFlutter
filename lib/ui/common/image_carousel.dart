@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
+import 'package:helios_app/ui/common/error_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ImageCarousel extends StatefulWidget {
@@ -9,11 +10,15 @@ class ImageCarousel extends StatefulWidget {
     @required this.children,
     @required this.height,
     @required this.isLoading,
+    @required this.isError,
+    @required this.refreshClick,
   });
 
   final List<FeaturedMovieModel> children;
   final double height;
   final bool isLoading;
+  final bool isError;
+  final VoidCallback refreshClick;
 
   @override
   _ImageCarouselState createState() => _ImageCarouselState();
@@ -38,53 +43,73 @@ class _ImageCarouselState extends State<ImageCarousel> {
           AnimatedSwitcher(
             duration: Constants.fadeInDuration,
             child: widget.isLoading
-                ? Container(
-                    height: widget.height,
-                    width: MediaQuery.of(context).size.width,
-                    color: HeliosColors.backgroundSecondary,
-                    child: Center(child: CircularProgressIndicator()),
-                  )
-                : PageView.builder(
-                    itemCount: widget.children.length,
-                    controller: _pageController,
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: (index) {
-                      setState(() {
-                        actualPageIndex = index;
-                      });
-                    },
-                    itemBuilder: (context, index) {
-                      FeaturedMovieModel item = widget.children[index];
-                      return Stack(
-                        children: [
-                          Container(
-                            height: widget.height,
-                            child: Image.network(
-                              item.imageUrl,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
-                                stops: [0.0, 0.5],
-                                colors: [Colors.black54, Colors.transparent],
-                              ),
-                            ),
-                          ),
-                          _buildTitle(item.title),
-                          _buildCategory(item.category),
-                        ],
-                      );
-                    },
-                  ),
+                ? _buildLoading(context)
+                : widget.isError ? _buildError() : _buildImageCarousel(),
           ),
           _buildPageDots(),
-          widget.isLoading ? Container() : _buildShowTrailer(),
+          widget.isLoading || widget.isError
+              ? Container()
+              : _buildShowTrailer(),
         ],
       ),
+    );
+  }
+
+  _buildError() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: ErrorButton(
+        title: "Nie udało się wczytać obrazków :(",
+        refreshClick: widget.refreshClick,
+      ),
+    );
+  }
+
+  _buildImageCarousel() {
+    return PageView.builder(
+      itemCount: widget.children.length,
+      controller: _pageController,
+      scrollDirection: Axis.horizontal,
+      onPageChanged: (index) {
+        setState(() {
+          actualPageIndex = index;
+        });
+      },
+      itemBuilder: (context, index) {
+        FeaturedMovieModel item = widget.children[index];
+        return Stack(
+          children: [
+            Container(
+              height: widget.height,
+              child: Image.network(
+                item.imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  stops: [0.0, 0.5],
+                  colors: [Colors.black54, Colors.transparent],
+                ),
+              ),
+            ),
+            _buildTitle(item.title),
+            _buildCategory(item.category),
+          ],
+        );
+      },
+    );
+  }
+
+  _buildLoading(BuildContext context) {
+    return Container(
+      height: widget.height,
+      width: MediaQuery.of(context).size.width,
+      color: HeliosColors.backgroundSecondary,
+      child: Center(child: CircularProgressIndicator()),
     );
   }
 
@@ -143,7 +168,9 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   _buildPageDots() {
     const double size = 8;
-    int length = widget.children.length == 0 ? 1 : widget.children.length;
+    int length = widget.children.length == 0 || widget.isError
+        ? 1
+        : widget.children.length;
 
     return Positioned(
       bottom: 13,

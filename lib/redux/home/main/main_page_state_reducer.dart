@@ -1,4 +1,6 @@
 import 'package:helios_app/redux/actions/home/main/change_repertoire_time_of_the_day_action.dart';
+import 'package:helios_app/redux/actions/home/main/error_fetching_featured_movies_action.dart';
+import 'package:helios_app/redux/actions/home/main/error_fetching_repertoire_for_time_of_the_day_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_announcements_light_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_descripted_events_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_featured_movies_action.dart';
@@ -11,28 +13,57 @@ import 'package:helios_app/redux/home/main/main_page_state.dart';
 
 MainPageState mainPageStateReducer(MainPageState state, dynamic action) {
   if (action is FetchFeaturedMoviesAction) {
-    return state.copyWith(isFeaturedMoviesLoading: true);
+    return state.copyWith(
+      isFeaturedMoviesLoading: true,
+      isFeaturedMoviesError: false,
+      featuredMovies: [],
+    );
   } else if (action is FinishFetchFeaturedMoviesAction) {
     return state.copyWith(
-        featuredMovies: action.featuredMovies, isFeaturedMoviesLoading: false);
+      featuredMovies: action.featuredMovies,
+      isFeaturedMoviesLoading: false,
+      isFeaturedMoviesError: false,
+    );
+  } else if (action is ErrorFetchingFeaturedMoviesAction) {
+    return state.copyWith(
+      isFeaturedMoviesError: true,
+      isFeaturedMoviesLoading: false,
+      featuredMovies: [],
+    );
   } else if (action is FetchRepertoireForTimeOfTheDayAction) {
-    return state.copyWith(isRepertoireLoading: true);
+    return state.copyWith(
+      isRepertoireLoading: true,
+      isRepertoireError: false,
+      repertoire: [],
+    );
   } else if (action is FinishFetchRepertoireForTimeOfTheDayAction) {
     return state.copyWith(
       repertoire: action.repertoire,
       isRepertoireLoading: false,
+      isRepertoireError: false,
+    );
+  } else if (action is ErrorFetchingRepertoireForTimeOfTheDayAction) {
+    return state.copyWith(
+      repertoire: [],
+      isRepertoireLoading: false,
+      isRepertoireError: true,
     );
   } else if (action is ChangeRepertoireTimeOfTheDayAction) {
     return state.copyWith(selectedRepertoireTimeOfTheDay: action.timeOfTheDay);
   } else if (action is FetchDescriptedEventsAction) {
     return state.copyWith(isEventsLoading: true);
   } else if (action is FinishFetchDescriptedEventsAction) {
-    return state.copyWith(isEventsLoading: false, events: action.events);
+    return state.copyWith(
+      isEventsLoading: false,
+      events: action.events,
+    );
   } else if (action is FetchAnnouncementsLightAction) {
     return state.copyWith(isAnnouncementsLoading: true);
   } else if (action is FinishFetchAnnouncementsLightAction) {
     return state.copyWith(
-        isAnnouncementsLoading: false, announcements: action.announcments);
+      isAnnouncementsLoading: false,
+      announcements: action.announcments,
+    );
   }
 
   return state;

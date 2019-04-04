@@ -8,9 +8,11 @@ class MainPageState {
   MainPageState({
     this.featuredMovies,
     this.isFeaturedMoviesLoading,
+    this.isFeaturedMoviesError,
     this.selectedRepertoireTimeOfTheDay,
     this.repertoire,
     this.isRepertoireLoading,
+    this.isRepertoireError,
     this.events,
     this.isEventsLoading,
     this.announcements,
@@ -19,10 +21,12 @@ class MainPageState {
 
   final List<FeaturedMovieModel> featuredMovies;
   final bool isFeaturedMoviesLoading;
+  final bool isFeaturedMoviesError;
 
   final TimeOfTheDayEnum selectedRepertoireTimeOfTheDay;
   final List<RepertoireModel> repertoire;
   final bool isRepertoireLoading;
+  final bool isRepertoireError;
 
   final List<EventDescriptedModel> events;
   final bool isEventsLoading;
@@ -37,19 +41,23 @@ class MainPageState {
       selectedRepertoireTimeOfTheDay: getRepertoireTimeOfTheDayByNow(),
       repertoire: [],
       isRepertoireLoading: false,
+      isRepertoireError: false,
       events: [],
       isEventsLoading: false,
       announcements: [],
       isAnnouncementsLoading: false,
+      isFeaturedMoviesError: false,
     );
   }
 
   MainPageState copyWith({
     List<FeaturedMovieModel> featuredMovies,
     bool isFeaturedMoviesLoading,
+    bool isFeaturedMoviesError,
     TimeOfTheDayEnum selectedRepertoireTimeOfTheDay,
     List<RepertoireModel> repertoire,
     bool isRepertoireLoading,
+    bool isRepertoireError,
     List<EventDescriptedModel> events,
     bool isEventsLoading,
     List<AnnouncementModel> announcements,
@@ -59,10 +67,13 @@ class MainPageState {
       featuredMovies: featuredMovies ?? this.featuredMovies,
       isFeaturedMoviesLoading:
           isFeaturedMoviesLoading ?? this.isFeaturedMoviesLoading,
+      isFeaturedMoviesError:
+          isFeaturedMoviesError ?? this.isFeaturedMoviesError,
       selectedRepertoireTimeOfTheDay:
           selectedRepertoireTimeOfTheDay ?? this.selectedRepertoireTimeOfTheDay,
       repertoire: repertoire ?? this.repertoire,
       isRepertoireLoading: isRepertoireLoading ?? this.isRepertoireLoading,
+      isRepertoireError: isRepertoireError ?? this.isRepertoireError,
       events: events ?? this.events,
       isEventsLoading: isEventsLoading ?? this.isEventsLoading,
       announcements: announcements ?? this.announcements,
