@@ -1,10 +1,12 @@
 import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
 import 'package:helios_app/redux/actions/app/change_app_bar_visibility_action.dart';
+import 'package:helios_app/redux/actions/app/change_visibility_back_button_action.dart';
 import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
 import 'package:helios_app/redux/actions/select_cinema/select_cinema_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/redux/home/home_state_reducer.dart';
 import 'package:helios_app/redux/select_cinema/select_cinema_state_reducer.dart';
+import 'package:helios_app/redux/movie_detail/movie_detail_page_state_reducer.dart';
 
 AppState appStateReducer(AppState state, dynamic action) {
   if (action is SelectCinemaAction) {
@@ -15,11 +17,15 @@ AppState appStateReducer(AppState state, dynamic action) {
     return state.copyWith(showChangeCinemaButton: action.isVisible);
   } else if (action is ChangeAppBarVisibilityAction) {
     return state.copyWith(isAppBarVisible: action.isVisible);
+  } else if (action is ChangeVisibilityOfBackButtonAction) {
+    return state.copyWith(showBackButton: action.isVisible);
   }
 
   return state.copyWith(
     homeState: homeStateReducer(state.homeState, action),
     selectCinemaState:
         selectCinemaStateReducer(state.selectCinemaState, action),
+    movieDetailPageState:
+        movieDetailPageStateReducer(state.movieDetailPageState, action),
   );
 }

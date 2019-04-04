@@ -5,12 +5,14 @@ class ErrorButton extends StatelessWidget {
   ErrorButton({
     this.refreshClick,
     this.title,
+    this.content,
     this.fontSize = 16,
   });
 
   final VoidCallback refreshClick;
   final String title;
   final double fontSize;
+  final String content;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,9 @@ class ErrorButton extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
-          HeliosButton(content: "Spróbuj ponownie", onTap: this.refreshClick),
+          HeliosButton(
+              content: this.content ?? "Spróbuj ponownie",
+              onTap: this.refreshClick),
         ],
       ),
     );

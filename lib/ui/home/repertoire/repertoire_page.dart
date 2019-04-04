@@ -137,7 +137,7 @@ class _RepertoirePageState extends State<RepertoirePage> {
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: HeliosColors.backgroundFifthColorHex,
+              color: HeliosColors.backgroundFifth,
             ),
             height: this.repertoireItemHeight + additionalHeight,
             child: Row(

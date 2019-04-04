@@ -3,7 +3,10 @@ import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/ui/common/error_button.dart';
+import 'package:helios_app/ui/common/movie_header_hero.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+typedef FeaturedMovieTap = void Function(FeaturedMovieModel featuredMovie);
 
 class ImageCarousel extends StatefulWidget {
   ImageCarousel({
@@ -12,6 +15,7 @@ class ImageCarousel extends StatefulWidget {
     @required this.isLoading,
     @required this.isError,
     @required this.refreshClick,
+    @required this.onTap,
   });
 
   final List<FeaturedMovieModel> children;
@@ -19,6 +23,7 @@ class ImageCarousel extends StatefulWidget {
   final bool isLoading;
   final bool isError;
   final VoidCallback refreshClick;
+  final FeaturedMovieTap onTap;
 
   @override
   _ImageCarouselState createState() => _ImageCarouselState();
@@ -77,28 +82,34 @@ class _ImageCarouselState extends State<ImageCarousel> {
       },
       itemBuilder: (context, index) {
         FeaturedMovieModel item = widget.children[index];
-        return Stack(
-          children: [
-            Container(
-              height: widget.height,
-              child: Image.network(
-                item.imageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  stops: [0.0, 0.5],
-                  colors: [Colors.black54, Colors.transparent],
+        return GestureDetector(
+          onTap: () => widget.onTap(item),
+          child: Stack(
+            children: [
+              Container(
+                height: widget.height,
+                child: MovieHeaderHero(
+                  id: item.id,
+                  child: Image.network(
+                    item.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            _buildTitle(item.title),
-            _buildCategory(item.category),
-          ],
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    stops: [0.0, 0.5],
+                    colors: [Colors.black54, Colors.transparent],
+                  ),
+                ),
+              ),
+              _buildTitle(item.title),
+              _buildCategory(item.category),
+            ],
+          ),
         );
       },
     );

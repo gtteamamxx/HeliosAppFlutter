@@ -28,7 +28,6 @@ class MainPage extends StatelessWidget {
             FetchRepertoireForTimeOfTheDayAction(defaultTimeOfTheDay));
 
         store.dispatch(FetchDescriptedEventsAction());
-
         store.dispatch(FetchAnnouncementsLightAction());
       },
       builder: (context, viewModel) => ListView(
@@ -40,14 +39,16 @@ class MainPage extends StatelessWidget {
                 isLoading: viewModel.isFeaturedMoviesLoading,
                 isError: viewModel.isFeaturedMoviesError,
                 refreshClick: viewModel.onRefreshFeaturedMovies,
+                onTap: viewModel.onFeaturedMovieTap,
               ),
               RepertoireList(
                 repertoire: viewModel.repertoire,
                 isLoading: viewModel.isRepertoireLoading,
                 selectedTimeOfTheDay: viewModel.selectedRepertoireTimeOfTheDay,
-                onTimeOfTheDayChange: viewModel.onRepertoireTimeOfTheDayChange,
+                timeOfTheDayChange: viewModel.onRepertoireTimeOfTheDayChange,
                 isError: viewModel.isRepertoireError,
                 refreshClick: viewModel.onRefreshRepertoire,
+                repertoireClick: viewModel.onRepertoireClick,
               ),
               EventsList(
                 events: viewModel.events,

@@ -22,4 +22,6 @@ abstract class CinemaService {
   Future<List<AnnouncementModel>> getAnnouncementsLight();
 
   Future<List<PricingModel>> getPricingForCinema(int cinemaId);
+
+  Future<RepertoireModel> getRepertoireById(int repertoireId);
 }

@@ -10,12 +10,10 @@ import 'package:helios_app/ui/common/gradient_app_bar.dart';
 import 'package:helios_app/viewmodels/gradient_app_bar/gradient_app_bar_view_model.dart';
 import 'package:redux/redux.dart';
 import 'package:helios_app/other/routes.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   configureServiceLocator();
-  configureRoutes();
   await startNetworkWatcher();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
@@ -25,7 +23,6 @@ void main() async {
 
 class HeliosApp extends StatelessWidget {
   final Store<AppState> store = configureStore();
-  final Router router = serviceLocator.get<Router>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +38,7 @@ class HeliosApp extends StatelessWidget {
         theme: ThemeData.dark().copyWith(
           accentColor: Colors.blue,
         ),
-        onGenerateRoute: router.generator,
+        onGenerateRoute: routes,
         navigatorKey: NavigatorHelper.navigatorKey,
         builder: (context, widget) {
           return Column(
@@ -81,7 +78,12 @@ class HeliosApp extends StatelessWidget {
         fontSize: 20,
       ),
       showChangeCinemaButton: viewModel.showChangeCinemaButton,
-      onChangeCinemaTap: () => viewModel.onChangeCinemaTap(),
+      showBackButton: viewModel.showBackButton,
+      changeCinemaTap: () => viewModel.onChangeCinemaTap(),
+      backButtonTap: () {
+        NavigatorHelper.navigatorKey.currentState.pop();
+        viewModel.hideBackButton();
+      },
     );
   }
 }

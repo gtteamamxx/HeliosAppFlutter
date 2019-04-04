@@ -5,6 +5,7 @@ class FeaturedMovieModel {
     this.imageUrl,
     this.trailerUrl,
     this.category,
+    this.repertoireId,
   });
 
   final int id;
@@ -12,4 +13,5 @@ class FeaturedMovieModel {
   final String imageUrl;
   final String trailerUrl;
   final String category;
+  final int repertoireId;
 }

@@ -8,9 +8,11 @@ import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/ui/common/error_button.dart';
 import 'package:helios_app/ui/common/helios_selection_button.dart';
+import 'package:helios_app/ui/common/movie_hero.dart';
 import 'package:helios_app/ui/common/play_hours_builder.dart';
 
 typedef TimeOfTheDayChange = Function(TimeOfTheDayEnum timeOfTheDay);
+typedef RepertoireTap = Function(RepertoireModel repertoire);
 
 class RepertoireList extends StatelessWidget {
   RepertoireList({
@@ -18,21 +20,23 @@ class RepertoireList extends StatelessWidget {
     this.isLoading,
     this.isError,
     this.refreshClick,
-    this.onTimeOfTheDayChange,
+    this.timeOfTheDayChange,
     this.selectedTimeOfTheDay,
     this.maximumItemsPerSection = 3,
     this.maximumSectionsNumber = 2,
     this.sectionHeight = 350,
     this.sectionItemWidth = 150,
     this.infoSectionHeight = 350,
+    this.repertoireClick,
   });
 
   final List<RepertoireModel> repertoire;
   final bool isLoading;
   final bool isError;
   final VoidCallback refreshClick;
-  final TimeOfTheDayChange onTimeOfTheDayChange;
+  final TimeOfTheDayChange timeOfTheDayChange;
   final TimeOfTheDayEnum selectedTimeOfTheDay;
+  final RepertoireTap repertoireClick;
 
   final int maximumItemsPerSection;
   final int maximumSectionsNumber;
@@ -184,56 +188,62 @@ class RepertoireList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  height: 225,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        FadeInImage.assetNetwork(
-                          image: repertoireItem.imageUrl,
-                          placeholder: Constants.shimmerPath,
-                          fit: BoxFit.fill,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: [0.0, 0.3],
-                              colors: [Colors.black54, Colors.transparent],
+                GestureDetector(
+                  onTap: () => this.repertoireClick(repertoireItem),
+                  child: Container(
+                    height: 225,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          MovieHero(
+                            id: repertoireItem.id,
+                            child: FadeInImage.assetNetwork(
+                              image: repertoireItem.imageUrl,
+                              placeholder: Constants.shimmerPath,
+                              fit: BoxFit.fill,
                             ),
                           ),
-                        ),
-                        repertoireItem.label != null
-                            ? Positioned(
-                                top: 7,
-                                left: 7,
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 2,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: Color(
-                                      getColorHexFromStr(
-                                          repertoireItem.labelHex),
+                          Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                stops: [0.0, 0.3],
+                                colors: [Colors.black54, Colors.transparent],
+                              ),
+                            ),
+                          ),
+                          repertoireItem.label != null
+                              ? Positioned(
+                                  top: 7,
+                                  left: 7,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      color: Color(
+                                        getColorHexFromStr(
+                                            repertoireItem.labelHex),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      repertoireItem.label,
+                                      style: TextStyle(
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.w100,
+                                        fontSize: 11,
+                                      ),
                                     ),
                                   ),
-                                  child: Text(
-                                    repertoireItem.label,
-                                    style: TextStyle(
-                                      fontFamily: "Poppins",
-                                      fontWeight: FontWeight.w100,
-                                      fontSize: 11,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : Container(),
-                      ],
+                                )
+                              : Container(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -305,7 +315,7 @@ class RepertoireList extends StatelessWidget {
       child: HeliosSelectionButton(
         isSelected: isSelected,
         title: title,
-        onTap: () => this.onTimeOfTheDayChange(timeOfTheDay),
+        onTap: () => this.timeOfTheDayChange(timeOfTheDay),
       ),
     );
   }

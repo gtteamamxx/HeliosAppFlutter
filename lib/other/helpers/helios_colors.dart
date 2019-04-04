@@ -14,7 +14,7 @@ class HeliosColors {
       getColorByHex(Constants.backgroundTertiaryColorHex);
   static final Color backgroundFourth =
       getColorByHex(Constants.backgroundFourthColorHex);
-  static final Color backgroundFifthColorHex =
+  static final Color backgroundFifth =
       getColorByHex(Constants.backgroundFifthColorHex);
 
   static final Color homeIconActive = getColorByHex(Constants.homeIconColorHex);

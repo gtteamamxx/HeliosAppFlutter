@@ -1,9 +1,8 @@
-import 'package:fluro/fluro.dart';
 import 'package:helios_app/other/helpers/navigator_helper.dart';
 
 class NavigationService {
-  navigateTo(String route, {TransitionType transitionType}) {
+  navigateTo(String route) {
     NavigatorHelper.navigatorKey.currentState
-        .pushNamedAndRemoveUntil(route, (x) => x.isActive);
+        .pushNamedAndRemoveUntil(route, (x) => x.isFirst);
   }
 }

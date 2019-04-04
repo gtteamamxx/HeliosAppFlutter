@@ -1,22 +1,25 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:helios_app/other/service_locator.dart';
+import 'package:helios_app/models/repertoire/repertoire_model.dart';
 
 import 'package:helios_app/ui/home/home_page.dart';
+import 'package:helios_app/ui/movie_detail/movie_detail_page.dart';
 import 'package:helios_app/ui/select_cinema/select_cinema_page.dart';
 
-void configureRoutes() {
-  Router router = serviceLocator.get<Router>();
+Route<dynamic> routes(RouteSettings settings) {
+  if (settings.name == '/') {
+    return _buildRoute(SelectCinemaPage());
+  } else if (settings.name == '/home') {
+    return _buildRoute(HomePage());
+  } else if (settings.name == '/movie-detail') {
+    return _buildRoute(MovieDetailPage());
+  }
 
-  router.define('/',
-      handler: _buildRoute<SelectCinemaPage>(SelectCinemaPage()));
-
-  router.define('home', handler: _buildRoute<HomePage>(HomePage()));
+  throw Exception('Nie obsluzony routing');
 }
 
-Handler _buildRoute<T extends Widget>(T page) {
-  return Handler(
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+Route<dynamic> _buildRoute(page) {
+  return MaterialPageRoute(
+    builder: (BuildContext context) {
       return page;
     },
   );

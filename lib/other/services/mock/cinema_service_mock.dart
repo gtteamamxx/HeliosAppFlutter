@@ -64,19 +64,32 @@ class CinemaServiceMock implements CinemaService {
 
   static List<FeaturedMovieModel> _featuredMovies = [
     FeaturedMovieModel(
+      id: 0,
       imageUrl:
           "https://g.gazetaprawna.pl/p/_wspolne/pliki/4009000/4009923-thriller-glass-w-kinach-juz-657-323.jpg",
       title: "Glass",
       category: "Thriller",
       trailerUrl: "http://www.youtube.com",
+      repertoireId: 0,
     ),
     FeaturedMovieModel(
+      id: 1,
       imageUrl:
           "https://cdn.newsapi.com.au/image/v1/7a89013d506a80498984c698daf7a077?width=1024",
       title: "Iniemamocni -  wczorajszy dzień byłbardzo mocny ",
       category: "Komedia, Fantastyka",
       trailerUrl: "http://www.youtube.com",
+      repertoireId: 1,
     ),
+    FeaturedMovieModel(
+      id: 2,
+      imageUrl:
+          "https://i.wpimg.pl/O/644x359/d.wpimg.pl/1755570236--882446531/fuga.jpg",
+      title: "Fugo",
+      category: "Dramat",
+      trailerUrl: "https://www.youtube.com/watch?v=X59RHnuSXvY",
+      repertoireId: 3,
+    )
   ];
 
   static List<RepertoireModel> _todayRepertoire = _createTodayRepertoire(false);
@@ -430,6 +443,13 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
     });
   }
 
+  @override
+  Future<RepertoireModel> getRepertoireById(int repertoireId) {
+    return Future.delayed(Duration(seconds: 1), () {
+      return _todayRepertoire.firstWhere((x) => x.id == repertoireId);
+    });
+  }
+
   List<DateTime> _getPlayHoursForRepertoireItem(
       RepertoireModel repertoireItem, TimeOfTheDayEnum timeOfTheDay) {
     if (timeOfTheDay == TimeOfTheDayEnum.UntilNoon) {
@@ -446,25 +466,49 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
   static _createTodayRepertoire(bool trimHours) {
     return [
       new RepertoireModel(
-          id: 0,
-          category: "Dramat",
-          label: "KINO KONESERA",
-          title: "Fuga",
-          playHours: [
-            new DateTime(2019, 4, 12, 8, 50),
-            new DateTime(2019, 4, 12, 10, 50),
-            new DateTime(2019, 4, 12, 12, 50),
-            new DateTime(2019, 4, 12, 14, 50),
-            new DateTime(2019, 4, 12, 17, 30),
-            new DateTime(2019, 4, 12, 19, 30),
-            new DateTime(2019, 4, 12, 21, 30),
-          ],
-          imageUrl: "https://ssl-gfx.filmweb.pl/po/54/31/755431/7862766.3.jpg",
-          labelHex: "#1d5fa3",
-          duration: Duration(minutes: 103),
-          minYear: 15,
-          productionCountries: ["Czechy", "Polska", "Słowacja"],
-          productionYear: 2018),
+        id: 0,
+        category: "Dramat",
+        label: "KINO KONESERA",
+        title: "Fuga",
+        playHours: [
+          new DateTime(2019, 4, 12, 8, 50),
+          new DateTime(2019, 4, 12, 10, 50),
+          new DateTime(2019, 4, 12, 12, 50),
+          new DateTime(2019, 4, 12, 14, 50),
+          new DateTime(2019, 4, 12, 17, 30),
+          new DateTime(2019, 4, 12, 19, 30),
+          new DateTime(2019, 4, 12, 21, 30),
+        ],
+        imageUrl: "https://ssl-gfx.filmweb.pl/po/54/31/755431/7862766.3.jpg",
+        labelHex: "#1d5fa3",
+        duration: Duration(minutes: 103),
+        minYear: 15,
+        productionCountries: ["Czechy", "Polska", "Słowacja"],
+        productionYear: 2018,
+        videoImageUrl:
+            "https://i.wpimg.pl/O/644x359/d.wpimg.pl/1755570236--882446531/fuga.jpg",
+        actors: [
+          "Anya Taylor-Joy",
+          "James McAvoy",
+          "Bruce Willis",
+        ],
+        directors: [
+          "M. Night Shyamaian",
+          "Roy Amera",
+        ],
+        description:
+            "Mistrz horroru, reżyser kulturowego „Szóstego zmysłu”. M.Night Shyamaian powraca z najnowszym filmem  „Glass”!"
+            "W Rolach głównych: Bruce Willis, Samuel L.Jackson i James mcAvoy."
+            "Bestia budzi się w styczniu!",
+        releaseDate: DateTime(18, 1, 18),
+        screenWriters: ["M. Night Shyamaian"],
+        galleryUrls: [
+          "https://allbox.tv/static/filmy/20/20774/posters/nowy_film_iluzja_2.jpg",
+          "https://cdn1.stopklatka.pl/dat/movie/0000000005/0000005276/4qc9vl77gjzo16au9kdff2425.jpg",
+          "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
+          "https://cojestgrane.pl/l/5dz4.jpeg",
+        ],
+      ),
       new RepertoireModel(
         id: 1,
         title: "Diablo - Wyścig o wszystko",
@@ -480,6 +524,29 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
         minYear: 15,
         productionCountries: ["USA"],
         productionYear: 2019,
+        videoImageUrl:
+            "https://bi.im-g.pl/im/12/3b/17/z24362258IH,Diablo--Wyscig-o-wszystko.jpg",
+        actors: [
+          "Anya Taylor-Joy",
+          "James McAvoy",
+          "Bruce Willis",
+        ],
+        directors: [
+          "M. Night Shyamaian",
+          "Roy Amera",
+        ],
+        description:
+            "Mistrz horroru, reżyser kulturowego „Szóstego zmysłu”. M.Night Shyamaian powraca z najnowszym filmem  „Glass”!"
+            "W Rolach głównych: Bruce Willis, Samuel L.Jackson i James mcAvoy."
+            "Bestia budzi się w styczniu!",
+        releaseDate: DateTime(18, 1, 18),
+        screenWriters: ["M. Night Shyamaian"],
+        galleryUrls: [
+          "https://allbox.tv/static/filmy/20/20774/posters/nowy_film_iluzja_2.jpg",
+          "https://cdn1.stopklatka.pl/dat/movie/0000000005/0000005276/4qc9vl77gjzo16au9kdff2425.jpg",
+          "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
+          "https://cojestgrane.pl/l/5dz4.jpeg",
+        ],
       ),
       new RepertoireModel(
         id: 2,
@@ -501,6 +568,28 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
         ],
         productionYear: 2018,
         duration: Duration(minutes: 115),
+        videoImageUrl: "https://1.fwcdn.pl/an/np/875720/2016/3949_1.7.jpg",
+        actors: [
+          "Anya Taylor-Joy",
+          "James McAvoy",
+          "Bruce Willis",
+        ],
+        directors: [
+          "M. Night Shyamaian",
+          "Roy Amera",
+        ],
+        description:
+            "Mistrz horroru, reżyser kulturowego „Szóstego zmysłu”. M.Night Shyamaian powraca z najnowszym filmem  „Glass”!"
+            "W Rolach głównych: Bruce Willis, Samuel L.Jackson i James mcAvoy."
+            "Bestia budzi się w styczniu!",
+        releaseDate: DateTime(18, 1, 18),
+        screenWriters: ["M. Night Shyamaian"],
+        galleryUrls: [
+          "https://allbox.tv/static/filmy/20/20774/posters/nowy_film_iluzja_2.jpg",
+          "https://cdn1.stopklatka.pl/dat/movie/0000000005/0000005276/4qc9vl77gjzo16au9kdff2425.jpg",
+          "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
+          "https://cojestgrane.pl/l/5dz4.jpeg",
+        ],
       ),
       new RepertoireModel(
         id: 3,
@@ -517,6 +606,28 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
         productionCountries: ["USA"],
         productionYear: 2018,
         minYear: 6,
+        videoImageUrl: "https://i.ytimg.com/vi/R5fMi9OpiYo/maxresdefault.jpg",
+        actors: [
+          "Anya Taylor-Joy",
+          "James McAvoy",
+          "Bruce Willis",
+        ],
+        directors: [
+          "M. Night Shyamaian",
+          "Roy Amera",
+        ],
+        description:
+            "Mistrz horroru, reżyser kulturowego „Szóstego zmysłu”. M.Night Shyamaian powraca z najnowszym filmem  „Glass”!"
+            "W Rolach głównych: Bruce Willis, Samuel L.Jackson i James mcAvoy."
+            "Bestia budzi się w styczniu!",
+        releaseDate: DateTime(18, 1, 18),
+        screenWriters: ["M. Night Shyamaian"],
+        galleryUrls: [
+          "https://allbox.tv/static/filmy/20/20774/posters/nowy_film_iluzja_2.jpg",
+          "https://cdn1.stopklatka.pl/dat/movie/0000000005/0000005276/4qc9vl77gjzo16au9kdff2425.jpg",
+          "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
+          "https://cojestgrane.pl/l/5dz4.jpeg",
+        ],
       ),
       new RepertoireModel(
         id: 4,
@@ -534,6 +645,28 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
         minYear: 7,
         productionCountries: ["Chiny"],
         productionYear: 2018,
+        videoImageUrl: "https://i.ytimg.com/vi/odmaWkTYstU/maxresdefault.jpg",
+        actors: [
+          "Anya Taylor-Joy",
+          "James McAvoy",
+          "Bruce Willis",
+        ],
+        directors: [
+          "M. Night Shyamaian",
+          "Roy Amera",
+        ],
+        description:
+            "Mistrz horroru, reżyser kulturowego „Szóstego zmysłu”. M.Night Shyamaian powraca z najnowszym filmem  „Glass”!"
+            "W Rolach głównych: Bruce Willis, Samuel L.Jackson i James mcAvoy."
+            "Bestia budzi się w styczniu!",
+        releaseDate: DateTime(18, 1, 18),
+        screenWriters: ["M. Night Shyamaian"],
+        galleryUrls: [
+          "https://allbox.tv/static/filmy/20/20774/posters/nowy_film_iluzja_2.jpg",
+          "https://cdn1.stopklatka.pl/dat/movie/0000000005/0000005276/4qc9vl77gjzo16au9kdff2425.jpg",
+          "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
+          "https://cojestgrane.pl/l/5dz4.jpeg",
+        ],
       ),
       new RepertoireModel(
         id: 5,
@@ -560,6 +693,29 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
         duration: Duration(minutes: 124),
         productionCountries: ["USA"],
         productionYear: 2019,
+        videoImageUrl:
+            "https://occ-0-27-28.1.nflxso.net/art/3bd5b/709431a41fb1a1087a2c728434a7c15bb0f3bd5b.jpg",
+        actors: [
+          "Anya Taylor-Joy",
+          "James McAvoy",
+          "Bruce Willis",
+        ],
+        directors: [
+          "M. Night Shyamaian",
+          "Roy Amera",
+        ],
+        description:
+            "Mistrz horroru, reżyser kulturowego „Szóstego zmysłu”. M.Night Shyamaian powraca z najnowszym filmem  „Glass”!"
+            "W Rolach głównych: Bruce Willis, Samuel L.Jackson i James mcAvoy."
+            "Bestia budzi się w styczniu!",
+        releaseDate: DateTime(18, 1, 18),
+        screenWriters: ["M. Night Shyamaian"],
+        galleryUrls: [
+          "https://allbox.tv/static/filmy/20/20774/posters/nowy_film_iluzja_2.jpg",
+          "https://cdn1.stopklatka.pl/dat/movie/0000000005/0000005276/4qc9vl77gjzo16au9kdff2425.jpg",
+          "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
+          "https://cojestgrane.pl/l/5dz4.jpeg",
+        ],
       ),
     ];
   }

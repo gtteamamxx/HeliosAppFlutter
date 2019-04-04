@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage> {
                   : PageView(
                       children: viewModel.pages,
                       controller: _pageController,
+                      physics: NeverScrollableScrollPhysics(),
                       onPageChanged: (index) => viewModel.onChangePage(index),
                     ),
             ),

@@ -99,7 +99,7 @@ class _PricingPageState extends State<PricingPage>
       padding: EdgeInsets.all(10).copyWith(bottom: 2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: HeliosColors.backgroundFifthColorHex,
+        color: HeliosColors.backgroundFifth,
       ),
       child: _buildPriceGridFromPricing(pricing),
     );

@@ -9,8 +9,10 @@ import 'package:helios_app/redux/actions/home/main/fetch_announcements_light_act
 import 'package:helios_app/redux/actions/home/main/fetch_descripted_events_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_featured_movies_action.dart';
 import 'package:helios_app/redux/actions/home/main/fetch_repertoire_for_time_of_the_day_action.dart';
+import 'package:helios_app/redux/actions/show_movie_detail_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/redux/home/main/main_page_state.dart';
+import 'package:helios_app/ui/common/image_carousel.dart';
 import 'package:helios_app/ui/home/main/repertoire_list.dart';
 import 'package:redux/redux.dart';
 
@@ -34,6 +36,8 @@ class MainPageViewModel {
     this.isAnnouncementsLoading,
     this.isAnnouncementsError,
     this.onRefreshAnnouncements,
+    this.onFeaturedMovieTap,
+    this.onRepertoireClick,
   });
 
   final List<FeaturedMovieModel> featuredMovies;
@@ -58,6 +62,9 @@ class MainPageViewModel {
   final bool isAnnouncementsError;
   final VoidCallback onRefreshAnnouncements;
 
+  final FeaturedMovieTap onFeaturedMovieTap;
+  final RepertoireTap onRepertoireClick;
+
   static MainPageViewModel fromStore(Store<AppState> store) {
     MainPageState state = store.state.homeState.mainPageState;
     return MainPageViewModel(
@@ -81,6 +88,9 @@ class MainPageViewModel {
       isAnnouncementsLoading: state.isAnnouncementsLoading,
       isAnnouncementsError: state.isAnnouncementsError,
       onRefreshAnnouncements: () => _refreshAnnouncements(store),
+      onFeaturedMovieTap: (featuredMovie) =>
+          _onFeaturedMovieTap(store, featuredMovie),
+      onRepertoireClick: (repertoire) => _onRepertoireTap(store, repertoire),
     );
   }
 
@@ -113,5 +123,14 @@ class MainPageViewModel {
 
   static _refreshAnnouncements(Store<AppState> store) {
     store.dispatch(FetchAnnouncementsLightAction());
+  }
+
+  static _onFeaturedMovieTap(
+      Store<AppState> store, FeaturedMovieModel featuredMovie) {
+    store.dispatch(ShowMovieDetailByIdAction(repertoireId: featuredMovie.id));
+  }
+
+  static _onRepertoireTap(Store<AppState> store, RepertoireModel repertoire) {
+    store.dispatch(ShowMovieDetailAction(repertoire: repertoire));
   }
 }
