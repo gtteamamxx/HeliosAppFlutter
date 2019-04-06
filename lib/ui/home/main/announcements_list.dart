@@ -82,7 +82,7 @@ class AnnouncementsList extends StatelessWidget {
                         ),
                       ),
                       Image.asset(
-                        'assets/play_icon.png',
+                        Constants.playIconPath,
                         color: Colors.white.withAlpha(180),
                         scale: 2,
                       ),

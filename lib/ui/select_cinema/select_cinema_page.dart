@@ -78,13 +78,8 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
                                     child: InkWell(
                                       onTap: () => viewModel.onCinemaSelected(
                                           viewModel.cinemas[index]),
-                                      child: Container(
-                                        margin:
-                                            EdgeInsets.symmetric(vertical: 10),
-                                        padding: this.contentPadding,
-                                        child: _buildCinemaNameWidget(
-                                          viewModel.cinemas[index],
-                                        ),
+                                      child: _buildCinemaNameWidget(
+                                        viewModel.cinemas[index],
                                       ),
                                     ),
                                   );
@@ -102,7 +97,7 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
 
   _buildSearchCinemaTextField(SelectCinemaViewModel viewModel) {
     return Container(
-      padding: contentPadding,
+      padding: this.contentPadding,
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Material(
         color: Colors.transparent,
@@ -135,21 +130,24 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
     String cityName = spltitedCinemaName.first;
     String extendName = spltitedCinemaName.last;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        HeliosText(
-          cityName,
-          fontWeight: FontWeight.w600,
-        ),
-        Text(
-          "- Helios" + extendName,
-          style: TextStyle(
-            fontWeight: FontWeight.w100,
-            fontSize: 15,
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          HeliosText(
+            cityName,
+            fontWeight: FontWeight.w400,
           ),
-        )
-      ],
+          Text(
+            "- Helios" + extendName,
+            style: TextStyle(
+              fontWeight: FontWeight.w100,
+              fontSize: 15,
+            ),
+          )
+        ],
+      ),
     );
   }
 

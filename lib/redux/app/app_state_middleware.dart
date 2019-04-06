@@ -2,6 +2,7 @@ import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/other/helpers/navigator_helper.dart';
 import 'package:helios_app/other/service_locator.dart';
 import 'package:helios_app/other/services/navigation_service.dart';
+import 'package:helios_app/redux/actions/app/change_app_bar_visibility_action.dart';
 import 'package:helios_app/redux/actions/app/change_visibility_back_button_action.dart';
 import 'package:helios_app/redux/actions/movie_detail/fetch_concrete_repertoire_action.dart';
 import 'package:helios_app/redux/actions/navigate_action.dart';
@@ -27,6 +28,7 @@ void appStateMiddleware(
 }
 
 void _showImage(Store<AppState> store, ShowImageAction action) {
+  store.dispatch(ChangeAppBarVisibilityAction(isVisible: false));
   _navigateByRoute(NavigateAction(
     route: '/image-details',
     arguments: action.imageUrl,

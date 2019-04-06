@@ -1,4 +1,6 @@
 class Constants {
+  static final fontName = 'Poppins';
+
   static final appBarLeftColorHex = '#2A5495';
   static final appBarRightColorHex = '#0D2A5A';
   static final backgroundPrimaryColorHex = '#3e5275';
@@ -17,8 +19,9 @@ class Constants {
 
   static final spaceBetweenPlayHours = '   ';
 
-  static final double bottomBarHeight = 50;
+  static final bottomBarHeight = 50.0;
+
   static final shimmerPath = 'assets/shimmer_image.gif';
-  static final fontName = 'Poppins';
+  static final playIconPath = 'assets/play_icon.png';
   static final Duration fadeInDuration = Duration(milliseconds: 500);
 }

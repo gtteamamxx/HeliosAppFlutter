@@ -547,6 +547,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
           "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
           "https://cojestgrane.pl/l/5dz4.jpeg",
         ],
+        trailerUrl: "http://www.youtube.com",
       ),
       new RepertoireModel(
         id: 2,
@@ -590,6 +591,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
           "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
           "https://cojestgrane.pl/l/5dz4.jpeg",
         ],
+        trailerUrl: "http://www.youtube.com",
       ),
       new RepertoireModel(
         id: 3,
@@ -628,6 +630,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
           "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
           "https://cojestgrane.pl/l/5dz4.jpeg",
         ],
+        trailerUrl: "http://www.youtube.com",
       ),
       new RepertoireModel(
         id: 4,
@@ -667,6 +670,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
           "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
           "https://cojestgrane.pl/l/5dz4.jpeg",
         ],
+        trailerUrl: "http://www.youtube.com",
       ),
       new RepertoireModel(
         id: 5,
@@ -716,6 +720,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
           "https://static2.s-trojmiasto.pl/zdj/c/n/9/1625/620x0/1625181-Czterej-Jezdzcy-tym-razem-zamiast-Isli-Fisher-wsparci-Lizzy-Caplan-wracaja-na.jpg",
           "https://cojestgrane.pl/l/5dz4.jpeg",
         ],
+        trailerUrl: "http://www.youtube.com",
       ),
     ];
   }

@@ -7,8 +7,12 @@ import 'package:redux/redux.dart';
 typedef ImageTap = Function(String url);
 
 class MovieDetailPageViewModel {
-  MovieDetailPageViewModel(
-      {this.repertoire, this.isLoading, this.isError, this.onImageTap});
+  MovieDetailPageViewModel({
+    this.repertoire,
+    this.isLoading,
+    this.isError,
+    this.onImageTap,
+  });
 
   final RepertoireModel repertoire;
   final bool isError;

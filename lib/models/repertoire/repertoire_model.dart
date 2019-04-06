@@ -18,6 +18,7 @@ class RepertoireModel {
     this.screenWriters,
     this.actors,
     this.galleryUrls,
+    this.trailerUrl,
   });
 
   final int id;
@@ -38,6 +39,7 @@ class RepertoireModel {
   final List<String> screenWriters;
   final List<String> actors;
   final List<String> galleryUrls;
+  final String trailerUrl;
 
   RepertoireModel copyWithPlayHours({List<DateTime> playHours}) {
     return RepertoireModel(
@@ -59,6 +61,7 @@ class RepertoireModel {
       directors: this.directors,
       galleryUrls: this.galleryUrls,
       screenWriters: this.screenWriters,
+      trailerUrl: this.trailerUrl,
     );
   }
 }

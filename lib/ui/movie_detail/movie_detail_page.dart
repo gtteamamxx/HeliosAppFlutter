@@ -8,6 +8,7 @@ import 'package:helios_app/ui/common/movie_header_hero.dart';
 import 'package:helios_app/ui/common/movie_hero.dart';
 import 'package:helios_app/viewmodels/movie_detail/movie_detail_page_view_model.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetailPage extends StatelessWidget {
   @override
@@ -94,13 +95,27 @@ class MovieDetailPage extends StatelessWidget {
                   : MovieHeaderHero(
                       id: viewModel.repertoire.id,
                       child: GestureDetector(
-                        onTap: () => viewModel.onImageTap(
+                        onTap: () async {
+                          String url = viewModel.repertoire.trailerUrl;
+                          if (await canLaunch(url)) {
+                            launch(url);
+                          }
+                        },
+                        child: Stack(
+                          children: [
+                            Image.network(
                               viewModel.repertoire.videoImageUrl,
+                              alignment: Alignment.topCenter,
+                              fit: BoxFit.cover,
                             ),
-                        child: Image.network(
-                          viewModel.repertoire.videoImageUrl,
-                          alignment: Alignment.topCenter,
-                          fit: BoxFit.cover,
+                            Positioned.fill(
+                              child: Image.asset(
+                                Constants.playIconPath,
+                                color: Colors.white.withAlpha(180),
+                                scale: 2,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),
