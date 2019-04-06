@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 
 List<TextSpan> buildPlayHours(List<DateTime> playHours, {double fontSize}) {
   List<TextSpan> textSpans = [];
-
   playHours.forEach((playHour) {
     textSpans.add(
       TextSpan(
@@ -17,7 +16,6 @@ List<TextSpan> buildPlayHours(List<DateTime> playHours, {double fontSize}) {
         ),
       ),
     );
-
     textSpans.add(TextSpan(text: Constants.spaceBetweenPlayHours));
   });
 

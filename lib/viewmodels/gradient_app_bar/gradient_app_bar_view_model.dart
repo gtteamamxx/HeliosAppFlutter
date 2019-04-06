@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/redux/actions/app/change_visibility_back_button_action.dart';
 import 'package:helios_app/redux/actions/navigate_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:redux/redux.dart';

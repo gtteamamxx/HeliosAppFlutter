@@ -5,7 +5,6 @@ import 'package:helios_app/models/ui/home/page_enum.dart';
 import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
-import 'package:helios_app/redux/actions/app/change_visibility_back_button_action.dart';
 import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/resources/helios_fonts/helios_icons_icons.dart';

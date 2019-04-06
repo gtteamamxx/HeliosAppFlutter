@@ -27,9 +27,6 @@ class _RepertoirePageState extends State<RepertoirePage> {
   final double dateItemHeight = 80;
   final double repertoireItemHeight = 150;
   final double playHourItemFontSize = 15;
-  final double maxPlayHoursItemsInRow = 5;
-  final double additionalHeightForPlayHours = 10;
-  final double infoFontSize = 14;
   final double imageWidth = 100;
 
   @override
@@ -128,118 +125,116 @@ class _RepertoirePageState extends State<RepertoirePage> {
     List<Widget> widgets = [];
 
     for (RepertoireModel item in repertoire.repertoire) {
-      double additionalHeight = _getAdditionalHeightByPlayHours(item.playHours);
-
       widgets.add(
         GestureDetector(
           onTap: () => viewModel.onRepertoireTap(item),
-          child: Container(
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: HeliosColors.backgroundFifth,
-              ),
-              height: this.repertoireItemHeight + additionalHeight,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  ClipRRect(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: this.repertoireItemHeight),
+            child: IntrinsicHeight(
+              child: Container(
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    child: MovieHero(
-                      id: item.id,
-                      child: FadeInImage.assetNetwork(
-                        image: item.imageUrl,
-                        height: this.repertoireItemHeight,
-                        width: this.imageWidth,
-                        placeholder: Constants.shimmerPath,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    color: HeliosColors.backgroundFifth,
                   ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 2),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: MovieHero(
+                          id: item.id,
+                          child: FadeInImage.assetNetwork(
+                            image: item.imageUrl,
+                            width: this.imageWidth,
+                            placeholder: Constants.shimmerPath,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Expanded(
-                              child: HeliosText(
-                                item.title,
-                                height: 0.7,
-                                fontSize: 16,
-                              ),
-                            ),
-                            item.label != null
-                                ? Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 2,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      color: Color(
-                                        getColorHexFromStr(item.labelHex),
-                                      ),
-                                    ),
-                                    child: HeliosText(
-                                      item.label,
-                                      fontWeight: FontWeight.w100,
-                                      fontSize: 11,
-                                    ),
-                                  )
-                                : Container()
-                          ],
-                        ),
-                        HeliosText(
-                          item.category,
-                          color: HeliosColors.categoryFontColor,
-                          fontSize: 14,
-                        ),
-                        SizedBox(height: 10),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(text: "Od lat: ${item.minYear}"),
-                              TextSpan(
-                                text:
-                                    ", Czas trwania: ${item.duration.inMinutes} min.",
-                              ),
-                            ],
-                            style: TextStyle(
-                              fontFamily: Constants.fontName,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                        HeliosText(
-                          "Produkcja: ${item.productionCountries.join(", ")} [${item.productionYear}]",
-                          fontSize: 13,
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  children: buildPlayHours(
-                                    item.playHours,
-                                    fontSize: playHourItemFontSize,
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: HeliosText(
+                                    item.title,
+                                    height: 0.7,
+                                    fontSize: 16,
                                   ),
                                 ),
+                                item.label != null
+                                    ? Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 2,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          color: Color(
+                                            getColorHexFromStr(item.labelHex),
+                                          ),
+                                        ),
+                                        child: HeliosText(
+                                          item.label,
+                                          fontWeight: FontWeight.w100,
+                                          fontSize: 11,
+                                        ),
+                                      )
+                                    : Container()
+                              ],
+                            ),
+                            HeliosText(
+                              item.category,
+                              color: HeliosColors.categoryFontColor,
+                              fontSize: 14,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(text: "Od lat: ${item.minYear}"),
+                                  TextSpan(
+                                    text:
+                                        ", Czas trwania: ${item.duration.inMinutes} min.",
+                                  ),
+                                ],
+                                style: TextStyle(
+                                  fontFamily: Constants.fontName,
+                                  fontSize: 13,
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                            HeliosText(
+                              "Produkcja: ${item.productionCountries.join(", ")} [${item.productionYear}]",
+                              fontSize: 13,
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  RichText(
+                                    text: TextSpan(
+                                      children: buildPlayHours(
+                                        item.playHours,
+                                        fontSize: playHourItemFontSize,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              )),
+                      ),
+                    ],
+                  )),
+            ),
+          ),
         ),
       );
     }
@@ -253,14 +248,5 @@ class _RepertoirePageState extends State<RepertoirePage> {
 
   String _capitalize(String text) {
     return text[0].toUpperCase() + text.substring(1);
-  }
-
-  double _getAdditionalHeightByPlayHours(List<DateTime> playHours) {
-    if (playHours.isEmpty) {
-      return 0;
-    }
-
-    return ((playHours.length / this.maxPlayHoursItemsInRow) - 1).ceil() *
-        this.additionalHeightForPlayHours;
   }
 }

@@ -50,14 +50,6 @@ class RepertoireList extends StatelessWidget {
   final double itemHoursFontSize = 15;
   final double itemTitleFontSize = 15;
   final double itemCategoryFontSize = 14;
-  final double additionalHeightForExtraPlayHour = 15;
-
-  get playHourMaxRowsInLine {
-    const playHourCharNumber = 4;
-    int maxRows =
-        ((sectionItemWidth / itemHoursFontSize) / playHourCharNumber).ceil();
-    return maxRows;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,119 +163,130 @@ class RepertoireList extends StatelessWidget {
 
   _buildRepertoireSection(
       List<RepertoireModel> repertoire, Color backgroundColor) {
-    double additionalSectionHeight = _getAddtionalSectionHeight(repertoire);
-    return Container(
-      height: this.sectionHeight + additionalSectionHeight,
-      padding: EdgeInsets.only(top: 20, bottom: 10),
-      color: backgroundColor,
-      child: ListView.builder(
-        itemCount: repertoire.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          RepertoireModel repertoireItem = repertoire[index];
-          return Container(
-            width: this.sectionItemWidth,
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                GestureDetector(
-                  onTap: () => this.repertoireClick(repertoireItem),
-                  child: Container(
-                    height: 225,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          MovieHero(
-                            id: repertoireItem.id,
-                            child: FadeInImage.assetNetwork(
-                              image: repertoireItem.imageUrl,
-                              placeholder: Constants.shimmerPath,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                stops: [0.0, 0.3],
-                                colors: [Colors.black54, Colors.transparent],
-                              ),
-                            ),
-                          ),
-                          repertoireItem.label != null
-                              ? Positioned(
-                                  top: 7,
-                                  left: 7,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 2,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      color: Color(
-                                        getColorHexFromStr(
-                                            repertoireItem.labelHex),
-                                      ),
-                                    ),
-                                    child: HeliosText(
-                                      repertoireItem.label,
-                                      fontWeight: FontWeight.w100,
-                                      fontSize: 11,
-                                      height: null,
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: this.sectionHeight),
+      child: Container(
+        padding: EdgeInsets.only(top: 20, bottom: 10),
+        color: backgroundColor,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: repertoire.map((repertoireItem) {
+                return Container(
+                  width: this.sectionItemWidth,
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () => this.repertoireClick(repertoireItem),
+                        child: Container(
+                          height: 225,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                MovieHero(
+                                  id: repertoireItem.id,
+                                  child: FadeInImage.assetNetwork(
+                                    image: repertoireItem.imageUrl,
+                                    placeholder: Constants.shimmerPath,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      stops: [0.0, 0.3],
+                                      colors: [
+                                        Colors.black54,
+                                        Colors.transparent
+                                      ],
                                     ),
                                   ),
-                                )
-                              : Container(),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 8),
-                        HeliosText(
-                          repertoireItem.title,
-                          fontSize: itemTitleFontSize,
-                          height: 0.7,
+                                ),
+                                repertoireItem.label != null
+                                    ? Positioned(
+                                        top: 7,
+                                        left: 7,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 2,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            color: Color(
+                                              getColorHexFromStr(
+                                                  repertoireItem.labelHex),
+                                            ),
+                                          ),
+                                          child: HeliosText(
+                                            repertoireItem.label,
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 11,
+                                            height: null,
+                                          ),
+                                        ),
+                                      )
+                                    : Container(),
+                              ],
+                            ),
+                          ),
                         ),
-                        HeliosText(
-                          repertoireItem.category,
-                          color: HeliosColors.categoryFontColor,
-                          fontSize: itemCategoryFontSize,
-                          height: 1.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4),
-                  child: RichText(
-                    text: TextSpan(
-                      children: buildPlayHours(
-                        repertoireItem.playHours,
-                        fontSize: itemHoursFontSize,
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(height: 8),
+                            HeliosText(
+                              repertoireItem.title,
+                              fontSize: itemTitleFontSize,
+                              height: 0.7,
+                            ),
+                            HeliosText(
+                              repertoireItem.category,
+                              color: HeliosColors.categoryFontColor,
+                              fontSize: itemCategoryFontSize,
+                              height: 1.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 4),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: buildPlayHours(
+                                    repertoireItem.playHours,
+                                    fontSize: itemHoursFontSize,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                );
+              }).toList(),
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
@@ -342,20 +345,5 @@ class RepertoireList extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  double _getAddtionalSectionHeight(List<RepertoireModel> repertoire) {
-    if (repertoire.isEmpty) {
-      return 0;
-    }
-
-    int playHoursMaxNumber =
-        repertoire.map((x) => x.playHours.length).reduce(max);
-
-    double additionalHeight =
-        (playHoursMaxNumber / this.playHourMaxRowsInLine).ceil() *
-            this.additionalHeightForExtraPlayHour;
-
-    return additionalHeight;
   }
 }

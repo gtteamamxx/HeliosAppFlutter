@@ -4,7 +4,6 @@ import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/helios_text.dart';
-import 'package:helios_app/ui/common/image_details.dart';
 import 'package:helios_app/ui/common/movie_header_hero.dart';
 import 'package:helios_app/ui/common/movie_hero.dart';
 import 'package:helios_app/viewmodels/movie_detail/movie_detail_page_view_model.dart';
