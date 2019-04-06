@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 import 'package:helios_app/ui/common/movie_header_hero.dart';
 import 'package:helios_app/ui/common/movie_hero.dart';
 import 'package:helios_app/viewmodels/movie_detail/movie_detail_page_view_model.dart';
@@ -33,16 +34,13 @@ class MovieDetailPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        HeliosText(
           title,
-          style: TextStyle(
-            fontSize: 20,
-            fontFamily: "Poppins",
-          ),
+          fontSize: 20,
         ),
-        Text(
+        HeliosText(
           content,
-          style: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w300),
+          fontWeight: FontWeight.w300,
         ),
         SizedBox(height: 10),
       ],
@@ -68,12 +66,9 @@ class MovieDetailPage extends StatelessWidget {
           _buildContentSection(
               "Obsada", viewModel.repertoire.actors.join(", ")),
           SizedBox(height: 10),
-          Text(
+          HeliosText(
             "Galeria zdjęć",
-            style: TextStyle(
-              fontSize: 20,
-              fontFamily: "Poppins",
-            ),
+            fontSize: 20,
           ),
         ],
       ),
@@ -166,40 +161,28 @@ class MovieDetailPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        HeliosText(
                           viewModel.repertoire.title,
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontFamily: "Poppins",
-                            height: 0.7,
-                          ),
+                          fontSize: 22,
+                          height: 0.7,
                         ),
-                        Text(
+                        HeliosText(
                           "Premiera: ${DateFormat("dd.MM.yyyy").format(viewModel.repertoire.releaseDate)}",
-                          style: TextStyle(
-                            color: HeliosColors.categoryFontColor,
-                            fontSize: 16,
-                            fontFamily: "Poppins",
-                            height: 0.8,
-                          ),
+                          color: HeliosColors.categoryFontColor,
+                          fontSize: 14,
+                          height: 0.8,
                         ),
-                        Text(
+                        HeliosText(
                           "Od lat: ${viewModel.repertoire.minYear} / Produkcja: ${viewModel.repertoire.productionCountries.join(", ")} [${viewModel.repertoire.productionYear}]",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: HeliosColors.categoryFontColor,
-                            fontFamily: "Poppins",
-                            height: 0.7,
-                          ),
+                          fontSize: 14,
+                          color: HeliosColors.categoryFontColor,
+                          height: 0.7,
                         ),
                         SizedBox(height: 10),
-                        Text(
+                        HeliosText(
                           viewModel.repertoire.category,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: HeliosColors.categoryFontColor,
-                            fontFamily: "Poppins",
-                          ),
+                          fontSize: 16,
+                          color: HeliosColors.categoryFontColor,
                         ),
                       ],
                     ),
