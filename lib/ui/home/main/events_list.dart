@@ -4,6 +4,7 @@ import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/ui/common/error_button.dart';
 import 'package:helios_app/ui/common/headered_widget.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 
 class EventsList extends StatelessWidget {
   EventsList({
@@ -65,13 +66,10 @@ class EventsList extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
+              HeliosText(
                 event.title,
-                style: TextStyle(
-                  fontFamily: "Poppins",
-                  fontSize: this.eventHeaderFontSize,
-                  fontWeight: FontWeight.w600,
-                ),
+                fontSize: this.eventHeaderFontSize,
+                fontWeight: FontWeight.w600,
               ),
               SizedBox(height: 10),
               Expanded(
@@ -92,13 +90,10 @@ class EventsList extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
+                        child: HeliosText(
                           event.description,
-                          style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: this.eventDescriptionFontSize,
-                            fontWeight: FontWeight.w100,
-                          ),
+                          fontSize: this.eventDescriptionFontSize,
+                          fontWeight: FontWeight.w100,
                         ),
                       ),
                     ),

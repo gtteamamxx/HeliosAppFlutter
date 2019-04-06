@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
 
 import 'package:helios_app/ui/home/home_page.dart';
 import 'package:helios_app/ui/movie_detail/movie_detail_page.dart';

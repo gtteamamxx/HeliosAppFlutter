@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 
 class HeaderedWidget extends StatelessWidget {
   HeaderedWidget({
@@ -40,12 +41,9 @@ class HeaderedWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(
+                HeliosText(
                   this.title,
-                  style: TextStyle(
-                    fontFamily: "Popppins",
-                    fontSize: 22,
-                  ),
+                  fontSize: 22,
                 ),
                 this.additionalChild ?? _buildButton() ?? Container(),
               ],
@@ -65,12 +63,10 @@ class HeaderedWidget extends StatelessWidget {
     return Container(
       child: InkWell(
         onTap: () => this.onButtonTap(),
-        child: Text(
+        child: HeliosText(
           this.buttonText,
-          style: TextStyle(
-            decoration: TextDecoration.underline,
-            fontSize: 14,
-          ),
+          textDecoration: TextDecoration.underline,
+          fontSize: 14,
         ),
       ),
     );

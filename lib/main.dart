@@ -71,19 +71,10 @@ class HeliosApp extends StatelessWidget {
       title: viewModel.title,
       colorFrom: HeliosColors.appBarLeft,
       colorTo: HeliosColors.appBarRight,
-      titleStyle: TextStyle(
-        fontFamily: "Poppins",
-        fontWeight: FontWeight.w100,
-        color: Colors.white,
-        fontSize: 20,
-      ),
       showChangeCinemaButton: viewModel.showChangeCinemaButton,
       showBackButton: viewModel.showBackButton,
       changeCinemaTap: () => viewModel.onChangeCinemaTap(),
-      backButtonTap: () {
-        NavigatorHelper.navigatorKey.currentState.pop();
-        viewModel.hideBackButton();
-      },
+      backButtonTap: () => viewModel.onBackButtonPressed(),
     );
   }
 }

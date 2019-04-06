@@ -34,7 +34,7 @@ class MainPage extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: [
               ImageCarousel(
-                height: 250,
+                height: 225,
                 children: viewModel.featuredMovies,
                 isLoading: viewModel.isFeaturedMoviesLoading,
                 isError: viewModel.isFeaturedMoviesError,

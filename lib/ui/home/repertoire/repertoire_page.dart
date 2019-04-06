@@ -9,6 +9,8 @@ import 'package:helios_app/redux/actions/home/repertoire/fetch_repertoire_action
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/error_button.dart';
 import 'package:helios_app/ui/common/helios_selection_button.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app/ui/common/movie_hero.dart';
 import 'package:helios_app/viewmodels/home/repertoire/repertoire_page_view_model.dart';
 import 'package:helios_app/ui/common/play_hours_builder.dart';
 
@@ -53,7 +55,7 @@ class _RepertoirePageState extends State<RepertoirePage> {
     if (viewModel.isError) {
       return ErrorButton(
         title: "Wystapił problem podczas pobierania reperturaru",
-        refreshClick: viewModel.onRefreshClick,
+        refreshClick: viewModel.onRefreshTap,
       );
     }
 
@@ -97,21 +99,18 @@ class _RepertoirePageState extends State<RepertoirePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Text(
+                    HeliosText(
                       _capitalize(
                         DateFormat("EE",
                                 Localizations.localeOf(context).languageCode)
                             .format(repertoire.date)
                             .replaceFirst(".", ""),
                       ),
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: fontColor,
-                      ),
+                      color: fontColor,
                     ),
-                    Text(
+                    HeliosText(
                       DateFormat("dd.MM").format(repertoire.date),
-                      style: TextStyle(color: fontColor),
+                      color: fontColor,
                     ),
                   ],
                 ),
@@ -132,112 +131,116 @@ class _RepertoirePageState extends State<RepertoirePage> {
       double additionalHeight = _getAdditionalHeightByPlayHours(item.playHours);
 
       widgets.add(
-        Container(
-            padding: EdgeInsets.all(5),
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: HeliosColors.backgroundFifth,
-            ),
-            height: this.repertoireItemHeight + additionalHeight,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: FadeInImage.assetNetwork(
-                    image: item.imageUrl,
-                    height: this.repertoireItemHeight,
-                    width: this.imageWidth,
-                    placeholder: Constants.shimmerPath,
-                    fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () => viewModel.onRepertoireTap(item),
+          child: Container(
+              padding: EdgeInsets.all(5),
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: HeliosColors.backgroundFifth,
+              ),
+              height: this.repertoireItemHeight + additionalHeight,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: MovieHero(
+                      id: item.id,
+                      child: FadeInImage.assetNetwork(
+                        image: item.imageUrl,
+                        height: this.repertoireItemHeight,
+                        width: this.imageWidth,
+                        placeholder: Constants.shimmerPath,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              item.title,
-                              style: TextStyle(fontSize: 15),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(height: 2),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Expanded(
+                              child: HeliosText(
+                                item.title,
+                                height: 0.7,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          item.label != null
-                              ? Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 2,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: Color(
-                                      getColorHexFromStr(item.labelHex),
+                            item.label != null
+                                ? Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 2,
                                     ),
-                                  ),
-                                  child: Text(
-                                    item.label,
-                                    style: TextStyle(
-                                      fontFamily: "Poppins",
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      color: Color(
+                                        getColorHexFromStr(item.labelHex),
+                                      ),
+                                    ),
+                                    child: HeliosText(
+                                      item.label,
                                       fontWeight: FontWeight.w100,
                                       fontSize: 11,
                                     ),
-                                  ),
-                                )
-                              : Container()
-                        ],
-                      ),
-                      Text(
-                        item.category,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: HeliosColors.categoryFontColor,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      RichText(
-                          text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "Od lat: ${item.minYear}",
-                            style: TextStyle(fontSize: infoFontSize),
-                          ),
-                          TextSpan(
-                            text:
-                                ", Czas trwania: ${item.duration.inMinutes} min.",
-                            style: TextStyle(fontSize: infoFontSize),
-                          ),
-                        ],
-                      )),
-                      Text(
-                        "Produkcja: ${item.productionCountries.join(", ")} [${item.productionYear}]",
-                        style: TextStyle(fontSize: infoFontSize),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                children: buildPlayHours(
-                                  item.playHours,
-                                  fontSize: playHourItemFontSize,
-                                ),
-                              ),
-                            ),
+                                  )
+                                : Container()
                           ],
                         ),
-                      ),
-                    ],
+                        HeliosText(
+                          item.category,
+                          color: HeliosColors.categoryFontColor,
+                          fontSize: 14,
+                        ),
+                        SizedBox(height: 10),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: "Od lat: ${item.minYear}"),
+                              TextSpan(
+                                text:
+                                    ", Czas trwania: ${item.duration.inMinutes} min.",
+                              ),
+                            ],
+                            style: TextStyle(
+                              fontFamily: Constants.fontName,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        HeliosText(
+                          "Produkcja: ${item.productionCountries.join(", ")} [${item.productionYear}]",
+                          fontSize: 13,
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  children: buildPlayHours(
+                                    item.playHours,
+                                    fontSize: playHourItemFontSize,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            )),
+                ],
+              )),
+        ),
       );
     }
 

@@ -11,7 +11,7 @@ class GradientAppBarViewModel {
     this.onChangeCinemaTap,
     this.isVisible,
     this.showBackButton,
-    this.hideBackButton,
+    this.onBackButtonPressed,
   });
 
   final String title;
@@ -19,7 +19,7 @@ class GradientAppBarViewModel {
   final bool showBackButton;
   final VoidCallback onChangeCinemaTap;
   final bool isVisible;
-  final VoidCallback hideBackButton;
+  final VoidCallback onBackButtonPressed;
 
   static GradientAppBarViewModel fromStore(Store<AppState> store) {
     return GradientAppBarViewModel(
@@ -28,7 +28,7 @@ class GradientAppBarViewModel {
       isVisible: store.state.isAppBarVisible,
       showBackButton: store.state.showBackButton,
       onChangeCinemaTap: () => _showChangeCinemaPage(store),
-      hideBackButton: () => _hideBackButton(store),
+      onBackButtonPressed: () => _backButtonPressed(store),
     );
   }
 
@@ -36,7 +36,9 @@ class GradientAppBarViewModel {
     store.dispatch(NavigateAction(route: '/'));
   }
 
-  static void _hideBackButton(Store<AppState> store) {
-    store.dispatch(ChangeVisibilityOfBackButtonAction(isVisible: false));
+  static void _backButtonPressed(Store<AppState> store) {
+    if (store.state.backAction != null) {
+      store.state.backAction();
+    }
   }
 }

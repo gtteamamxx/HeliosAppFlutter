@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:helios_app/resources/helios_fonts/helios_icons_icons.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 
 class GradientAppBar extends StatelessWidget {
   GradientAppBar({
@@ -7,7 +8,6 @@ class GradientAppBar extends StatelessWidget {
     this.colorFrom,
     this.colorTo,
     this.barHeight = 50,
-    this.titleStyle,
     this.showChangeCinemaButton,
     this.showBackButton,
     this.changeCinemaTap,
@@ -18,7 +18,6 @@ class GradientAppBar extends StatelessWidget {
   final double barHeight;
   final Color colorFrom;
   final Color colorTo;
-  final TextStyle titleStyle;
   final bool showChangeCinemaButton;
   final bool showBackButton;
   final VoidCallback changeCinemaTap;
@@ -50,11 +49,12 @@ class GradientAppBar extends StatelessWidget {
               flex: 9,
               child: Material(
                 color: Colors.transparent,
-                child: Text(
+                child: HeliosText(
                   this.title,
-                  style: this.titleStyle,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 20,
                 ),
               ),
             ),

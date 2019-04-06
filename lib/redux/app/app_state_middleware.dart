@@ -30,8 +30,19 @@ void _showMovieDetails(Store<AppState> store, Object arguments) {
     store.dispatch(FetchConcreteRepertoireAction(arguments as int));
   }
 
-  store.dispatch(ChangeVisibilityOfBackButtonAction(isVisible: true));
+  store.dispatch(ChangeVisibilityOfBackButtonAction(
+    isVisible: true,
+    backAction: () {
+      _popWithHide(store);
+    },
+  ));
   NavigatorHelper.navigatorKey.currentState.pushNamed('/movie-detail');
+}
+
+void _popWithHide(Store<AppState> store) {
+  NavigatorHelper.navigatorKey.currentState.maybePop();
+  store.dispatch(
+      ChangeVisibilityOfBackButtonAction(isVisible: false, backAction: null));
 }
 
 _navigateByRoute(NavigateAction navigateAction) {

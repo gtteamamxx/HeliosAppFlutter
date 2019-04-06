@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 
 class HeliosButton extends StatelessWidget {
   HeliosButton({
@@ -35,13 +36,10 @@ class HeliosButton extends StatelessWidget {
         onPressed: () => this.onTap(),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Text(
+          child: HeliosText(
             content,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: "Poppins",
-              fontSize: 17,
-            ),
+            fontSize: 17,
           ),
         ),
       ),

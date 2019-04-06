@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helios_app/ui/common/helios_button.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 
 class ErrorButton extends StatelessWidget {
   ErrorButton({
@@ -21,15 +22,16 @@ class ErrorButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(
+          HeliosText(
             this.title,
-            style: TextStyle(fontFamily: "Poppins", fontSize: this.fontSize),
+            fontSize: this.fontSize,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
           HeliosButton(
-              content: this.content ?? "Spróbuj ponownie",
-              onTap: this.refreshClick),
+            content: this.content ?? "Spróbuj ponownie",
+            onTap: this.refreshClick,
+          ),
         ],
       ),
     );

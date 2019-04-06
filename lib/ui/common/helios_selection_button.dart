@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 
 class HeliosSelectionButton extends StatelessWidget {
   HeliosSelectionButton({
@@ -48,14 +49,10 @@ class HeliosSelectionButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 5),
           child: Center(
             child: this.title != null
-                ? Text(
+                ? HeliosText(
                     this.title,
-                    style: TextStyle(
-                      fontFamily: "Poppins",
-                      fontSize: 16,
-                      fontWeight:
-                          isSelected ? FontWeight.w600 : FontWeight.w100,
-                    ),
+                    fontSize: 16,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w100,
                   )
                 : this.child,
           ),

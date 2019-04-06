@@ -3,6 +3,7 @@ import 'package:helios_app/models/ui/home/page_enum.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/home/change_home_page_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 import 'package:redux/redux.dart';
 
 typedef OnChangePage = void Function(int index);
@@ -53,10 +54,11 @@ class HomePageViewModel {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(icon, color: color),
-            Text(
+            HeliosText(
               title,
-              style: TextStyle(fontSize: 12, color: color),
-            )
+              color: color,
+              fontSize: 12,
+            ),
           ],
         ),
       ),

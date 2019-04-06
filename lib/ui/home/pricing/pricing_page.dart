@@ -8,6 +8,7 @@ import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/home/pricing/fetch_pricing_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/error_button.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 import 'package:helios_app/viewmodels/home/pricing/pricing_page_view_model.dart';
 
 class PricingPage extends StatefulWidget {
@@ -89,7 +90,10 @@ class _PricingPageState extends State<PricingPage>
     String description = pricing[_selectedPricingIndex].ruleDescription;
     return Container(
       margin: EdgeInsets.only(top: 10),
-      child: Text(description),
+      child: HeliosText(
+        description,
+        fontSize: 13,
+      ),
     );
   }
 
@@ -125,9 +129,11 @@ class _PricingPageState extends State<PricingPage>
       List<PriceIndentifiedByDayModel> prices = ticketPriceDict[ticket];
       widgets.addAll([
         SizedBox(height: 10),
-        Text(
+        HeliosText(
           ticket.name,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+          height: 0.7,
         ),
         SizedBox(height: 10),
         Row(
@@ -139,11 +145,13 @@ class _PricingPageState extends State<PricingPage>
             return Expanded(
               child: price == null
                   ? Container()
-                  : Text(
+                  : HeliosText(
                       "${price.price.toStringAsFixed(2)} zł",
                       textAlign: index == _priceGridHeaderDaysIds.length
                           ? TextAlign.right
                           : index == 1 ? TextAlign.left : TextAlign.center,
+                      fontSize: 13,
+                      height: 0.7,
                     ),
             );
           }).toList(),
@@ -165,11 +173,9 @@ class _PricingPageState extends State<PricingPage>
       children: pricing.days.map((day) {
         _priceGridHeaderDaysIds.add(day.id);
         return Expanded(
-          child: Text(
+          child: HeliosText(
             day.dayName,
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-            ),
+            fontSize: 13,
             textAlign: _priceGridHeaderDaysIds.length == pricing.days.length
                 ? TextAlign.right
                 : _priceGridHeaderDaysIds.length == 1
@@ -208,13 +214,10 @@ class _PricingPageState extends State<PricingPage>
                 }
               });
             },
-            child: Text(
+            child: HeliosText(
               pricingModel.title,
-              style: TextStyle(
-                fontFamily: "Poppins",
-                fontSize: 17,
-                color: _getColorForButtonIndex(index: i),
-              ),
+              fontSize: 17,
+              color: _getColorForButtonIndex(index: i),
             ),
           ),
         ),

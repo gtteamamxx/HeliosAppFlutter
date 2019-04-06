@@ -8,6 +8,7 @@ import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/ui/common/error_button.dart';
 import 'package:helios_app/ui/common/helios_selection_button.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 import 'package:helios_app/ui/common/movie_hero.dart';
 import 'package:helios_app/ui/common/play_hours_builder.dart';
 
@@ -160,8 +161,8 @@ class RepertoireList extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Niestety, ale nie mamy filmów o tej porze dnia"),
-            Text("Spróbuj wybrać inną")
+            HeliosText("Niestety, ale nie mamy filmów o tej porze dnia"),
+            HeliosText("Spróbuj wybrać inną")
           ],
         ),
       ),
@@ -231,13 +232,11 @@ class RepertoireList extends StatelessWidget {
                                             repertoireItem.labelHex),
                                       ),
                                     ),
-                                    child: Text(
+                                    child: HeliosText(
                                       repertoireItem.label,
-                                      style: TextStyle(
-                                        fontFamily: "Poppins",
-                                        fontWeight: FontWeight.w100,
-                                        fontSize: 11,
-                                      ),
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 11,
+                                      height: null,
                                     ),
                                   ),
                                 )
@@ -255,20 +254,16 @@ class RepertoireList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         SizedBox(height: 8),
-                        Text(
+                        HeliosText(
                           repertoireItem.title,
-                          style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: itemTitleFontSize,
-                            height: 0.8,
-                          ),
+                          fontSize: itemTitleFontSize,
+                          height: 0.7,
                         ),
-                        Text(
+                        HeliosText(
                           repertoireItem.category,
-                          style: TextStyle(
-                            color: HeliosColors.categoryFontColor,
-                            fontSize: itemCategoryFontSize,
-                          ),
+                          color: HeliosColors.categoryFontColor,
+                          fontSize: itemCategoryFontSize,
+                          height: 1.0,
                         ),
                       ],
                     ),
@@ -326,9 +321,9 @@ class RepertoireList extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
+          HeliosText(
             "Repertuar",
-            style: TextStyle(fontFamily: "Poppins", fontSize: 22),
+            fontSize: 22,
           ),
           SizedBox(width: 5),
           Text(
@@ -339,13 +334,10 @@ class RepertoireList extends StatelessWidget {
             ),
           ),
           SizedBox(width: 5),
-          Text(
+          HeliosText(
             "Środa 23.01",
-            style: TextStyle(
-              fontFamily: "Poppins",
-              fontSize: 15,
-              fontWeight: FontWeight.w100,
-            ),
+            fontSize: 15,
+            fontWeight: FontWeight.w100,
           ),
         ],
       ),

@@ -11,7 +11,7 @@ List<TextSpan> buildPlayHours(List<DateTime> playHours, {double fontSize}) {
         text: "${DateFormat("HH:mm").format(playHour)}",
         style: TextStyle(
           decoration: TextDecoration.underline,
-          fontFamily: "Poppins",
+          fontFamily: Constants.fontName,
           fontSize: fontSize,
           fontWeight: FontWeight.w100,
         ),

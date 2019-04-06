@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:helios_app/models/cinema/cinema_model.dart';
 import 'package:helios_app/redux/home/home_state.dart';
 import 'package:helios_app/redux/movie_detail/movie_detail_page_state.dart';
@@ -22,6 +23,7 @@ class AppState {
     @required this.selectedCinema,
     @required this.isAppBarVisible,
     @required this.showBackButton,
+    @required this.backAction,
   });
 
   final String appBarTitle;
@@ -32,6 +34,7 @@ class AppState {
   final bool showChangeCinemaButton;
   final bool isAppBarVisible;
   final bool showBackButton;
+  final VoidCallback backAction;
 
   static AppState initial() {
     return AppState(
@@ -43,6 +46,7 @@ class AppState {
       showChangeCinemaButton: false,
       isAppBarVisible: true,
       showBackButton: false,
+      backAction: null,
     );
   }
 
@@ -55,6 +59,7 @@ class AppState {
     bool showChangeCinemaButton,
     bool isAppBarVisible,
     bool showBackButton,
+    VoidCallback backAction,
   }) {
     return AppState(
       homeState: homeState ?? this.homeState,
@@ -66,6 +71,7 @@ class AppState {
           showChangeCinemaButton ?? this.showChangeCinemaButton,
       isAppBarVisible: isAppBarVisible ?? this.isAppBarVisible,
       showBackButton: showBackButton ?? this.showBackButton,
+      backAction: backAction ?? this.backAction,
     );
   }
 }

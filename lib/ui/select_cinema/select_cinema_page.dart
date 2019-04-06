@@ -9,6 +9,7 @@ import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
 import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
 import 'package:helios_app/redux/actions/select_cinema/fetch_cinemas_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 import 'package:helios_app/viewmodels/select_cinema/select_cinema_view_model.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:rxdart/rxdart.dart';
@@ -80,7 +81,7 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
                                       child: Container(
                                         margin:
                                             EdgeInsets.symmetric(vertical: 10),
-                                        padding: contentPadding,
+                                        padding: this.contentPadding,
                                         child: _buildCinemaNameWidget(
                                           viewModel.cinemas[index],
                                         ),
@@ -135,14 +136,15 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
     String extendName = spltitedCinemaName.last;
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Text(cityName, style: TextStyle(fontSize: 18)),
-        Text(
+        HeliosText(
+          cityName,
+          fontWeight: FontWeight.w900,
+        ),
+        HeliosText(
           "- Helios" + extendName,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w100,
-          ),
+          fontWeight: FontWeight.w100,
         )
       ],
     );
@@ -151,8 +153,8 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
   _buildNoItemsWidget() {
     return Column(
       children: <Widget>[
-        Text("Nie mamy kin w tej lokalziacji"),
-        Text("Spróbuj wpisać inną nazwę")
+        HeliosText("Nie mamy kin w tej lokalziacji"),
+        HeliosText("Spróbuj wpisać inną nazwę")
       ],
     );
   }

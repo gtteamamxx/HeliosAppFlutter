@@ -19,6 +19,6 @@ class Constants {
 
   static final double bottomBarHeight = 50;
   static final shimmerPath = 'assets/shimmer_image.gif';
-
+  static final fontName = 'Poppins';
   static final Duration fadeInDuration = Duration(milliseconds: 500);
 }

@@ -3,6 +3,7 @@ import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/ui/common/error_button.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 import 'package:helios_app/ui/common/movie_header_hero.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -130,14 +131,11 @@ class _ImageCarouselState extends State<ImageCarousel> {
       left: 10,
       child: Container(
         width: MediaQuery.of(context).size.width - 20,
-        child: Text(
+        child: HeliosText(
           title,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontFamily: "Poppins",
-            fontSize: 45,
-            fontWeight: FontWeight.w200,
-          ),
+          fontSize: 45,
+          fontWeight: FontWeight.w200,
         ),
       ),
     );
@@ -147,13 +145,10 @@ class _ImageCarouselState extends State<ImageCarousel> {
     return Positioned(
       bottom: 35,
       left: 20,
-      child: Text(
+      child: HeliosText(
         category,
-        style: TextStyle(
-          fontFamily: "Poppins",
-          fontSize: 12,
-          fontWeight: FontWeight.w100,
-        ),
+        fontSize: 12,
+        fontWeight: FontWeight.w100,
       ),
     );
   }
@@ -163,9 +158,10 @@ class _ImageCarouselState extends State<ImageCarousel> {
       bottom: 10,
       right: 10,
       child: InkWell(
-        child: Text(
+        child: HeliosText(
           "Zobacz zwiastun",
-          style: TextStyle(decoration: TextDecoration.underline),
+          fontSize: 13,
+          textDecoration: TextDecoration.underline,
         ),
         onTap: () async {
           String url = _getTrailerUrlByIndex(actualPageIndex);

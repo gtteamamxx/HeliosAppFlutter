@@ -4,6 +4,7 @@ import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/ui/common/error_button.dart';
 import 'package:helios_app/ui/common/headered_widget.dart';
+import 'package:helios_app/ui/common/helios_text.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -93,22 +94,16 @@ class AnnouncementsList extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
+                      HeliosText(
                         DateFormat("dd.MM").format(announcement.date),
-                        style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w100,
-                          fontSize: headerFontSize,
-                        ),
+                        fontWeight: FontWeight.w100,
+                        fontSize: headerFontSize,
                       ),
                       SizedBox(width: 5),
-                      Text(
+                      HeliosText(
                         announcement.title,
-                        style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w600,
-                          fontSize: headerFontSize,
-                        ),
+                        fontWeight: FontWeight.w600,
+                        fontSize: headerFontSize,
                         overflow: TextOverflow.ellipsis,
                       )
                     ],

@@ -18,7 +18,10 @@ AppState appStateReducer(AppState state, dynamic action) {
   } else if (action is ChangeAppBarVisibilityAction) {
     return state.copyWith(isAppBarVisible: action.isVisible);
   } else if (action is ChangeVisibilityOfBackButtonAction) {
-    return state.copyWith(showBackButton: action.isVisible);
+    return state.copyWith(
+      showBackButton: action.isVisible,
+      backAction: action.backAction,
+    );
   }
 
   return state.copyWith(
