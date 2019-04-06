@@ -4,6 +4,7 @@ import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app/ui/common/image_details.dart';
 import 'package:helios_app/ui/common/movie_header_hero.dart';
 import 'package:helios_app/ui/common/movie_hero.dart';
 import 'package:helios_app/viewmodels/movie_detail/movie_detail_page_view_model.dart';
@@ -93,10 +94,15 @@ class MovieDetailPage extends StatelessWidget {
                   ? Center(child: CircularProgressIndicator())
                   : MovieHeaderHero(
                       id: viewModel.repertoire.id,
-                      child: Image.network(
-                        viewModel.repertoire.videoImageUrl,
-                        alignment: Alignment.topCenter,
-                        fit: BoxFit.cover,
+                      child: GestureDetector(
+                        onTap: () => viewModel.onImageTap(
+                              viewModel.repertoire.videoImageUrl,
+                            ),
+                        child: Image.network(
+                          viewModel.repertoire.videoImageUrl,
+                          alignment: Alignment.topCenter,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
             ),
@@ -105,15 +111,17 @@ class MovieDetailPage extends StatelessWidget {
               ? Container()
               : Positioned(
                   top: 0,
-                  child: Container(
-                    height: 200,
-                    width: width,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        stops: [0.0, 0.5],
-                        colors: [Colors.black54, Colors.transparent],
+                  child: IgnorePointer(
+                    child: Container(
+                      height: 200,
+                      width: width,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          stops: [0.0, 0.5],
+                          colors: [Colors.black54, Colors.transparent],
+                        ),
                       ),
                     ),
                   ),
@@ -139,12 +147,16 @@ class MovieDetailPage extends StatelessWidget {
                       Constants.shimmerPath,
                       fit: BoxFit.fill,
                     )
-                  : MovieHero(
-                      id: viewModel.repertoire.id,
-                      child: FadeInImage.assetNetwork(
-                        image: viewModel.repertoire.imageUrl,
-                        placeholder: Constants.shimmerPath,
-                        fit: BoxFit.fill,
+                  : GestureDetector(
+                      onTap: () =>
+                          viewModel.onImageTap(viewModel.repertoire.imageUrl),
+                      child: MovieHero(
+                        id: viewModel.repertoire.id,
+                        child: FadeInImage.assetNetwork(
+                          image: viewModel.repertoire.imageUrl,
+                          placeholder: Constants.shimmerPath,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
             ),
@@ -207,12 +219,16 @@ class MovieDetailPage extends StatelessWidget {
           return Container(
             width: 250,
             margin: EdgeInsets.all(10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: FadeInImage.assetNetwork(
-                image: viewModel.repertoire.galleryUrls[item],
-                placeholder: Constants.shimmerPath,
-                fit: BoxFit.cover,
+            child: GestureDetector(
+              onTap: () =>
+                  viewModel.onImageTap(viewModel.repertoire.galleryUrls[item]),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: FadeInImage.assetNetwork(
+                  image: viewModel.repertoire.galleryUrls[item],
+                  placeholder: Constants.shimmerPath,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           );

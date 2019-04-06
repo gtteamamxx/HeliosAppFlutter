@@ -1,8 +1,8 @@
 import 'package:helios_app/other/helpers/navigator_helper.dart';
 
 class NavigationService {
-  navigateTo(String route) {
+  navigateTo(String route, Object arguments) {
     NavigatorHelper.navigatorKey.currentState
-        .pushNamedAndRemoveUntil(route, (x) => x.isFirst);
+        .pushNamed(route, arguments: arguments);
   }
 }

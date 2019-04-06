@@ -140,11 +140,14 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
       children: <Widget>[
         HeliosText(
           cityName,
-          fontWeight: FontWeight.w900,
+          fontWeight: FontWeight.w600,
         ),
-        HeliosText(
+        Text(
           "- Helios" + extendName,
-          fontWeight: FontWeight.w100,
+          style: TextStyle(
+            fontWeight: FontWeight.w100,
+            fontSize: 15,
+          ),
         )
       ],
     );

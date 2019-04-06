@@ -26,6 +26,7 @@ dependencies:
   intl: any
   shimmer: any
   connectivity: any
+  photo_view: any
 
 dev_dependencies:
   flutter_test:
