@@ -1,16 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:helios_app/models/repertoire/repertoire_date_model.dart';
 import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app/ui/common/error_button.dart';
+import 'package:helios_app/ui/common/headered_widget.dart';
+import 'package:helios_app/ui/common/helios_button.dart';
+import 'package:helios_app/ui/common/helios_cinema_name.dart';
+import 'package:helios_app/ui/common/helios_selection_button.dart';
 import 'package:helios_app/ui/common/helios_text.dart';
 import 'package:helios_app/ui/common/movie_header_hero.dart';
 import 'package:helios_app/ui/common/movie_hero.dart';
+import 'package:helios_app/ui/common/repertoire_days.dart';
 import 'package:helios_app/viewmodels/movie_detail/movie_detail_page_view_model.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class MovieDetailPage extends StatelessWidget {
+class MovieDetailPage extends StatefulWidget {
+  @override
+  _MovieDetailPageState createState() => _MovieDetailPageState();
+}
+
+class _MovieDetailPageState extends State<MovieDetailPage> {
+  int _selectedMovieRepertoireIndex = 0;
+  int _selectedPlayHourIndex = 0;
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, MovieDetailPageViewModel>(
@@ -19,11 +41,13 @@ class MovieDetailPage extends StatelessWidget {
         return Material(
           color: HeliosColors.backgroundTertiary,
           child: ListView(
+            controller: _scrollController,
             padding: EdgeInsets.zero,
             children: [
               _buildHeader(context, viewModel),
               _buildContent(viewModel),
               _buildGallery(viewModel),
+              _buildRepertoire(viewModel),
             ],
           ),
         );
@@ -50,7 +74,9 @@ class MovieDetailPage extends StatelessWidget {
 
   _buildContent(MovieDetailPageViewModel viewModel) {
     if (viewModel.isLoading) {
-      return Container();
+      return Container(
+        height: 500,
+      );
     }
 
     return Container(
@@ -105,8 +131,9 @@ class MovieDetailPage extends StatelessWidget {
                           children: [
                             Image.network(
                               viewModel.repertoire.videoImageUrl,
-                              alignment: Alignment.topCenter,
                               fit: BoxFit.cover,
+                              height: 200,
+                              width: MediaQuery.of(context).size.width,
                             ),
                             Positioned.fill(
                               child: Image.asset(
@@ -247,6 +274,119 @@ class MovieDetailPage extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  _buildRepertoire(MovieDetailPageViewModel viewModel) {
+    return HeaderedWidget(
+      backgroundColor: HeliosColors.backgroundFourth,
+      additionalChild: Container(),
+      title: "Wybierz datę",
+      headerFontSize: 20,
+      headerPadding:
+          EdgeInsets.symmetric(horizontal: 10, vertical: 0).copyWith(top: 5),
+      child: (() {
+        if (viewModel.isLoadingMovieRepertoire) {
+          return _buildLoadingMovieRepertoire();
+        } else if (viewModel.isErrorMovieRepertoire) {
+          return _buildErrorMovieRepertoire(viewModel);
+        }
+
+        return _buildMovieRepertoire(viewModel);
+      })(),
+    );
+  }
+
+  _buildErrorMovieRepertoire(MovieDetailPageViewModel viewModel) {
+    return Container(
+      height: 200,
+      child: ErrorButton(
+          title: "Wystąpił problem podczas wczytywania repertuaru",
+          refreshClick: () => viewModel.onRefreshMovieRepertoireTap()),
+    );
+  }
+
+  _buildLoadingMovieRepertoire() {
+    return Container(
+      height: 200,
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  _buildMovieRepertoire(MovieDetailPageViewModel viewModel) {
+    return Container(
+      padding: EdgeInsets.only(bottom: 20),
+      child: Column(
+        children: <Widget>[
+          HeliosCinemaName(
+            cinemaName: viewModel.selectedCinemaName,
+            padding: EdgeInsets.only(left: 10),
+          ),
+          RepertoireDays(
+            repertoireDays: viewModel.movieRepertoire.map((x) {
+              return RepertoireDateModel(date: x.date);
+            }).toList(),
+            itemBackgroundColor: HeliosColors.backgroundSixth,
+            itemFontColor: Colors.white.withAlpha(180),
+            onSelectedDayChanged: (index) {
+              if (_selectedMovieRepertoireIndex == index) {
+                return;
+              }
+
+              setState(() {
+                _selectedMovieRepertoireIndex = index;
+                _selectedPlayHourIndex = 0;
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _scrollController.animateTo(
+                      _scrollController.position.maxScrollExtent,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.easeIn);
+                });
+              });
+            },
+          ),
+          SizedBox(height: 10),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: Wrap(
+              direction: Axis.horizontal,
+              alignment: WrapAlignment.center,
+              spacing: 10,
+              children: viewModel
+                  .movieRepertoire[_selectedMovieRepertoireIndex].playHours
+                  .map((playHour) {
+                int index = viewModel
+                    .movieRepertoire[_selectedMovieRepertoireIndex].playHours
+                    .indexOf(playHour);
+                return Container(
+                  width: 80,
+                  height: 60,
+                  child: HeliosSelectionButton(
+                    backgroundColor: HeliosColors.backgroundSixth,
+                    staticBackgroundColor: true,
+                    isSelected: _selectedPlayHourIndex == index,
+                    child: HeliosText(DateFormat("HH:mm").format(playHour)),
+                    onTap: () {
+                      setState(() {
+                        _selectedPlayHourIndex = index;
+                      });
+                    },
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          SizedBox(height: 10),
+          Center(
+            child: HeliosButton(
+              onTap: () {},
+              content: "Wybierz",
+            ),
+          ),
+        ],
       ),
     );
   }

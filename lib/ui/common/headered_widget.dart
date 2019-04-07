@@ -7,8 +7,10 @@ class HeaderedWidget extends StatelessWidget {
     @required this.title,
     @required this.backgroundColor,
     this.additionalChild,
+    this.headerFontSize,
     this.buttonText,
     this.onButtonTap,
+    this.headerPadding,
   }) {
     if (this.additionalChild != null) {
       assert(this.buttonText == null);
@@ -24,8 +26,9 @@ class HeaderedWidget extends StatelessWidget {
   final Color backgroundColor;
   final String buttonText;
   final VoidCallback onButtonTap;
+  final double headerFontSize;
 
-  final padding = EdgeInsets.all(10);
+  final EdgeInsets headerPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +39,14 @@ class HeaderedWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
-            padding: this.padding,
+            padding: this.headerPadding ?? EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 HeliosText(
                   this.title,
-                  fontSize: 22,
+                  fontSize: this.headerFontSize ?? 22,
                 ),
                 this.additionalChild ?? _buildButton() ?? Container(),
               ],

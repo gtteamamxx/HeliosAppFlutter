@@ -8,13 +8,11 @@ import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/home/repertoire/fetch_repertoire_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/error_button.dart';
-import 'package:helios_app/ui/common/helios_selection_button.dart';
 import 'package:helios_app/ui/common/helios_text.dart';
 import 'package:helios_app/ui/common/movie_hero.dart';
+import 'package:helios_app/ui/common/repertoire_days.dart';
 import 'package:helios_app/viewmodels/home/repertoire/repertoire_page_view_model.dart';
 import 'package:helios_app/ui/common/play_hours_builder.dart';
-
-import 'package:intl/intl.dart';
 
 class RepertoirePage extends StatefulWidget {
   @override
@@ -67,55 +65,11 @@ class _RepertoirePageState extends State<RepertoirePage> {
   }
 
   _buildRepertoireDays(RepertoirePageViewModel viewModel) {
-    return Container(
-      height: dateItemHeight,
-      padding: EdgeInsets.symmetric(horizontal: 5),
-      child: ListView.builder(
-        padding: EdgeInsets.zero,
-        scrollDirection: Axis.horizontal,
-        itemCount: viewModel.repertoire.length,
-        itemBuilder: (context, item) {
-          RepertoireDateModel repertoire = viewModel.repertoire[item];
-          bool isSelected = item == _selectedDayIndex;
-          Color fontColor =
-              isSelected ? Colors.white : HeliosColors.categoryFontColor;
-
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
-            height: dateItemHeight,
-            child: HeliosSelectionButton(
-              staticBackgroundColor: true,
-              isSelected: isSelected,
-              onTap: () {
-                setState(() {
-                  _selectedDayIndex = item;
-                });
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    HeliosText(
-                      _capitalize(
-                        DateFormat("EE",
-                                Localizations.localeOf(context).languageCode)
-                            .format(repertoire.date)
-                            .replaceFirst(".", ""),
-                      ),
-                      color: fontColor,
-                    ),
-                    HeliosText(
-                      DateFormat("dd.MM").format(repertoire.date),
-                      color: fontColor,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+    return RepertoireDays(
+      repertoireDays: viewModel.repertoire,
+      onSelectedDayChanged: (index) {
+        setState(() => _selectedDayIndex = index);
+      },
     );
   }
 
@@ -244,9 +198,5 @@ class _RepertoirePageState extends State<RepertoirePage> {
 
   _buildLoading() {
     return Center(child: CircularProgressIndicator());
-  }
-
-  String _capitalize(String text) {
-    return text[0].toUpperCase() + text.substring(1);
   }
 }

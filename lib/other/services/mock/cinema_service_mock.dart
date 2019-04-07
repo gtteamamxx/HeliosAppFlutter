@@ -5,6 +5,7 @@ import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/models/pricing/price_day_model.dart';
 import 'package:helios_app/models/pricing/price_model.dart';
 import 'package:helios_app/models/pricing/pricing_model.dart';
+import 'package:helios_app/models/repertoire/movie_repertoire.dart';
 import 'package:helios_app/models/repertoire/repertoire_date_model.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/models/ticket/ticket_model.dart';
@@ -367,6 +368,131 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
         repertoire: _createTodayRepertoire(true)..shuffle()),
   ];
 
+  static List<MovieRepertoireModel> _movieRepertoire = [
+    MovieRepertoireModel(
+      id: 0,
+      cinemaId: 0,
+      date: DateTime(2019, 4, 2),
+      repertoireId: 0,
+      playHours: [
+        DateTime(2019, 4, 2, 8, 30),
+        DateTime(2019, 4, 2, 12, 30),
+        DateTime(2019, 4, 2, 14, 30),
+        DateTime(2019, 4, 2, 16, 30),
+        DateTime(2019, 4, 2, 17, 30),
+      ],
+    ),
+    MovieRepertoireModel(
+      id: 0,
+      cinemaId: 0,
+      date: DateTime(2019, 4, 3),
+      repertoireId: 0,
+      playHours: [
+        new DateTime(2019, 4, 3, 10, 15),
+        new DateTime(2019, 4, 3, 13, 15),
+        new DateTime(2019, 4, 3, 15, 30),
+        new DateTime(2019, 4, 3, 18, 30),
+      ],
+    ),
+    MovieRepertoireModel(
+      id: 0,
+      cinemaId: 0,
+      date: DateTime(2019, 4, 4),
+      repertoireId: 0,
+      playHours: [
+        new DateTime(2019, 4, 4, 8, 30),
+        new DateTime(2019, 4, 4, 9, 30),
+        new DateTime(2019, 4, 4, 11, 30),
+        new DateTime(2019, 4, 4, 12, 30),
+        new DateTime(2019, 4, 4, 13, 30),
+        new DateTime(2019, 4, 4, 14, 30),
+        new DateTime(2019, 4, 4, 15, 30),
+        new DateTime(2019, 4, 4, 16, 30),
+        new DateTime(2019, 4, 4, 17, 30),
+        new DateTime(2019, 4, 4, 18, 30),
+        new DateTime(2019, 4, 4, 19, 30),
+        new DateTime(2019, 4, 4, 20, 30),
+        new DateTime(2019, 4, 4, 21, 30),
+      ],
+    ),
+    MovieRepertoireModel(
+      id: 0,
+      cinemaId: 0,
+      date: DateTime(2019, 4, 5),
+      repertoireId: 0,
+      playHours: [
+        DateTime(2019, 4, 2, 8, 30),
+        DateTime(2019, 4, 2, 12, 30),
+        DateTime(2019, 4, 2, 14, 30),
+        DateTime(2019, 4, 2, 16, 30),
+        DateTime(2019, 4, 2, 17, 30),
+      ],
+    ),
+    MovieRepertoireModel(
+      id: 0,
+      cinemaId: 0,
+      date: DateTime(2019, 4, 6),
+      repertoireId: 0,
+      playHours: [
+        new DateTime(2019, 4, 12, 10, 0),
+        new DateTime(2019, 4, 12, 15, 0),
+        new DateTime(2019, 4, 12, 20, 0),
+      ],
+    ),
+    MovieRepertoireModel(
+      id: 0,
+      cinemaId: 0,
+      date: DateTime(2019, 4, 7),
+      repertoireId: 0,
+      playHours: [
+        DateTime(2019, 4, 2, 8, 30),
+        DateTime(2019, 4, 2, 12, 30),
+        DateTime(2019, 4, 2, 14, 30),
+        DateTime(2019, 4, 2, 16, 30),
+        DateTime(2019, 4, 2, 17, 30),
+      ],
+    ),
+    MovieRepertoireModel(
+      id: 0,
+      cinemaId: 0,
+      date: DateTime(2019, 4, 8),
+      repertoireId: 0,
+      playHours: [
+        new DateTime(2019, 4, 4, 13, 30),
+        new DateTime(2019, 4, 4, 14, 30),
+        new DateTime(2019, 4, 4, 15, 30),
+        new DateTime(2019, 4, 4, 16, 30),
+        new DateTime(2019, 4, 4, 17, 30),
+      ],
+    ),
+    MovieRepertoireModel(
+      id: 0,
+      cinemaId: 0,
+      date: DateTime(2019, 4, 9),
+      repertoireId: 0,
+      playHours: [
+        DateTime(2019, 4, 2, 8, 30),
+        DateTime(2019, 4, 2, 12, 30),
+        DateTime(2019, 4, 2, 14, 30),
+        DateTime(2019, 4, 2, 16, 30),
+        DateTime(2019, 4, 2, 17, 30),
+      ],
+    ),
+    MovieRepertoireModel(
+      id: 0,
+      cinemaId: 0,
+      date: DateTime(2019, 4, 10),
+      repertoireId: 0,
+      playHours: [
+        DateTime(2019, 4, 2, 8, 30),
+        DateTime(2019, 4, 2, 12, 30),
+        DateTime(2019, 4, 2, 14, 30),
+        DateTime(2019, 4, 2, 16, 30),
+        DateTime(2019, 4, 2, 17, 30),
+      ],
+    ),
+  ];
+
   @override
   Future<List<CinemaModel>> getListOfCinemas(String searchText) {
     return Future<List<CinemaModel>>.delayed(Duration(seconds: 1), () {
@@ -447,6 +573,14 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
   Future<RepertoireModel> getRepertoireById(int repertoireId) {
     return Future.delayed(Duration(seconds: 1), () {
       return _todayRepertoire.firstWhere((x) => x.id == repertoireId);
+    });
+  }
+
+  @override
+  Future<List<MovieRepertoireModel>> getMovieRepertoire(
+      int repertoireId, int cinemaId) {
+    return Future.delayed(Duration(seconds: 3), () {
+      return _movieRepertoire;
     });
   }
 

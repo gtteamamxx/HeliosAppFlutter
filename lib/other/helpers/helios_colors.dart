@@ -16,6 +16,8 @@ class HeliosColors {
       getColorByHex(Constants.backgroundFourthColorHex);
   static final Color backgroundFifth =
       getColorByHex(Constants.backgroundFifthColorHex);
+  static final Color backgroundSixth =
+      getColorByHex(Constants.backgroundSixthColorHex);
 
   static final Color homeIconActive = getColorByHex(Constants.homeIconColorHex);
   static final Color homeIconNotActive =
@@ -28,6 +30,9 @@ class HeliosColors {
 
   static final Color pricingPagePricingTypeColor =
       getColorByHex(Constants.pricingPagePricingTypeColorHex);
+
+  static final Color movieDetailRepertoireFontColor =
+      getColorByHex(Constants.movieDetailRepertoireFontColor);
 
   static Color getColorByHex(String hex) {
     return Color(getColorHexFromStr(hex));

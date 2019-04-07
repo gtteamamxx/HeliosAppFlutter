@@ -4,13 +4,14 @@ import 'package:helios_app/ui/common/helios_text.dart';
 
 class HeliosSelectionButton extends StatelessWidget {
   HeliosSelectionButton({
-    this.isSelected,
+    @required this.isSelected,
     this.onTap,
     this.title,
     this.child,
     this.margin,
     this.padding,
     this.staticBackgroundColor = false,
+    this.backgroundColor,
   }) {
     if (title != null && child != null) {
       assert(child == null);
@@ -24,6 +25,7 @@ class HeliosSelectionButton extends StatelessWidget {
   final EdgeInsets margin;
   final EdgeInsets padding;
   final bool staticBackgroundColor;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class HeliosSelectionButton extends StatelessWidget {
           width: 2,
         ),
         color: isSelected || this.staticBackgroundColor
-            ? HeliosColors.backgroundFourth
+            ? this.backgroundColor ?? HeliosColors.backgroundFourth
             : Colors.transparent,
       ),
       child: InkWell(

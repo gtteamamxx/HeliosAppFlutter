@@ -6,6 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:helios_app/models/cinema/cinema_model.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
+import 'package:helios_app/redux/actions/app/change_visibility_back_button_action.dart';
 import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
 import 'package:helios_app/redux/actions/select_cinema/fetch_cinemas_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
@@ -33,6 +34,7 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
         store.dispatch(ChangeAppBarTitleAction("Które kino chcesz odwiedzić?"));
         store.dispatch(
             ChangeVisibilityOfChangeCinemaButtonAction(isVisible: false));
+        store.dispatch(ChangeVisibilityOfBackButtonAction(isVisible: false));
         store.dispatch(FetchCinemasAction());
         this.streamSubscription = searchCinemaSubject.stream
             .debounce(Duration(milliseconds: 800))

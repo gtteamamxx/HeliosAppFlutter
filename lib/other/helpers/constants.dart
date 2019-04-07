@@ -8,11 +8,13 @@ class Constants {
   static final backgroundTertiaryColorHex = '#25344b';
   static final backgroundFourthColorHex = '#455163';
   static final backgroundFifthColorHex = '#2e3f58';
+  static final backgroundSixthColorHex = '#566171';
 
   static final homeIconColorHex = '#ffffff';
   static final homeIconNotActiveHex = '#435b7e';
 
   static final categoryColorHex = "#8c95a3";
+  static final movieDetailRepertoireFontColor = '#626d7b';
   static final selectedCinemaBackgroundHex = '#0D2A5A';
 
   static final pricingPagePricingTypeColorHex = '#496287';

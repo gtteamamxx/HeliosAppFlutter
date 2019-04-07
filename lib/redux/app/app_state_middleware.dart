@@ -5,6 +5,7 @@ import 'package:helios_app/other/services/navigation_service.dart';
 import 'package:helios_app/redux/actions/app/change_app_bar_visibility_action.dart';
 import 'package:helios_app/redux/actions/app/change_visibility_back_button_action.dart';
 import 'package:helios_app/redux/actions/movie_detail/fetch_concrete_repertoire_action.dart';
+import 'package:helios_app/redux/actions/movie_detail/fetch_movie_repertoire_action.dart';
 import 'package:helios_app/redux/actions/navigate_action.dart';
 import 'package:helios_app/redux/actions/show_image_action.dart';
 import 'package:helios_app/redux/actions/show_movie_detail_action.dart';
@@ -36,11 +37,17 @@ void _showImage(Store<AppState> store, ShowImageAction action) {
 }
 
 void _showMovieDetails(Store<AppState> store, Object arguments) {
+  int repertoireId;
+
   if (arguments is RepertoireModel) {
+    repertoireId = arguments.id;
     store.dispatch(FinishFetchConcreteRepertoireAction(arguments));
   } else {
+    repertoireId = arguments;
     store.dispatch(FetchConcreteRepertoireAction(arguments as int));
   }
+
+  store.dispatch(FetchMovieRepertoireAction(repertoireId: repertoireId));
 
   store.dispatch(ChangeVisibilityOfBackButtonAction(
     isVisible: true,
