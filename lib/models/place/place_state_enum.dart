@@ -1,0 +1,4 @@
+enum PlaceState {
+  Free,
+  Reserved,
+}

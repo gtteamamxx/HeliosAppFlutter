@@ -4,6 +4,8 @@ import 'package:helios_app/redux/home/home_state.dart';
 import 'package:helios_app/redux/movie_detail/movie_detail_page_state.dart';
 import 'package:helios_app/redux/select_cinema/select_cinema_state.dart';
 import 'package:helios_app/redux/select_cinema/select_cinema_state_middleware.dart';
+import 'package:helios_app/redux/select_places/select_places_page_state.dart';
+import 'package:helios_app/redux/select_places/select_places_page_state_middleware.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 import 'package:helios_app/redux/app/app_state_reducer.dart';
@@ -20,6 +22,7 @@ class AppState {
     @required this.homeState,
     @required this.movieDetailPageState,
     @required this.selectCinemaState,
+    @required this.selectPlacesPageState,
     @required this.selectedCinema,
     @required this.isAppBarVisible,
     @required this.showBackButton,
@@ -30,6 +33,7 @@ class AppState {
   final HomeState homeState;
   final SelectCinemaState selectCinemaState;
   final MovieDetailPageState movieDetailPageState;
+  final SelectPlacesPageState selectPlacesPageState;
   final CinemaModel selectedCinema;
   final bool showChangeCinemaButton;
   final bool isAppBarVisible;
@@ -41,6 +45,7 @@ class AppState {
       homeState: HomeState.intiialState(),
       selectCinemaState: SelectCinemaState.initialState(),
       movieDetailPageState: MovieDetailPageState.initialState(),
+      selectPlacesPageState: SelectPlacesPageState.initialState(),
       selectedCinema: null,
       appBarTitle: "",
       showChangeCinemaButton: false,
@@ -54,6 +59,7 @@ class AppState {
     HomeState homeState,
     SelectCinemaState selectCinemaState,
     MovieDetailPageState movieDetailPageState,
+    SelectPlacesPageState selectPlacesPageState,
     CinemaModel selectedCinema,
     String appBarTitle,
     bool showChangeCinemaButton,
@@ -66,6 +72,8 @@ class AppState {
       selectCinemaState: selectCinemaState ?? this.selectCinemaState,
       selectedCinema: selectedCinema ?? this.selectedCinema,
       movieDetailPageState: movieDetailPageState ?? this.movieDetailPageState,
+      selectPlacesPageState:
+          selectPlacesPageState ?? this.selectPlacesPageState,
       appBarTitle: appBarTitle ?? this.appBarTitle,
       showChangeCinemaButton:
           showChangeCinemaButton ?? this.showChangeCinemaButton,
@@ -87,6 +95,7 @@ Store<AppState> configureStore() {
       pricingPageStateMiddleware,
       repertoirePageStateMiddleware,
       movieDetailPageStateMiddleware,
+      selectPlacesPageStatesMiddleware,
     ],
   );
 }

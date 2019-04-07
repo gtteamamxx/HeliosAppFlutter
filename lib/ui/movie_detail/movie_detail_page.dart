@@ -382,7 +382,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           SizedBox(height: 10),
           Center(
             child: HeliosButton(
-              onTap: () {},
+              onTap: () => viewModel.onSelectMovieRepertoireTap(
+                    viewModel.movieRepertoire[_selectedMovieRepertoireIndex],
+                    _selectedPlayHourIndex,
+                  ),
               content: "Wybierz",
             ),
           ),

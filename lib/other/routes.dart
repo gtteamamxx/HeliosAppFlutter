@@ -4,6 +4,7 @@ import 'package:helios_app/ui/common/image_details.dart';
 import 'package:helios_app/ui/home/home_page.dart';
 import 'package:helios_app/ui/movie_detail/movie_detail_page.dart';
 import 'package:helios_app/ui/select_cinema/select_cinema_page.dart';
+import 'package:helios_app/ui/select_places/select_places.dart';
 
 Route<dynamic> routes(RouteSettings settings) {
   if (settings.name == '/') {
@@ -14,6 +15,8 @@ Route<dynamic> routes(RouteSettings settings) {
     return _buildRoute(MovieDetailPage());
   } else if (settings.name == '/image-details') {
     return _buildImageViewer(settings);
+  } else if (settings.name == '/select-places') {
+    return _buildRoute(SelectPlaces());
   }
 
   throw Exception('Nie obsluzony routing');

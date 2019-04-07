@@ -7,9 +7,11 @@ import 'package:helios_app/redux/actions/app/change_visibility_back_button_actio
 import 'package:helios_app/redux/actions/movie_detail/fetch_concrete_repertoire_action.dart';
 import 'package:helios_app/redux/actions/movie_detail/fetch_movie_repertoire_action.dart';
 import 'package:helios_app/redux/actions/navigate_action.dart';
+import 'package:helios_app/redux/actions/select_places/set_movie_repertoire_action.dart';
 import 'package:helios_app/redux/actions/show_image_action.dart';
 import 'package:helios_app/redux/actions/show_movie_detail_action.dart';
 import 'package:helios_app/redux/actions/movie_detail/finish_fetch_concrete_repertoire_action.dart';
+import 'package:helios_app/redux/actions/show_select_places_action.dart';
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -23,9 +25,16 @@ void appStateMiddleware(
     _showMovieDetails(store, action.repertoireId);
   } else if (action is ShowImageAction) {
     _showImage(store, action);
+  } else if (action is ShowSelectPlacesAction) {
+    _showSelectPlacesAction(store, action);
   } else {
     next(action);
   }
+}
+
+void _showSelectPlacesAction(
+    Store<AppState> store, ShowSelectPlacesAction action) {
+  _navigateByRoute(NavigateAction(route: '/select-places'));
 }
 
 void _showImage(Store<AppState> store, ShowImageAction action) {

@@ -7,6 +7,7 @@ import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/redux/home/home_state_reducer.dart';
 import 'package:helios_app/redux/select_cinema/select_cinema_state_reducer.dart';
 import 'package:helios_app/redux/movie_detail/movie_detail_page_state_reducer.dart';
+import 'package:helios_app/redux/select_places/select_places_page_state_reducer.dart';
 
 AppState appStateReducer(AppState state, dynamic action) {
   if (action is SelectCinemaAction) {
@@ -30,5 +31,6 @@ AppState appStateReducer(AppState state, dynamic action) {
         selectCinemaStateReducer(state.selectCinemaState, action),
     movieDetailPageState:
         movieDetailPageStateReducer(state.movieDetailPageState, action),
+    selectPlacesPageState: selectPlacesPageStateReducer(state.selectPlacesPageState, action),
   );
 }

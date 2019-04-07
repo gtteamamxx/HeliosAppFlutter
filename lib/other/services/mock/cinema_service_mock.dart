@@ -374,6 +374,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
       cinemaId: 0,
       date: DateTime(2019, 4, 2),
       repertoireId: 0,
+      cinemaHallId: 0,
       playHours: [
         DateTime(2019, 4, 2, 8, 30),
         DateTime(2019, 4, 2, 12, 30),
@@ -387,6 +388,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
       cinemaId: 0,
       date: DateTime(2019, 4, 3),
       repertoireId: 0,
+      cinemaHallId: 0,
       playHours: [
         new DateTime(2019, 4, 3, 10, 15),
         new DateTime(2019, 4, 3, 13, 15),
@@ -399,6 +401,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
       cinemaId: 0,
       date: DateTime(2019, 4, 4),
       repertoireId: 0,
+      cinemaHallId: 0,
       playHours: [
         new DateTime(2019, 4, 4, 8, 30),
         new DateTime(2019, 4, 4, 9, 30),
@@ -420,6 +423,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
       cinemaId: 0,
       date: DateTime(2019, 4, 5),
       repertoireId: 0,
+      cinemaHallId: 0,
       playHours: [
         DateTime(2019, 4, 2, 8, 30),
         DateTime(2019, 4, 2, 12, 30),
@@ -433,6 +437,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
       cinemaId: 0,
       date: DateTime(2019, 4, 6),
       repertoireId: 0,
+      cinemaHallId: 0,
       playHours: [
         new DateTime(2019, 4, 12, 10, 0),
         new DateTime(2019, 4, 12, 15, 0),
@@ -444,6 +449,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
       cinemaId: 0,
       date: DateTime(2019, 4, 7),
       repertoireId: 0,
+      cinemaHallId: 0,
       playHours: [
         DateTime(2019, 4, 2, 8, 30),
         DateTime(2019, 4, 2, 12, 30),
@@ -457,6 +463,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
       cinemaId: 0,
       date: DateTime(2019, 4, 8),
       repertoireId: 0,
+      cinemaHallId: 0,
       playHours: [
         new DateTime(2019, 4, 4, 13, 30),
         new DateTime(2019, 4, 4, 14, 30),
@@ -470,6 +477,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
       cinemaId: 0,
       date: DateTime(2019, 4, 9),
       repertoireId: 0,
+      cinemaHallId: 0,
       playHours: [
         DateTime(2019, 4, 2, 8, 30),
         DateTime(2019, 4, 2, 12, 30),
@@ -483,6 +491,7 @@ Jeżeli Twoje okulary 3D ulegną zarysowaniu lub odbarwieniu, postrzeganie efekt
       cinemaId: 0,
       date: DateTime(2019, 4, 10),
       repertoireId: 0,
+      cinemaHallId: 0,
       playHours: [
         DateTime(2019, 4, 2, 8, 30),
         DateTime(2019, 4, 2, 12, 30),
