@@ -36,17 +36,17 @@ MainPageState mainPageStateReducer(MainPageState state, dynamic action) {
     return state.copyWith(
       isRepertoireLoading: true,
       isRepertoireError: false,
-      repertoire: [],
+      todayRepertoire: null,
     );
   } else if (action is FinishFetchRepertoireForTimeOfTheDayAction) {
     return state.copyWith(
-      repertoire: action.repertoire,
+      todayRepertoire: action.repertoire,
       isRepertoireLoading: false,
       isRepertoireError: false,
     );
   } else if (action is ErrorFetchingRepertoireForTimeOfTheDayAction) {
     return state.copyWith(
-      repertoire: [],
+      todayRepertoire: null,
       isRepertoireLoading: false,
       isRepertoireError: true,
     );

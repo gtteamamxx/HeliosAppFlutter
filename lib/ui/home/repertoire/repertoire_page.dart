@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/models/repertoire/repertoire_date_model.dart';
+import 'package:helios_app/models/repertoire/movie_repertoire.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/other/helpers/colors_helper.dart';
 import 'package:helios_app/other/helpers/constants.dart';
@@ -9,6 +9,7 @@ import 'package:helios_app/redux/actions/home/repertoire/fetch_repertoire_action
 import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/error_button.dart';
 import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app/ui/common/movie_category.dart';
 import 'package:helios_app/ui/common/movie_hero.dart';
 import 'package:helios_app/ui/common/repertoire_days.dart';
 import 'package:helios_app/viewmodels/home/repertoire/repertoire_page_view_model.dart';
@@ -66,7 +67,7 @@ class _RepertoirePageState extends State<RepertoirePage> {
 
   _buildRepertoireDays(RepertoirePageViewModel viewModel) {
     return RepertoireDays(
-      repertoireDays: viewModel.repertoire,
+      repertoire: viewModel.repertoire,
       onSelectedDayChanged: (index) {
         setState(() => _selectedDayIndex = index);
       },
@@ -74,14 +75,14 @@ class _RepertoirePageState extends State<RepertoirePage> {
   }
 
   _buildRepertoireForDay(RepertoirePageViewModel viewModel) {
-    RepertoireDateModel repertoire = viewModel.repertoire[_selectedDayIndex];
+    RepertoireModel repertoire = viewModel.repertoire[_selectedDayIndex];
 
     List<Widget> widgets = [];
 
-    for (RepertoireModel item in repertoire.repertoire) {
+    for (MovieRepertoireModel movieRepertoire in repertoire.movies) {
       widgets.add(
         GestureDetector(
-          onTap: () => viewModel.onRepertoireTap(item),
+          onTap: () => viewModel.onMovieRepertoireTap(movieRepertoire),
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: this.repertoireItemHeight),
             child: IntrinsicHeight(
@@ -98,9 +99,9 @@ class _RepertoirePageState extends State<RepertoirePage> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: MovieHero(
-                          id: item.id,
+                          id: movieRepertoire.id,
                           child: FadeInImage.assetNetwork(
-                            image: item.imageUrl,
+                            image: movieRepertoire.movie.image.url,
                             width: this.imageWidth,
                             placeholder: Constants.shimmerPath,
                             fit: BoxFit.cover,
@@ -113,15 +114,16 @@ class _RepertoirePageState extends State<RepertoirePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Expanded(
                                   child: HeliosText(
-                                    item.title,
+                                    movieRepertoire.movie.title,
                                     height: 0.7,
                                     fontSize: 16,
                                   ),
                                 ),
-                                item.label != null
+                                movieRepertoire.movie.label != null
                                     ? Container(
                                         padding: EdgeInsets.symmetric(
                                           horizontal: 10,
@@ -131,11 +133,12 @@ class _RepertoirePageState extends State<RepertoirePage> {
                                           borderRadius:
                                               BorderRadius.circular(4),
                                           color: Color(
-                                            getColorHexFromStr(item.labelHex),
+                                            getColorHexFromStr(
+                                                movieRepertoire.movie.labelHex),
                                           ),
                                         ),
                                         child: HeliosText(
-                                          item.label,
+                                          movieRepertoire.movie.label,
                                           fontWeight: FontWeight.w100,
                                           fontSize: 11,
                                         ),
@@ -143,18 +146,19 @@ class _RepertoirePageState extends State<RepertoirePage> {
                                     : Container()
                               ],
                             ),
-                            HeliosText(
-                              item.category,
-                              color: HeliosColors.categoryFontColor,
+                            MovieCategory(
+                              categories: movieRepertoire.movie.categories,
                               fontSize: 14,
                             ),
                             RichText(
                               text: TextSpan(
                                 children: [
-                                  TextSpan(text: "Od lat: ${item.minYear}"),
+                                  TextSpan(
+                                      text:
+                                          "Od lat: ${movieRepertoire.movie.minYear}"),
                                   TextSpan(
                                     text:
-                                        ", Czas trwania: ${item.duration.inMinutes} min.",
+                                        ", Czas trwania: ${movieRepertoire.movie.duration.inMinutes} min.",
                                   ),
                                 ],
                                 style: TextStyle(
@@ -164,7 +168,7 @@ class _RepertoirePageState extends State<RepertoirePage> {
                               ),
                             ),
                             HeliosText(
-                              "Produkcja: ${item.productionCountries.join(", ")} [${item.productionYear}]",
+                              "Produkcja: ${movieRepertoire.movie.productionCountries.map((x) => x.name).join(", ")} [${movieRepertoire.movie.productionYear}]",
                               fontSize: 13,
                             ),
                             Expanded(
@@ -174,7 +178,7 @@ class _RepertoirePageState extends State<RepertoirePage> {
                                   RichText(
                                     text: TextSpan(
                                       children: buildPlayHours(
-                                        item.playHours,
+                                        movieRepertoire.playHours,
                                         fontSize: playHourItemFontSize,
                                       ),
                                     ),

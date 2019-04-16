@@ -7,7 +7,7 @@ SelectPlacesPageState selectPlacesPageStateReducer(
     return state.copyWith(
       movieRepertoire: action.movieRepertoire,
       repertoire: action.repertoire,
-      playHourIndex: action.playHourIndex,
+      // playHourIndex: action.playHourIndex,
     );
   }
   return state;

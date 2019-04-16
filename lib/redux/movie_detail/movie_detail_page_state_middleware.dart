@@ -24,23 +24,23 @@ _fetchMovieRepertoire(FetchMovieRepertoireAction action, NextDispatcher next,
     Store<AppState> store) {
   var cinmeaService = serviceLocator.get<CinemaService>();
 
-  cinmeaService
-      .getMovieRepertoire(
-        action.repertoireId,
-        store.state.selectedCinema.id,
-      )
-      .then((movieRepertoire) =>
-          next(FinishFetchMovieRepertoireAction(movieRepertoire)))
-      .catchError((_) => next(ErrorFetchingMovieRepertoireAction()));
+  // cinmeaService
+  //     .getRepertoireForMovie(
+  //       repertoireId: action.repertoireId,
+  //       cinemaId: store.state.selectedCinema.id,
+  //     )
+  //     .then((movieRepertoire) =>
+  //         next(FinishFetchMovieRepertoireAction(movieRepertoire)))
+  //     .catchError((_) => next(ErrorFetchingMovieRepertoireAction()));
 }
 
 _fetchConcreteRepertoireAction(
     FetchConcreteRepertoireAction action, NextDispatcher next) {
   var cinmeaService = serviceLocator.get<CinemaService>();
 
-  cinmeaService
-      .getRepertoireById(action.repertoireId)
-      .then(
-          (repertoire) => next(FinishFetchConcreteRepertoireAction(repertoire)))
-      .catchError((_) => next(ErrorFetchingConcreteRepertoireAction()));
+  // cinmeaService
+  //     .getRepertoireById(action.repertoireId)
+  //     .then(
+  //         (repertoire) => next(FinishFetchConcreteRepertoireAction(repertoire)))
+  //     .catchError((_) => next(ErrorFetchingConcreteRepertoireAction()));
 }

@@ -10,7 +10,7 @@ class MainPageState {
     this.isFeaturedMoviesLoading,
     this.isFeaturedMoviesError,
     this.selectedRepertoireTimeOfTheDay,
-    this.repertoire,
+    this.todayRepertoire,
     this.isRepertoireLoading,
     this.isRepertoireError,
     this.events,
@@ -26,7 +26,7 @@ class MainPageState {
   final bool isFeaturedMoviesError;
 
   final TimeOfTheDayEnum selectedRepertoireTimeOfTheDay;
-  final List<RepertoireModel> repertoire;
+  final RepertoireModel todayRepertoire;
   final bool isRepertoireLoading;
   final bool isRepertoireError;
 
@@ -44,7 +44,7 @@ class MainPageState {
       isFeaturedMoviesLoading: false,
       isFeaturedMoviesError: false,
       selectedRepertoireTimeOfTheDay: getRepertoireTimeOfTheDayByNow(),
-      repertoire: [],
+      todayRepertoire: null,
       isRepertoireLoading: false,
       isRepertoireError: false,
       events: [],
@@ -61,7 +61,7 @@ class MainPageState {
     bool isFeaturedMoviesLoading,
     bool isFeaturedMoviesError,
     TimeOfTheDayEnum selectedRepertoireTimeOfTheDay,
-    List<RepertoireModel> repertoire,
+    RepertoireModel todayRepertoire,
     bool isRepertoireLoading,
     bool isRepertoireError,
     List<EventDescriptedModel> events,
@@ -79,7 +79,7 @@ class MainPageState {
           isFeaturedMoviesError ?? this.isFeaturedMoviesError,
       selectedRepertoireTimeOfTheDay:
           selectedRepertoireTimeOfTheDay ?? this.selectedRepertoireTimeOfTheDay,
-      repertoire: repertoire ?? this.repertoire,
+      todayRepertoire: todayRepertoire ?? this.todayRepertoire,
       isRepertoireLoading: isRepertoireLoading ?? this.isRepertoireLoading,
       isRepertoireError: isRepertoireError ?? this.isRepertoireError,
       events: events ?? this.events,

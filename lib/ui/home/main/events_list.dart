@@ -80,7 +80,7 @@ class EventsList extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4),
                         child: FadeInImage.assetNetwork(
-                          image: event.imageUrl,
+                          image: event.image.url,
                           placeholder: Constants.shimmerPath,
                           height: 125,
                           fit: BoxFit.cover,

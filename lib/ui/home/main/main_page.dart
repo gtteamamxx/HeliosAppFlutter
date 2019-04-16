@@ -9,7 +9,7 @@ import 'package:helios_app/redux/app/app_state.dart';
 import 'package:helios_app/ui/common/image_carousel.dart';
 import 'package:helios_app/ui/home/main/announcements_list.dart';
 import 'package:helios_app/ui/home/main/events_list.dart';
-import 'package:helios_app/ui/home/main/repertoire_list.dart';
+import 'package:helios_app/ui/home/main/movie_repertoire_list.dart';
 import 'package:helios_app/viewmodels/home/main/main_page_view_model.dart';
 
 class MainPage extends StatelessWidget {
@@ -41,14 +41,14 @@ class MainPage extends StatelessWidget {
                 refreshClick: viewModel.onRefreshFeaturedMovies,
                 onTap: viewModel.onFeaturedMovieTap,
               ),
-              RepertoireList(
-                repertoire: viewModel.repertoire,
+              MovieRepertoireList(
+                movieRepertoires: viewModel.todayRepertoire?.movies,
                 isLoading: viewModel.isRepertoireLoading,
                 selectedTimeOfTheDay: viewModel.selectedRepertoireTimeOfTheDay,
                 timeOfTheDayChange: viewModel.onRepertoireTimeOfTheDayChange,
                 isError: viewModel.isRepertoireError,
                 refreshClick: viewModel.onRefreshRepertoire,
-                repertoireClick: viewModel.onRepertoireClick,
+                movieRepertoireClick: viewModel.onMovieRepertoireTap,
               ),
               EventsList(
                 events: viewModel.events,

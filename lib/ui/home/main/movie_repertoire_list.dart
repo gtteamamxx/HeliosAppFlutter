@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
+import 'package:helios_app/models/repertoire/movie_repertoire.dart';
 import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
 import 'package:helios_app/other/helpers/colors_helper.dart';
 import 'package:helios_app/other/helpers/constants.dart';
@@ -7,15 +7,16 @@ import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/ui/common/error_button.dart';
 import 'package:helios_app/ui/common/helios_selection_button.dart';
 import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app/ui/common/movie_category.dart';
 import 'package:helios_app/ui/common/movie_hero.dart';
 import 'package:helios_app/ui/common/play_hours_builder.dart';
 
 typedef TimeOfTheDayChange = Function(TimeOfTheDayEnum timeOfTheDay);
-typedef RepertoireTap = Function(RepertoireModel repertoire);
+typedef MovieRepertoireTap = Function(MovieRepertoireModel movieRepertoire);
 
-class RepertoireList extends StatelessWidget {
-  RepertoireList({
-    this.repertoire,
+class MovieRepertoireList extends StatelessWidget {
+  MovieRepertoireList({
+    this.movieRepertoires,
     this.isLoading,
     this.isError,
     this.refreshClick,
@@ -26,16 +27,16 @@ class RepertoireList extends StatelessWidget {
     this.sectionHeight = 350,
     this.sectionItemWidth = 150,
     this.infoSectionHeight = 350,
-    this.repertoireClick,
+    this.movieRepertoireClick,
   });
 
-  final List<RepertoireModel> repertoire;
+  final List<MovieRepertoireModel> movieRepertoires;
   final bool isLoading;
   final bool isError;
   final VoidCallback refreshClick;
   final TimeOfTheDayChange timeOfTheDayChange;
   final TimeOfTheDayEnum selectedTimeOfTheDay;
-  final RepertoireTap repertoireClick;
+  final MovieRepertoireTap movieRepertoireClick;
 
   final int maximumItemsPerSection;
   final int maximumSectionsNumber;
@@ -52,9 +53,7 @@ class RepertoireList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: this.isError || this.isLoading
-          ? EdgeInsets.only(top: 8)
-          : EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.only(top: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -87,7 +86,7 @@ class RepertoireList extends StatelessWidget {
       return _buildError();
     }
 
-    if (this.repertoire.isEmpty) {
+    if (this.movieRepertoires.isEmpty) {
       return _buildNoItems();
     }
 
@@ -117,31 +116,37 @@ class RepertoireList extends StatelessWidget {
     int offsetIndex = 0;
 
     for (int i = 0; i < this.maximumSectionsNumber; ++i) {
-      int indexTo =
-          offsetIndex + this.maximumItemsPerSection > this.repertoire.length
-              ? this.repertoire.length
-              : offsetIndex + this.maximumItemsPerSection;
+      int indexTo = offsetIndex + this.maximumItemsPerSection >
+              this.movieRepertoires.length
+          ? this.movieRepertoires.length
+          : offsetIndex + this.maximumItemsPerSection;
 
-      List<RepertoireModel> repertoireForSection =
-          this.repertoire.getRange(offsetIndex, indexTo).toList();
+      List<MovieRepertoireModel> moviesForSection =
+          this.movieRepertoires.getRange(offsetIndex, indexTo).toList();
 
       offsetIndex = indexTo;
+      bool isLastSection = offsetIndex == this.movieRepertoires.length;
 
       sections.add(
-        _buildRepertoireSection(
-          repertoireForSection,
-          (i + 1) % 2 == 0
+        _buildMoviesSection(
+          moviesForSection,
+          isLastSection
               ? HeliosColors.backgroundTertiary
-              : HeliosColors.backgroundFourth,
+              : (i + 1) % 2 == 0
+                  ? HeliosColors.backgroundTertiary
+                  : HeliosColors.backgroundFourth,
         ),
       );
 
-      if (offsetIndex == this.repertoire.length) {
+      if (isLastSection) {
         break;
       }
     }
 
-    return Column(children: sections);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: sections,
+    );
   }
 
   _buildNoItems() {
@@ -159,8 +164,8 @@ class RepertoireList extends StatelessWidget {
     );
   }
 
-  _buildRepertoireSection(
-      List<RepertoireModel> repertoire, Color backgroundColor) {
+  _buildMoviesSection(
+      List<MovieRepertoireModel> movieRepertoires, Color backgroundColor) {
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: this.sectionHeight),
       child: Container(
@@ -171,7 +176,7 @@ class RepertoireList extends StatelessWidget {
           child: IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: repertoire.map((repertoireItem) {
+              children: movieRepertoires.map((movieRepertoire) {
                 return Container(
                   width: this.sectionItemWidth,
                   margin: EdgeInsets.symmetric(horizontal: 10),
@@ -179,7 +184,7 @@ class RepertoireList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: () => this.repertoireClick(repertoireItem),
+                        onTap: () => this.movieRepertoireClick(movieRepertoire),
                         child: Container(
                           height: 225,
                           child: ClipRRect(
@@ -188,9 +193,9 @@ class RepertoireList extends StatelessWidget {
                               fit: StackFit.expand,
                               children: [
                                 MovieHero(
-                                  id: repertoireItem.id,
+                                  id: movieRepertoire.id,
                                   child: FadeInImage.assetNetwork(
-                                    image: repertoireItem.imageUrl,
+                                    image: movieRepertoire.movie.image.url,
                                     placeholder: Constants.shimmerPath,
                                     fit: BoxFit.fill,
                                   ),
@@ -208,7 +213,7 @@ class RepertoireList extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                repertoireItem.label != null
+                                movieRepertoire.movie.label != null
                                     ? Positioned(
                                         top: 7,
                                         left: 7,
@@ -221,12 +226,12 @@ class RepertoireList extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                             color: Color(
-                                              getColorHexFromStr(
-                                                  repertoireItem.labelHex),
+                                              getColorHexFromStr(movieRepertoire
+                                                  .movie.labelHex),
                                             ),
                                           ),
                                           child: HeliosText(
-                                            repertoireItem.label,
+                                            movieRepertoire.movie.label,
                                             fontWeight: FontWeight.w100,
                                             fontSize: 11,
                                             height: null,
@@ -247,15 +252,13 @@ class RepertoireList extends StatelessWidget {
                           children: <Widget>[
                             SizedBox(height: 8),
                             HeliosText(
-                              repertoireItem.title,
+                              movieRepertoire.movie.title,
                               fontSize: itemTitleFontSize,
                               height: 0.7,
                             ),
-                            HeliosText(
-                              repertoireItem.category,
-                              color: HeliosColors.categoryFontColor,
+                            MovieCategory(
+                              categories: movieRepertoire.movie.categories,
                               fontSize: itemCategoryFontSize,
-                              height: 1.0,
                             ),
                           ],
                         ),
@@ -267,9 +270,10 @@ class RepertoireList extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 4),
                               child: RichText(
+                                softWrap: true,
                                 text: TextSpan(
                                   children: buildPlayHours(
-                                    repertoireItem.playHours,
+                                    movieRepertoire.playHours,
                                     fontSize: itemHoursFontSize,
                                   ),
                                 ),

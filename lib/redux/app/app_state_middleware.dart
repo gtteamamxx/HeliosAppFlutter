@@ -1,3 +1,4 @@
+import 'package:helios_app/models/repertoire/movie_repertoire.dart';
 import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/other/helpers/navigator_helper.dart';
 import 'package:helios_app/other/service_locator.dart';
@@ -7,7 +8,6 @@ import 'package:helios_app/redux/actions/app/change_visibility_back_button_actio
 import 'package:helios_app/redux/actions/movie_detail/fetch_concrete_repertoire_action.dart';
 import 'package:helios_app/redux/actions/movie_detail/fetch_movie_repertoire_action.dart';
 import 'package:helios_app/redux/actions/navigate_action.dart';
-import 'package:helios_app/redux/actions/select_places/set_movie_repertoire_action.dart';
 import 'package:helios_app/redux/actions/show_image_action.dart';
 import 'package:helios_app/redux/actions/show_movie_detail_action.dart';
 import 'package:helios_app/redux/actions/movie_detail/finish_fetch_concrete_repertoire_action.dart';
@@ -20,9 +20,9 @@ void appStateMiddleware(
   if (action is NavigateAction) {
     _navigateByRoute(action);
   } else if (action is ShowMovieDetailAction) {
-    _showMovieDetails(store, action.repertoire);
+    _showMovieDetails(store, action.movieRepertoire);
   } else if (action is ShowMovieDetailByIdAction) {
-    _showMovieDetails(store, action.repertoireId);
+    _showMovieDetails(store, action);
   } else if (action is ShowImageAction) {
     _showImage(store, action);
   } else if (action is ShowSelectPlacesAction) {
@@ -48,13 +48,13 @@ void _showImage(Store<AppState> store, ShowImageAction action) {
 void _showMovieDetails(Store<AppState> store, Object arguments) {
   int repertoireId;
 
-  if (arguments is RepertoireModel) {
-    repertoireId = arguments.id;
-    store.dispatch(FinishFetchConcreteRepertoireAction(arguments));
-  } else {
-    repertoireId = arguments;
-    store.dispatch(FetchConcreteRepertoireAction(arguments as int));
-  }
+  // if (arguments is MovieRepertoireModel) {
+  //   repertoireId = arguments.id;
+  //   store.dispatch(FinishFetchConcreteMovieRepertoireAction(arguments));
+  // } else {
+  //   repertoireId = arguments;
+  //   store.dispatch(FetchConcreteRepertoireAction(arguments as int));
+  // }
 
   store.dispatch(FetchMovieRepertoireAction(repertoireId: repertoireId));
 

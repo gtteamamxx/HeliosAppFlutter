@@ -5,14 +5,19 @@ class CinemaHallModel {
     this.id,
     this.cinemaId,
     this.roomId,
-    this.xLength,
-    this.yLength,
+    this.sizeX,
+    this.sizeY,
+    this.screenLength,
+    this.screenOffset,
   });
 
   final int id;
   final int cinemaId;
   final int roomId;
-  final int xLength;
-  final int yLength;
+  final int sizeX;
+  final int sizeY;
+  final int screenLength;
+  final int screenOffset;
+
   List<PlaceModel> places;
 }

@@ -1,18 +1,14 @@
+import 'package:helios_app/models/movie/movie_model.dart';
+import 'package:helios_app/models/play_hour/play_hour_model.dart';
+
 class MovieRepertoireModel {
   MovieRepertoireModel({
     this.id,
-    this.cinemaId,
-    this.cinemaHallId,
-    this.date,
     this.playHours,
-    this.repertoireId,
+    this.movie,
   });
 
   final int id;
-  final int cinemaId;
-  final int repertoireId;
-  final int cinemaHallId;
-
-  final DateTime date;
-  final List<DateTime> playHours;
+  final List<PlayHourModel> playHours;
+  final MovieModel movie;
 }

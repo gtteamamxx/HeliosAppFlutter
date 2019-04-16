@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/repertoire/repertoire_date_model.dart';
+import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/ui/common/helios_selection_button.dart';
 import 'package:helios_app/ui/common/helios_text.dart';
@@ -9,13 +9,13 @@ typedef SelectedDayChange = Function(int index);
 
 class RepertoireDays extends StatefulWidget {
   RepertoireDays({
-    @required this.repertoireDays,
+    @required this.repertoire,
     @required this.onSelectedDayChanged,
     this.itemBackgroundColor,
     this.itemFontColor,
   });
 
-  final List<RepertoireDateModel> repertoireDays;
+  final List<RepertoireModel> repertoire;
   final SelectedDayChange onSelectedDayChanged;
   final Color itemBackgroundColor;
   final Color itemFontColor;
@@ -36,9 +36,9 @@ class _RepertoireDaysState extends State<RepertoireDays> {
       child: ListView.builder(
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
-        itemCount: this.widget.repertoireDays.length,
+        itemCount: this.widget.repertoire.length,
         itemBuilder: (context, item) {
-          RepertoireDateModel repertoire = this.widget.repertoireDays[item];
+          RepertoireModel repertoire = this.widget.repertoire[item];
           bool isSelected = item == _selectedDayIndex;
           Color fontColor = isSelected
               ? Colors.white

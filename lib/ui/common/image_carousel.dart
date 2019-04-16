@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helios_app/models/category/category_model.dart';
 import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
 import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
@@ -82,17 +83,18 @@ class _ImageCarouselState extends State<ImageCarousel> {
         });
       },
       itemBuilder: (context, index) {
-        FeaturedMovieModel item = widget.children[index];
+        FeaturedMovieModel featuredMovie = widget.children[index];
         return GestureDetector(
-          onTap: () => widget.onTap(item),
+          onTap: () => widget.onTap(featuredMovie),
           child: Stack(
             children: [
               Container(
                 height: widget.height,
                 child: MovieHeaderHero(
-                  id: item.id,
+                  id: featuredMovie.id,
                   child: Image.network(
-                    item.imageUrl,
+                    featuredMovie.movie.videoImage.url,
+                    width: MediaQuery.of(context).size.width,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -107,8 +109,8 @@ class _ImageCarouselState extends State<ImageCarousel> {
                   ),
                 ),
               ),
-              _buildTitle(item.title),
-              _buildCategory(item.category),
+              _buildTitle(featuredMovie.movie.title),
+              _buildCategories(featuredMovie.movie.categories),
             ],
           ),
         );
@@ -141,12 +143,12 @@ class _ImageCarouselState extends State<ImageCarousel> {
     );
   }
 
-  _buildCategory(String category) {
+  _buildCategories(List<CategoryModel> categories) {
     return Positioned(
       bottom: 35,
       left: 20,
       child: HeliosText(
-        category,
+        categories.map((x) => x.name).join(", "),
         fontSize: 12,
         fontWeight: FontWeight.w100,
       ),
@@ -219,6 +221,6 @@ class _ImageCarouselState extends State<ImageCarousel> {
   }
 
   String _getTrailerUrlByIndex(int index) {
-    return widget.children[index].trailerUrl;
+    return widget.children[index].movie.trailerUrl;
   }
 }

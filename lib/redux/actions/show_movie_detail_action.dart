@@ -1,11 +1,19 @@
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
+import 'package:helios_app/models/repertoire/movie_repertoire.dart';
+import 'package:meta/meta.dart';
 
 class ShowMovieDetailAction {
-  ShowMovieDetailAction({this.repertoire});
-  final RepertoireModel repertoire;
+  ShowMovieDetailAction({this.movieRepertoire});
+  final MovieRepertoireModel movieRepertoire;
 }
 
 class ShowMovieDetailByIdAction {
-  ShowMovieDetailByIdAction({this.repertoireId});
+  ShowMovieDetailByIdAction({
+    @required this.movieId,
+    @required this.repertoireId,
+    @required this.cinemaId,
+  });
+
   final int repertoireId;
+  final int movieId;
+  final int cinemaId;
 }

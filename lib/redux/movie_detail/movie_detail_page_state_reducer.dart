@@ -12,37 +12,37 @@ MovieDetailPageState movieDetailPageStateReducer(
     return state.copyWith(
       isError: false,
       isLoading: true,
-      repertoire: null,
+      movie: null,
     );
-  } else if (action is FinishFetchConcreteRepertoireAction) {
+  } else if (action is FinishFetchConcreteMovieRepertoireAction) {
     return state.copyWith(
       isError: false,
       isLoading: false,
-      repertoire: action.repertoire,
+      // movie: action,
     );
   } else if (action is ErrorFetchingConcreteRepertoireAction) {
     return state.copyWith(
       isError: true,
       isLoading: false,
-      repertoire: null,
+      movie: null,
     );
   } else if (action is FetchMovieRepertoireAction) {
     return state.copyWith(
       isLoadingMovieRepertoire: true,
       isErrorMovieRepertoire: false,
-      movieRepertoire: [],
+      // movieRepertoire: [],
     );
   } else if (action is FinishFetchMovieRepertoireAction) {
     return state.copyWith(
       isLoadingMovieRepertoire: false,
       isErrorMovieRepertoire: false,
-      movieRepertoire: action.repertoire,
+      // movieRepertoire: action.repertoire,
     );
   } else if (action is ErrorFetchingMovieRepertoireAction) {
     return state.copyWith(
       isLoadingMovieRepertoire: false,
       isErrorMovieRepertoire: true,
-      movieRepertoire: [],
+      // movieRepertoire: [],
     );
   }
 

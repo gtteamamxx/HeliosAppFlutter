@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/models/repertoire/repertoire_date_model.dart';
 import 'package:helios_app/other/helpers/constants.dart';
 import 'package:helios_app/other/helpers/helios_colors.dart';
 import 'package:helios_app/redux/app/app_state.dart';
@@ -10,6 +9,7 @@ import 'package:helios_app/ui/common/helios_button.dart';
 import 'package:helios_app/ui/common/helios_cinema_name.dart';
 import 'package:helios_app/ui/common/helios_selection_button.dart';
 import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app/ui/common/movie_category.dart';
 import 'package:helios_app/ui/common/movie_header_hero.dart';
 import 'package:helios_app/ui/common/movie_hero.dart';
 import 'package:helios_app/ui/common/repertoire_days.dart';
@@ -85,13 +85,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildContentSection("Opis filmu", viewModel.repertoire.description),
+          _buildContentSection("Opis filmu", viewModel.movie.description),
           _buildContentSection(
-              "Reżyseria", viewModel.repertoire.directors.join(", ")),
+              "Reżyseria", viewModel.movie.directors.join(", ")),
           _buildContentSection(
-              "Scenariusz", viewModel.repertoire.screenWriters.join(", ")),
-          _buildContentSection(
-              "Obsada", viewModel.repertoire.actors.join(", ")),
+              "Scenariusz", viewModel.movie.screenWriters.join(", ")),
+          _buildContentSection("Obsada", viewModel.movie.actors.join(", ")),
           SizedBox(height: 10),
           HeliosText(
             "Galeria zdjęć",
@@ -119,10 +118,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               child: viewModel.isLoading
                   ? Center(child: CircularProgressIndicator())
                   : MovieHeaderHero(
-                      id: viewModel.repertoire.id,
+                      id: viewModel.movie.id,
                       child: GestureDetector(
                         onTap: () async {
-                          String url = viewModel.repertoire.trailerUrl;
+                          String url = viewModel.movie.trailerUrl;
                           if (await canLaunch(url)) {
                             launch(url);
                           }
@@ -130,7 +129,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         child: Stack(
                           children: [
                             Image.network(
-                              viewModel.repertoire.videoImageUrl,
+                              viewModel.movie.videoImage.url,
                               fit: BoxFit.cover,
                               height: 200,
                               width: MediaQuery.of(context).size.width,
@@ -190,11 +189,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                     )
                   : GestureDetector(
                       onTap: () =>
-                          viewModel.onImageTap(viewModel.repertoire.imageUrl),
+                          viewModel.onImageTap(viewModel.movie.image.url),
                       child: MovieHero(
-                        id: viewModel.repertoire.id,
+                        id: viewModel.movie.id,
                         child: FadeInImage.assetNetwork(
-                          image: viewModel.repertoire.imageUrl,
+                          image: viewModel.movie.image.url,
                           placeholder: Constants.shimmerPath,
                           fit: BoxFit.fill,
                         ),
@@ -215,27 +214,26 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         HeliosText(
-                          viewModel.repertoire.title,
+                          viewModel.movie.title,
                           fontSize: 22,
                           height: 0.7,
                         ),
                         HeliosText(
-                          "Premiera: ${DateFormat("dd.MM.yyyy").format(viewModel.repertoire.releaseDate)}",
+                          "Premiera: ${DateFormat("dd.MM.yyyy").format(viewModel.movie.releaseDate)}",
                           color: HeliosColors.categoryFontColor,
                           fontSize: 14,
                           height: 0.8,
                         ),
                         HeliosText(
-                          "Od lat: ${viewModel.repertoire.minYear} / Produkcja: ${viewModel.repertoire.productionCountries.join(", ")} [${viewModel.repertoire.productionYear}]",
+                          "Od lat: ${viewModel.movie.minYear} / Produkcja: ${viewModel.movie.productionCountries.map((x) => x.name).join(", ")} [${viewModel.movie.productionYear}]",
                           fontSize: 14,
                           color: HeliosColors.categoryFontColor,
                           height: 0.7,
                         ),
                         SizedBox(height: 10),
-                        HeliosText(
-                          viewModel.repertoire.category,
+                        MovieCategory(
+                          categories: viewModel.movie.categories,
                           fontSize: 16,
-                          color: HeliosColors.categoryFontColor,
                         ),
                       ],
                     ),
@@ -255,18 +253,18 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       height: 170,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: viewModel.repertoire.galleryUrls.length,
+        itemCount: viewModel.movie.images.length,
         itemBuilder: (context, item) {
           return Container(
             width: 250,
             margin: EdgeInsets.all(10),
             child: GestureDetector(
               onTap: () =>
-                  viewModel.onImageTap(viewModel.repertoire.galleryUrls[item]),
+                  viewModel.onImageTap(viewModel.movie.images[item].url),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: FadeInImage.assetNetwork(
-                  image: viewModel.repertoire.galleryUrls[item],
+                  image: viewModel.movie.images[item].url,
                   placeholder: Constants.shimmerPath,
                   fit: BoxFit.cover,
                 ),
@@ -292,8 +290,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         } else if (viewModel.isErrorMovieRepertoire) {
           return _buildErrorMovieRepertoire(viewModel);
         }
-
-        return _buildMovieRepertoire(viewModel);
+        return Container();
+        // return _buildMovieRepertoire(viewModel);
       })(),
     );
   }
@@ -316,81 +314,81 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     );
   }
 
-  _buildMovieRepertoire(MovieDetailPageViewModel viewModel) {
-    return Container(
-      padding: EdgeInsets.only(bottom: 20),
-      child: Column(
-        children: <Widget>[
-          HeliosCinemaName(
-            cinemaName: viewModel.selectedCinemaName,
-            padding: EdgeInsets.only(left: 10),
-          ),
-          RepertoireDays(
-            repertoireDays: viewModel.movieRepertoire.map((x) {
-              return RepertoireDateModel(date: x.date);
-            }).toList(),
-            itemBackgroundColor: HeliosColors.backgroundSixth,
-            itemFontColor: Colors.white.withAlpha(180),
-            onSelectedDayChanged: (index) {
-              if (_selectedMovieRepertoireIndex == index) {
-                return;
-              }
+  // _buildMovieRepertoire(MovieDetailPageViewModel viewModel) {
+  //   return Container(
+  //     padding: EdgeInsets.only(bottom: 20),
+  //     child: Column(
+  //       children: <Widget>[
+  //         HeliosCinemaName(
+  //           cinemaName: viewModel.selectedCinemaName,
+  //           padding: EdgeInsets.only(left: 10),
+  //         ),
+  //         RepertoireDays(
+  //           repertoire: viewModel.movieRepertoire.map((x) {
+  //             return RepertoireDateModel(date: x.date);
+  //           }).toList(),
+  //           itemBackgroundColor: HeliosColors.backgroundSixth,
+  //           itemFontColor: Colors.white.withAlpha(180),
+  //           onSelectedDayChanged: (index) {
+  //             if (_selectedMovieRepertoireIndex == index) {
+  //               return;
+  //             }
 
-              setState(() {
-                _selectedMovieRepertoireIndex = index;
-                _selectedPlayHourIndex = 0;
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  _scrollController.animateTo(
-                      _scrollController.position.maxScrollExtent,
-                      duration: Duration(seconds: 1),
-                      curve: Curves.easeIn);
-                });
-              });
-            },
-          ),
-          SizedBox(height: 10),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Wrap(
-              direction: Axis.horizontal,
-              alignment: WrapAlignment.center,
-              spacing: 10,
-              children: viewModel
-                  .movieRepertoire[_selectedMovieRepertoireIndex].playHours
-                  .map((playHour) {
-                int index = viewModel
-                    .movieRepertoire[_selectedMovieRepertoireIndex].playHours
-                    .indexOf(playHour);
-                return Container(
-                  width: 80,
-                  height: 60,
-                  child: HeliosSelectionButton(
-                    backgroundColor: HeliosColors.backgroundSixth,
-                    staticBackgroundColor: true,
-                    isSelected: _selectedPlayHourIndex == index,
-                    child: HeliosText(DateFormat("HH:mm").format(playHour)),
-                    onTap: () {
-                      setState(() {
-                        _selectedPlayHourIndex = index;
-                      });
-                    },
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-          SizedBox(height: 10),
-          Center(
-            child: HeliosButton(
-              onTap: () => viewModel.onSelectMovieRepertoireTap(
-                    viewModel.movieRepertoire[_selectedMovieRepertoireIndex],
-                    _selectedPlayHourIndex,
-                  ),
-              content: "Wybierz",
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  //             setState(() {
+  //               _selectedMovieRepertoireIndex = index;
+  //               _selectedPlayHourIndex = 0;
+  //               WidgetsBinding.instance.addPostFrameCallback((_) {
+  //                 _scrollController.animateTo(
+  //                     _scrollController.position.maxScrollExtent,
+  //                     duration: Duration(seconds: 1),
+  //                     curve: Curves.easeIn);
+  //               });
+  //             });
+  //           },
+  //         ),
+  //         SizedBox(height: 10),
+  //         Container(
+  //           padding: EdgeInsets.symmetric(horizontal: 5),
+  //           child: Wrap(
+  //             direction: Axis.horizontal,
+  //             alignment: WrapAlignment.center,
+  //             spacing: 10,
+  //             children: viewModel
+  //                 .movieRepertoire[_selectedMovieRepertoireIndex].playHours
+  //                 .map((playHour) {
+  //               int index = viewModel
+  //                   .movieRepertoire[_selectedMovieRepertoireIndex].playHours
+  //                   .indexOf(playHour);
+  //               return Container(
+  //                 width: 80,
+  //                 height: 60,
+  //                 child: HeliosSelectionButton(
+  //                   backgroundColor: HeliosColors.backgroundSixth,
+  //                   staticBackgroundColor: true,
+  //                   isSelected: _selectedPlayHourIndex == index,
+  //                   child: HeliosText(DateFormat("HH:mm").format(playHour)),
+  //                   onTap: () {
+  //                     setState(() {
+  //                       _selectedPlayHourIndex = index;
+  //                     });
+  //                   },
+  //                 ),
+  //               );
+  //             }).toList(),
+  //           ),
+  //         ),
+  //         SizedBox(height: 10),
+  //         Center(
+  //           child: HeliosButton(
+  //             onTap: () => viewModel.onSelectMovieRepertoireTap(
+  //                   viewModel.movieRepertoire[_selectedMovieRepertoireIndex],
+  //                   _selectedPlayHourIndex,
+  //                 ),
+  //             content: "Wybierz",
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

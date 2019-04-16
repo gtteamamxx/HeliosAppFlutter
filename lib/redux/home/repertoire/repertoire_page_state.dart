@@ -1,4 +1,4 @@
-import 'package:helios_app/models/repertoire/repertoire_date_model.dart';
+import 'package:helios_app/models/repertoire/repertoire_model.dart';
 
 class RepertoirePageState {
   RepertoirePageState({
@@ -9,7 +9,7 @@ class RepertoirePageState {
 
   final bool isLoading;
   final bool isError;
-  final List<RepertoireDateModel> repertoire;
+  final List<RepertoireModel> repertoire;
 
   static RepertoirePageState initialState() {
     return RepertoirePageState(
@@ -22,7 +22,7 @@ class RepertoirePageState {
   RepertoirePageState copyWith({
     bool isLoading,
     bool isError,
-    List<RepertoireDateModel> repertoire,
+    List<RepertoireModel> repertoire,
   }) {
     return RepertoirePageState(
       isLoading: isLoading ?? this.isLoading,
