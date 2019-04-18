@@ -99,7 +99,7 @@ class _RepertoirePageState extends State<RepertoirePage> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: MovieHero(
-                          id: movieRepertoire.id,
+                          id: movieRepertoire.movie.id,
                           child: FadeInImage.assetNetwork(
                             image: movieRepertoire.movie.image.url,
                             width: this.imageWidth,

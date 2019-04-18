@@ -73,7 +73,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   }
 
   _buildContent(MovieDetailPageViewModel viewModel) {
-    if (viewModel.isLoading) {
+    if (viewModel.isLoadingMovieRepertoire) {
       return Container(
         height: 500,
       );
@@ -85,12 +85,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildContentSection("Opis filmu", viewModel.movie.description),
           _buildContentSection(
-              "Reżyseria", viewModel.movie.directors.join(", ")),
+              "Opis filmu", viewModel.movieRepertoire.movie.description),
+          _buildContentSection("Reżyseria",
+              viewModel.movieRepertoire.movie.directors.join(", ")),
+          _buildContentSection("Scenariusz",
+              viewModel.movieRepertoire.movie.screenWriters.join(", ")),
           _buildContentSection(
-              "Scenariusz", viewModel.movie.screenWriters.join(", ")),
-          _buildContentSection("Obsada", viewModel.movie.actors.join(", ")),
+              "Obsada", viewModel.movieRepertoire.movie.actors.join(", ")),
           SizedBox(height: 10),
           HeliosText(
             "Galeria zdjęć",
@@ -115,13 +117,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               width: width,
               height: 200,
               color: HeliosColors.backgroundPrimary,
-              child: viewModel.isLoading
+              child: viewModel.isLoadingMovieRepertoire
                   ? Center(child: CircularProgressIndicator())
                   : MovieHeaderHero(
-                      id: viewModel.movie.id,
+                      id: viewModel.movieRepertoire.movie.id,
                       child: GestureDetector(
                         onTap: () async {
-                          String url = viewModel.movie.trailerUrl;
+                          String url =
+                              viewModel.movieRepertoire.movie.trailerUrl;
                           if (await canLaunch(url)) {
                             launch(url);
                           }
@@ -129,7 +132,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         child: Stack(
                           children: [
                             Image.network(
-                              viewModel.movie.videoImage.url,
+                              viewModel.movieRepertoire.movie.videoImage.url,
                               fit: BoxFit.cover,
                               height: 200,
                               width: MediaQuery.of(context).size.width,
@@ -147,7 +150,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                     ),
             ),
           ),
-          viewModel.isLoading
+          viewModel.isLoadingMovieRepertoire
               ? Container()
               : Positioned(
                   top: 0,
@@ -182,18 +185,18 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   )
                 ],
               ),
-              child: viewModel.isLoading
+              child: viewModel.isLoadingMovieRepertoire
                   ? Image.asset(
                       Constants.shimmerPath,
                       fit: BoxFit.fill,
                     )
                   : GestureDetector(
-                      onTap: () =>
-                          viewModel.onImageTap(viewModel.movie.image.url),
+                      onTap: () => viewModel.onImageTap(
+                          viewModel.movieRepertoire.movie.image.url),
                       child: MovieHero(
-                        id: viewModel.movie.id,
+                        id: viewModel.movieRepertoire.movie.id,
                         child: FadeInImage.assetNetwork(
-                          image: viewModel.movie.image.url,
+                          image: viewModel.movieRepertoire.movie.image.url,
                           placeholder: Constants.shimmerPath,
                           fit: BoxFit.fill,
                         ),
@@ -201,7 +204,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                     ),
             ),
           ),
-          viewModel.isLoading
+          viewModel.isLoadingMovieRepertoire
               ? Container()
               : Positioned(
                   left: 160,
@@ -214,25 +217,28 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         HeliosText(
-                          viewModel.movie.title,
+                          viewModel.movieRepertoire.movie.title,
                           fontSize: 22,
                           height: 0.7,
                         ),
                         HeliosText(
-                          "Premiera: ${DateFormat("dd.MM.yyyy").format(viewModel.movie.releaseDate)}",
+                          "Premiera: ${DateFormat("dd.MM.yyyy").format(viewModel.movieRepertoire.movie.releaseDate)}",
                           color: HeliosColors.categoryFontColor,
                           fontSize: 14,
                           height: 0.8,
                         ),
                         HeliosText(
-                          "Od lat: ${viewModel.movie.minYear} / Produkcja: ${viewModel.movie.productionCountries.map((x) => x.name).join(", ")} [${viewModel.movie.productionYear}]",
+                          "Od lat: ${viewModel.movieRepertoire.movie.minYear}" +
+                              "/ Produkcja: ${viewModel.movieRepertoire.movie.productionCountries.map((x) => x.name).join(", ")}" +
+                              " [${viewModel.movieRepertoire.movie.productionYear}]",
                           fontSize: 14,
                           color: HeliosColors.categoryFontColor,
                           height: 0.7,
                         ),
                         SizedBox(height: 10),
                         MovieCategory(
-                          categories: viewModel.movie.categories,
+                          categories:
+                              viewModel.movieRepertoire.movie.categories,
                           fontSize: 16,
                         ),
                       ],
@@ -245,7 +251,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   }
 
   _buildGallery(MovieDetailPageViewModel viewModel) {
-    if (viewModel.isLoading) {
+    if (viewModel.isLoadingMovieRepertoire) {
       return Container();
     }
 
@@ -253,18 +259,18 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       height: 170,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: viewModel.movie.images.length,
+        itemCount: viewModel.movieRepertoire.movie.images.length,
         itemBuilder: (context, item) {
           return Container(
             width: 250,
             margin: EdgeInsets.all(10),
             child: GestureDetector(
-              onTap: () =>
-                  viewModel.onImageTap(viewModel.movie.images[item].url),
+              onTap: () => viewModel
+                  .onImageTap(viewModel.movieRepertoire.movie.images[item].url),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: FadeInImage.assetNetwork(
-                  image: viewModel.movie.images[item].url,
+                  image: viewModel.movieRepertoire.movie.images[item].url,
                   placeholder: Constants.shimmerPath,
                   fit: BoxFit.cover,
                 ),

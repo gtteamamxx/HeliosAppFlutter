@@ -129,7 +129,7 @@ class MainPageViewModel {
 
   static _onFeaturedMovieTap(
       Store<AppState> store, FeaturedMovieModel featuredMovie) {
-    store.dispatch(ShowMovieDetailByIdAction(repertoireId: featuredMovie.id));
+    store.dispatch(ShowMovieDetailByIdAction(movieId: featuredMovie.movie.id));
   }
 
   static _onRepertoireTap(

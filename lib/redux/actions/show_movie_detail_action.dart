@@ -9,11 +9,7 @@ class ShowMovieDetailAction {
 class ShowMovieDetailByIdAction {
   ShowMovieDetailByIdAction({
     @required this.movieId,
-    @required this.repertoireId,
-    @required this.cinemaId,
   });
 
-  final int repertoireId;
   final int movieId;
-  final int cinemaId;
 }

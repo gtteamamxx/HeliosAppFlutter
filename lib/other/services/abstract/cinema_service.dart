@@ -28,6 +28,6 @@ abstract class CinemaService {
 
   Future<MovieModel> getMovieById(int movieId);
 
-  Future<MovieRepertoireModel> getRepertoireForMovie(
-      {int movieId, int cinemaId, int repertoireId});
+  Future<MovieRepertoireModel> getMovieRepertoireForToday(
+      {int movieId, int cinemaId});
 }

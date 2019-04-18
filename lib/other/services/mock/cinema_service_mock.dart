@@ -64,12 +64,11 @@ class CinemaServiceMock implements CinemaService {
   }
 
   @override
-  Future<MovieRepertoireModel> getRepertoireForMovie(
-      {int movieId, int cinemaId, int repertoireId}) {
+  Future<MovieRepertoireModel> getMovieRepertoireForToday(
+      {int movieId, int cinemaId}) {
     return Future<MovieRepertoireModel>.delayed(Duration(milliseconds: 900),
         () {
-      return repertoireMockData
-          .singleWhere((x) => x.id == repertoireId)
+      return repertoireMockData[0]
           .movies
           .singleWhere((x) => x.movie.id == movieId);
     });

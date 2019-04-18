@@ -91,7 +91,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
               Container(
                 height: widget.height,
                 child: MovieHeaderHero(
-                  id: featuredMovie.id,
+                  id: featuredMovie.movie.id,
                   child: Image.network(
                     featuredMovie.movie.videoImage.url,
                     width: MediaQuery.of(context).size.width,

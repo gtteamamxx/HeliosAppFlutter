@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/movie/movie_model.dart';
 import 'package:helios_app/models/repertoire/movie_repertoire.dart';
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
 import 'package:helios_app/redux/actions/movie_detail/fetch_movie_repertoire_action.dart';
 import 'package:helios_app/redux/actions/show_image_action.dart';
 import 'package:helios_app/redux/actions/show_select_places_action.dart';
@@ -15,9 +13,6 @@ typedef SelectMovieRepertoireTap = Function(
 
 class MovieDetailPageViewModel {
   MovieDetailPageViewModel({
-    this.movie,
-    this.isLoading,
-    this.isError,
     this.onImageTap,
     this.movieRepertoire,
     this.isLoadingMovieRepertoire,
@@ -27,9 +22,6 @@ class MovieDetailPageViewModel {
     this.onSelectMovieRepertoireTap,
   });
 
-  final MovieModel movie;
-  final bool isError;
-  final bool isLoading;
   final ImageTap onImageTap;
 
   final MovieRepertoireModel movieRepertoire;
@@ -43,18 +35,14 @@ class MovieDetailPageViewModel {
   static MovieDetailPageViewModel fromStore(Store<AppState> store) {
     MovieDetailPageState state = store.state.movieDetailPageState;
     return MovieDetailPageViewModel(
-      movie: state.movie,
-      isError: state.isError,
-      isLoading: state.isLoading,
       onImageTap: (url) => _showImageByUrl(store, url),
       movieRepertoire: state.movieRepertoire,
       isErrorMovieRepertoire: state.isErrorMovieRepertoire,
       isLoadingMovieRepertoire: state.isLoadingMovieRepertoire,
       onRefreshMovieRepertoireTap: () => _refreshMovieRepertoire(store, state),
       selectedCinemaName: store.state.selectedCinema.name,
-      // onSelectMovieRepertoireTap: (movieRepertoire, playHourIndex) =>
-      //     _movieRepertoireSelected(
-      //         store, movieRepertoire, state.movie, playHourIndex),
+      onSelectMovieRepertoireTap: (movieRepertoire, playHourIndex) =>
+          _movieRepertoireSelected(store, movieRepertoire, playHourIndex),
     );
   }
 
@@ -64,21 +52,21 @@ class MovieDetailPageViewModel {
 
   static _refreshMovieRepertoire(
       Store<AppState> store, MovieDetailPageState state) {
-    if (state.isLoading) {
+    if (state.isLoadingMovieRepertoire) {
       return;
     }
-    store.dispatch(FetchMovieRepertoireAction(repertoireId: state.movie.id));
+    store.dispatch(
+        FetchMovieRepertoireAction(movieId: state.movieRepertoire.movie.id));
   }
 
   static _movieRepertoireSelected(
     Store<AppState> store,
     MovieRepertoireModel movieRepertoire,
-    RepertoireModel repertoire,
     int playHourIndex,
   ) {
     store.dispatch(ShowSelectPlacesAction(
       movieRepertoire: movieRepertoire,
-      repertoire: repertoire,
+      // repertoire: repertoire,
       playHourIndex: playHourIndex,
     ));
   }

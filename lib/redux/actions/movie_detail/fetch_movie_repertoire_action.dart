@@ -1,5 +1,5 @@
 class FetchMovieRepertoireAction {
-  FetchMovieRepertoireAction({this.repertoireId});
+  FetchMovieRepertoireAction({this.movieId});
 
-  final int repertoireId;
+  final int movieId;
 }
