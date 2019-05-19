@@ -87,12 +87,21 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         children: [
           _buildContentSection(
               "Opis filmu", viewModel.movieRepertoire.movie.description),
-          _buildContentSection("Reżyseria",
-              viewModel.movieRepertoire.movie.directors.join(", ")),
-          _buildContentSection("Scenariusz",
-              viewModel.movieRepertoire.movie.screenWriters.join(", ")),
           _buildContentSection(
-              "Obsada", viewModel.movieRepertoire.movie.actors.join(", ")),
+              "Reżyseria",
+              viewModel.movieRepertoire.movie.directors
+                  .map((x) => x.name)
+                  .join(", ")),
+          _buildContentSection(
+              "Scenariusz",
+              viewModel.movieRepertoire.movie.screenWriters
+                  .map((x) => x.name)
+                  .join(", ")),
+          _buildContentSection(
+              "Obsada",
+              viewModel.movieRepertoire.movie.actors
+                  .map((x) => x.name)
+                  .join(", ")),
           SizedBox(height: 10),
           HeliosText(
             "Galeria zdjęć",
