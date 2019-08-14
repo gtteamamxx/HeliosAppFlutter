@@ -1,16 +1,10 @@
-# helios_app
+Simple app created for Helios Cinema (unfinished)
 
-A new Flutter project.
 
-## Getting Started
+![Image 1](https://github.com/gtteamamxx/HeliosAppFlutter/blob/master/Screenshot_0.png?raw=true)
+![Image 2](https://github.com/gtteamamxx/HeliosAppFlutter/blob/master/Screenshot_1.png?raw=true)
+![Image 3](https://github.com/gtteamamxx/HeliosAppFlutter/blob/master/Screenshot_2.png?raw=true)
+![Image 4](https://github.com/gtteamamxx/HeliosAppFlutter/blob/master/Screenshot_3.png?raw=true)
+![Image 5](https://github.com/gtteamamxx/HeliosAppFlutter/blob/master/Screenshot_4.png?raw=true)
+![Image 6](https://github.com/gtteamamxx/HeliosAppFlutter/blob/master/Screenshot_5.png?raw=true)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
