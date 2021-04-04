@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/ui/common/image_details.dart';
-
-import 'package:helios_app/ui/home/home_page.dart';
-import 'package:helios_app/ui/movie_detail/movie_detail_page.dart';
-import 'package:helios_app/ui/select_cinema/select_cinema_page.dart';
-import 'package:helios_app/ui/select_places/select_places.dart';
+import 'package:helios_app_flutter_x/ui/common/image_details.dart';
+import 'package:helios_app_flutter_x/ui/home/home_page.dart';
+import 'package:helios_app_flutter_x/ui/movie_detail/movie_detail_page.dart';
+import 'package:helios_app_flutter_x/ui/select_cinema/select_cinema_page.dart';
+import 'package:helios_app_flutter_x/ui/select_places/select_places.dart';
 
 Route<dynamic> routes(RouteSettings settings) {
   if (settings.name == '/') {
@@ -23,16 +22,20 @@ Route<dynamic> routes(RouteSettings settings) {
 }
 
 Route _buildImageViewer(RouteSettings settings) {
-  return MaterialPageRoute(builder: (BuildContext context) {
-    return ImageDetails(
-      heroTag: 'image-details',
-      imageProvider: NetworkImage(settings.arguments),
-    );
-  });
+  return MaterialPageRoute(
+    maintainState: true,
+    builder: (BuildContext context) {
+      return ImageDetails(
+        heroTag: 'image-details',
+        imageProvider: NetworkImage(settings.arguments),
+      );
+    },
+  );
 }
 
 Route<dynamic> _buildRoute(page) {
   return MaterialPageRoute(
+    maintainState: true,
     builder: (BuildContext context) {
       return page;
     },

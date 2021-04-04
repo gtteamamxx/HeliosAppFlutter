@@ -1,4 +1,4 @@
-import 'package:helios_app/models/place/place_model.dart';
+import 'package:helios_app_flutter_x/models/place/place_model.dart';
 
 class CinemaHallModel {
   CinemaHallModel({

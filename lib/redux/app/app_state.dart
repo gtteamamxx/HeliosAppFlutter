@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/cinema/cinema_model.dart';
-import 'package:helios_app/redux/home/home_state.dart';
-import 'package:helios_app/redux/movie_detail/movie_detail_page_state.dart';
-import 'package:helios_app/redux/select_cinema/select_cinema_state.dart';
-import 'package:helios_app/redux/select_cinema/select_cinema_state_middleware.dart';
-import 'package:helios_app/redux/select_places/select_places_page_state.dart';
-import 'package:helios_app/redux/select_places/select_places_page_state_middleware.dart';
+import 'package:helios_app_flutter_x/models/cinema/cinema_model.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state_middleware.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state_reducer.dart';
+import 'package:helios_app_flutter_x/redux/home/home_state.dart';
+import 'package:helios_app_flutter_x/redux/home/main/main_page_state_middleware.dart';
+import 'package:helios_app_flutter_x/redux/home/pricing/pricing_page_state_middleware.dart';
+import 'package:helios_app_flutter_x/redux/home/repertoire/repertoire_page_state_middleware.dart';
+import 'package:helios_app_flutter_x/redux/movie_detail/movie_detail_page_state.dart';
+import 'package:helios_app_flutter_x/redux/movie_detail/movie_detail_page_state_middleware.dart';
+import 'package:helios_app_flutter_x/redux/select_cinema/select_cinema_state.dart';
+import 'package:helios_app_flutter_x/redux/select_cinema/select_cinema_state_middleware.dart';
+import 'package:helios_app_flutter_x/redux/select_places/select_places_page_state.dart';
+import 'package:helios_app_flutter_x/redux/select_places/select_places_page_state_middleware.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
-import 'package:helios_app/redux/app/app_state_reducer.dart';
-import 'package:helios_app/redux/app/app_state_middleware.dart';
-import 'package:helios_app/redux/home/main/main_page_state_middleware.dart';
-import 'package:helios_app/redux/home/pricing/pricing_page_state_middleware.dart';
-import 'package:helios_app/redux/home/repertoire/repertoire_page_state_middleware.dart';
-import 'package:helios_app/redux/movie_detail/movie_detail_page_state_middleware.dart';
 
 class AppState {
   AppState({
@@ -72,11 +72,9 @@ class AppState {
       selectCinemaState: selectCinemaState ?? this.selectCinemaState,
       selectedCinema: selectedCinema ?? this.selectedCinema,
       movieDetailPageState: movieDetailPageState ?? this.movieDetailPageState,
-      selectPlacesPageState:
-          selectPlacesPageState ?? this.selectPlacesPageState,
+      selectPlacesPageState: selectPlacesPageState ?? this.selectPlacesPageState,
       appBarTitle: appBarTitle ?? this.appBarTitle,
-      showChangeCinemaButton:
-          showChangeCinemaButton ?? this.showChangeCinemaButton,
+      showChangeCinemaButton: showChangeCinemaButton ?? this.showChangeCinemaButton,
       isAppBarVisible: isAppBarVisible ?? this.isAppBarVisible,
       showBackButton: showBackButton ?? this.showBackButton,
       backAction: backAction ?? this.backAction,

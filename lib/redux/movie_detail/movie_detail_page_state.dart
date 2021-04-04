@@ -1,4 +1,4 @@
-import 'package:helios_app/models/repertoire/movie_repertoire.dart';
+import 'package:helios_app_flutter_x/models/repertoire/movie_repertoire.dart';
 
 class MovieDetailPageState {
   MovieDetailPageState({
@@ -26,10 +26,8 @@ class MovieDetailPageState {
   }) {
     return MovieDetailPageState(
       movieRepertoire: movieRepertoire ?? this.movieRepertoire,
-      isLoadingMovieRepertoire:
-          isLoadingMovieRepertoire ?? this.isLoadingMovieRepertoire,
-      isErrorMovieRepertoire:
-          isErrorMovieRepertoire ?? this.isErrorMovieRepertoire,
+      isLoadingMovieRepertoire: isLoadingMovieRepertoire ?? this.isLoadingMovieRepertoire,
+      isErrorMovieRepertoire: isErrorMovieRepertoire ?? this.isErrorMovieRepertoire,
     );
   }
 }

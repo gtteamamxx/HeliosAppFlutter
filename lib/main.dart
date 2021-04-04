@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/other/helpers/navigator_helper.dart';
-import 'package:helios_app/other/helpers/network_watcher.dart';
-import 'package:helios_app/other/service_locator.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/ui/common/gradient_app_bar.dart';
-import 'package:helios_app/viewmodels/gradient_app_bar/gradient_app_bar_view_model.dart';
-import 'package:redux/redux.dart';
-import 'package:helios_app/other/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/other/helpers/navigator_helper.dart';
+import 'package:helios_app_flutter_x/other/helpers/network_watcher.dart';
+import 'package:helios_app_flutter_x/other/routes.dart';
+import 'package:helios_app_flutter_x/other/service_locator.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/ui/common/gradient_app_bar.dart';
+import 'package:helios_app_flutter_x/viewmodels/gradient_app_bar/gradient_app_bar_view_model.dart';
+import 'package:redux/redux.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   configureServiceLocator();
   await startNetworkWatcher();
 

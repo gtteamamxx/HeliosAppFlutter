@@ -1,4 +1,4 @@
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
+import 'package:helios_app_flutter_x/models/repertoire/repertoire_model.dart';
 
 class FinishFetchRepertoireAction {
   FinishFetchRepertoireAction({this.repertoire});

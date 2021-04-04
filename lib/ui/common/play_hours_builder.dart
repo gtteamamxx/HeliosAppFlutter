@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/play_hour/play_hour_model.dart';
-import 'package:helios_app/other/helpers/constants.dart';
+import 'package:helios_app_flutter_x/models/play_hour/play_hour_model.dart';
+import 'package:helios_app_flutter_x/other/helpers/constants.dart';
 import 'package:intl/intl.dart';
 
-List<TextSpan> buildPlayHours(List<PlayHourModel> playHours,
-    {double fontSize}) {
+List<TextSpan> buildPlayHours(List<PlayHourModel> playHours, {double fontSize}) {
   List<TextSpan> textSpans = [];
   playHours.forEach((playHour) {
     textSpans.add(

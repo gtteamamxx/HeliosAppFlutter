@@ -1,7 +1,7 @@
-import 'package:helios_app/models/pricing/price_day_model.dart';
-import 'package:helios_app/models/pricing/pricing_model.dart';
-import 'package:helios_app/models/pricing/price_model.dart';
-import 'package:helios_app/models/ticket/ticket_model.dart';
+import 'package:helios_app_flutter_x/models/pricing/price_day_model.dart';
+import 'package:helios_app_flutter_x/models/pricing/price_model.dart';
+import 'package:helios_app_flutter_x/models/pricing/pricing_model.dart';
+import 'package:helios_app_flutter_x/models/ticket/ticket_model.dart';
 
 List<PricingModel> pricingMock = [
   PricingModel(

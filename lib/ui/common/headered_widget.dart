@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
 
 class HeaderedWidget extends StatelessWidget {
   HeaderedWidget({

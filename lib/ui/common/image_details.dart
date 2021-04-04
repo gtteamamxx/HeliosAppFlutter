@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/redux/actions/app/change_app_bar_visibility_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/redux/actions/app/change_app_bar_visibility_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:redux/redux.dart';
 
@@ -30,10 +30,12 @@ class ImageDetails extends StatelessWidget {
         ),
         child: PhotoView(
           imageProvider: imageProvider,
-          loadingChild: loadingChild,
+          loadingBuilder: (ctx, _) {
+            return loadingChild;
+          },
           minScale: PhotoViewComputedScale.covered * 0.3,
           maxScale: PhotoViewComputedScale.covered * 2,
-          heroTag: this.heroTag,
+          heroAttributes: PhotoViewHeroAttributes(tag: this.heroTag, transitionOnUserGestures: true),
         ),
       ),
     );

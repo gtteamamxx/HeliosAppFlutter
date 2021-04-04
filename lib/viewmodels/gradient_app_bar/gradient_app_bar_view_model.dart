@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/redux/actions/navigate_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/redux/actions/navigate_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
 import 'package:redux/redux.dart';
 
 class GradientAppBarViewModel {

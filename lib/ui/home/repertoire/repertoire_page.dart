@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/models/repertoire/movie_repertoire.dart';
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
-import 'package:helios_app/other/helpers/colors_helper.dart';
-import 'package:helios_app/other/helpers/constants.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/redux/actions/home/repertoire/fetch_repertoire_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/ui/common/error_button.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
-import 'package:helios_app/ui/common/movie_category.dart';
-import 'package:helios_app/ui/common/movie_hero.dart';
-import 'package:helios_app/ui/common/repertoire_days.dart';
-import 'package:helios_app/viewmodels/home/repertoire/repertoire_page_view_model.dart';
-import 'package:helios_app/ui/common/play_hours_builder.dart';
+import 'package:helios_app_flutter_x/models/repertoire/movie_repertoire.dart';
+import 'package:helios_app_flutter_x/models/repertoire/repertoire_model.dart';
+import 'package:helios_app_flutter_x/other/helpers/colors_helper.dart';
+import 'package:helios_app_flutter_x/other/helpers/constants.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/repertoire/fetch_repertoire_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/ui/common/error_button.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/ui/common/movie_category.dart';
+import 'package:helios_app_flutter_x/ui/common/movie_hero.dart';
+import 'package:helios_app_flutter_x/ui/common/play_hours_builder.dart';
+import 'package:helios_app_flutter_x/ui/common/repertoire_days.dart';
+import 'package:helios_app_flutter_x/viewmodels/home/repertoire/repertoire_page_view_model.dart';
 
 class RepertoirePage extends StatefulWidget {
   @override
@@ -130,11 +130,9 @@ class _RepertoirePageState extends State<RepertoirePage> {
                                           vertical: 2,
                                         ),
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
+                                          borderRadius: BorderRadius.circular(4),
                                           color: Color(
-                                            getColorHexFromStr(
-                                                movieRepertoire.movie.labelHex),
+                                            getColorHexFromStr(movieRepertoire.movie.labelHex),
                                           ),
                                         ),
                                         child: HeliosText(
@@ -153,12 +151,9 @@ class _RepertoirePageState extends State<RepertoirePage> {
                             RichText(
                               text: TextSpan(
                                 children: [
+                                  TextSpan(text: "Od lat: ${movieRepertoire.movie.minYear}"),
                                   TextSpan(
-                                      text:
-                                          "Od lat: ${movieRepertoire.movie.minYear}"),
-                                  TextSpan(
-                                    text:
-                                        ", Czas trwania: ${movieRepertoire.movie.duration.inMinutes} min.",
+                                    text: ", Czas trwania: ${movieRepertoire.movie.duration.inMinutes} min.",
                                   ),
                                 ],
                                 style: TextStyle(

@@ -1,5 +1,5 @@
-import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
-import 'package:helios_app/other/services/mock/movies_list.dart';
+import 'package:helios_app_flutter_x/models/featured_movies/featured_movie_model.dart';
+import 'package:helios_app_flutter_x/other/services/mock/movies_list.dart';
 
 List<FeaturedMovieModel> featuredMoviesMock = [
   FeaturedMovieModel(id: 0, movie: moviesMock[4]),

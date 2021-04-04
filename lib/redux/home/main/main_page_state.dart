@@ -1,8 +1,8 @@
-import 'package:helios_app/models/announcment/announcment_model.dart';
-import 'package:helios_app/models/event/event_descripted_model.dart';
-import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
-import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
+import 'package:helios_app_flutter_x/models/announcment/announcment_model.dart';
+import 'package:helios_app_flutter_x/models/event/event_descripted_model.dart';
+import 'package:helios_app_flutter_x/models/featured_movies/featured_movie_model.dart';
+import 'package:helios_app_flutter_x/models/repertoire/repertoire_model.dart';
+import 'package:helios_app_flutter_x/models/ui/home/main/time_of_the_day.dart';
 
 class MainPageState {
   MainPageState({
@@ -73,12 +73,9 @@ class MainPageState {
   }) {
     return MainPageState(
       featuredMovies: featuredMovies ?? this.featuredMovies,
-      isFeaturedMoviesLoading:
-          isFeaturedMoviesLoading ?? this.isFeaturedMoviesLoading,
-      isFeaturedMoviesError:
-          isFeaturedMoviesError ?? this.isFeaturedMoviesError,
-      selectedRepertoireTimeOfTheDay:
-          selectedRepertoireTimeOfTheDay ?? this.selectedRepertoireTimeOfTheDay,
+      isFeaturedMoviesLoading: isFeaturedMoviesLoading ?? this.isFeaturedMoviesLoading,
+      isFeaturedMoviesError: isFeaturedMoviesError ?? this.isFeaturedMoviesError,
+      selectedRepertoireTimeOfTheDay: selectedRepertoireTimeOfTheDay ?? this.selectedRepertoireTimeOfTheDay,
       todayRepertoire: todayRepertoire ?? this.todayRepertoire,
       isRepertoireLoading: isRepertoireLoading ?? this.isRepertoireLoading,
       isRepertoireError: isRepertoireError ?? this.isRepertoireError,
@@ -86,8 +83,7 @@ class MainPageState {
       isEventsLoading: isEventsLoading ?? this.isEventsLoading,
       isEventsError: isEventsError ?? this.isEventsError,
       announcements: announcements ?? this.announcements,
-      isAnnouncementsLoading:
-          isAnnouncementsLoading ?? this.isAnnouncementsLoading,
+      isAnnouncementsLoading: isAnnouncementsLoading ?? this.isAnnouncementsLoading,
       isAnnouncementsError: isAnnouncementsError ?? this.isAnnouncementsError,
     );
   }

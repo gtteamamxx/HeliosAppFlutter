@@ -1,4 +1,4 @@
-import 'package:helios_app/models/repertoire/movie_repertoire.dart';
+import 'package:helios_app_flutter_x/models/repertoire/movie_repertoire.dart';
 import 'package:meta/meta.dart';
 
 class ShowMovieDetailAction {

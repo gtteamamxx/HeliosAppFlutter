@@ -1,5 +1,5 @@
-import 'package:helios_app/models/place/place_state_enum.dart';
-import 'package:helios_app/models/place/place_type_enum.dart';
+import 'package:helios_app_flutter_x/models/place/place_state_enum.dart';
+import 'package:helios_app_flutter_x/models/place/place_type_enum.dart';
 
 class PlaceModel {
   PlaceModel({

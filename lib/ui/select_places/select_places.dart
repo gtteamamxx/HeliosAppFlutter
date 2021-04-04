@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/viewmodels/select_places/select_places_view_model.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/viewmodels/select_places/select_places_view_model.dart';
 
 class SelectPlaces extends StatefulWidget {
   @override

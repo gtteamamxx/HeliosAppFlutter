@@ -1,8 +1,8 @@
-import 'package:helios_app/models/place/place_model.dart';
-import 'package:helios_app/models/repertoire/movie_repertoire.dart';
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/redux/select_places/select_places_page_state.dart';
+import 'package:helios_app_flutter_x/models/place/place_model.dart';
+import 'package:helios_app_flutter_x/models/repertoire/movie_repertoire.dart';
+import 'package:helios_app_flutter_x/models/repertoire/repertoire_model.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/redux/select_places/select_places_page_state.dart';
 import 'package:redux/redux.dart';
 
 class SelectPlacesViewModel {

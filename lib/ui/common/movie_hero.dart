@@ -13,6 +13,7 @@ class MovieHero extends StatelessWidget {
     return Hero(
       tag: 'movieImage$id',
       child: this.child,
+      transitionOnUserGestures: true,
     );
   }
 }

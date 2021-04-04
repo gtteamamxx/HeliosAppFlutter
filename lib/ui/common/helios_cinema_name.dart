@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
 
 class HeliosCinemaName extends StatelessWidget {
   HeliosCinemaName({
@@ -18,8 +18,7 @@ class HeliosCinemaName extends StatelessWidget {
     String extendName = spltitedCinemaName.last;
 
     return Container(
-      padding:
-          this.padding ?? EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+      padding: this.padding ?? EdgeInsets.symmetric(horizontal: 15, vertical: 6),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[

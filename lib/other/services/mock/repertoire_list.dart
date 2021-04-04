@@ -1,5 +1,5 @@
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
-import 'package:helios_app/other/services/mock/movie_repertoire_list.dart';
+import 'package:helios_app_flutter_x/models/repertoire/repertoire_model.dart';
+import 'package:helios_app_flutter_x/other/services/mock/movie_repertoire_list.dart';
 
 List<RepertoireModel> asd = [];
 

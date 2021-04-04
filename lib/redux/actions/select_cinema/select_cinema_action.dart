@@ -1,4 +1,4 @@
-import 'package:helios_app/models/cinema/cinema_model.dart';
+import 'package:helios_app_flutter_x/models/cinema/cinema_model.dart';
 
 class SelectCinemaAction {
   SelectCinemaAction(this.cinema);

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/event/event_descripted_model.dart';
-import 'package:helios_app/other/helpers/constants.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/ui/common/error_button.dart';
-import 'package:helios_app/ui/common/headered_widget.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/models/event/event_descripted_model.dart';
+import 'package:helios_app_flutter_x/other/helpers/constants.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/ui/common/error_button.dart';
+import 'package:helios_app_flutter_x/ui/common/headered_widget.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
 
 class EventsList extends StatelessWidget {
   EventsList({
@@ -37,7 +37,9 @@ class EventsList extends StatelessWidget {
           duration: Constants.fadeInDuration,
           child: this.isLoading
               ? _buildLoading()
-              : this.isError ? _buildError(context) : _buildEvents(),
+              : this.isError
+                  ? _buildError(context)
+                  : _buildEvents(),
         ),
       ),
     );

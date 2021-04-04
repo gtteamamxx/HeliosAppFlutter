@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/other/helpers/navigator_helper.dart';
-import 'package:helios_app/redux/actions/app/change_app_bar_visibility_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/ui/common/error_button.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/other/helpers/navigator_helper.dart';
+import 'package:helios_app_flutter_x/redux/actions/app/change_app_bar_visibility_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/ui/common/error_button.dart';
 import 'package:redux/redux.dart';
 
 StreamSubscription<ConnectivityResult> connectivitySubscription;
@@ -31,13 +31,13 @@ _watchState(state) {
       if (connectivityState == ConnectivityResult.none) {
         NavigatorHelper.navigatorKey.currentState.push(
           MaterialPageRoute(
+            maintainState: true,
             fullscreenDialog: true,
             builder: (context) {
               Store<AppState> store = StoreProvider.of<AppState>(context);
               store.dispatch(ChangeAppBarVisibilityAction(isVisible: false));
               return WillPopScope(
-                onWillPop: () =>
-                    Future.value(connectivityState != ConnectivityResult.none),
+                onWillPop: () => Future.value(connectivityState != ConnectivityResult.none),
                 child: Material(
                   color: HeliosColors.backgroundFifth,
                   child: ErrorButton(
@@ -46,8 +46,7 @@ _watchState(state) {
                     refreshClick: () {
                       if (connectivityState != ConnectivityResult.none) {
                         NavigatorHelper.navigatorKey.currentState.pop();
-                        store.dispatch(
-                            ChangeAppBarVisibilityAction(isVisible: true));
+                        store.dispatch(ChangeAppBarVisibilityAction(isVisible: true));
                       }
                     },
                   ),

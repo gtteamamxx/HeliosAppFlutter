@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
 
 class HeliosButton extends StatelessWidget {
   HeliosButton({
@@ -32,7 +32,7 @@ class HeliosButton extends StatelessWidget {
           tileMode: TileMode.clamp,
         ),
       ),
-      child: FlatButton(
+      child: TextButton(
         onPressed: () => this.onTap(),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

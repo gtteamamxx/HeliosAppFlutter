@@ -1,7 +1,7 @@
-import 'package:helios_app/models/category/category_model.dart';
-import 'package:helios_app/models/country/country_model.dart';
-import 'package:helios_app/models/image/image_model.dart';
-import 'package:helios_app/models/person/country_model.dart';
+import 'package:helios_app_flutter_x/models/category/category_model.dart';
+import 'package:helios_app_flutter_x/models/country/country_model.dart';
+import 'package:helios_app_flutter_x/models/image/image_model.dart';
+import 'package:helios_app_flutter_x/models/person/country_model.dart';
 
 class MovieModel {
   MovieModel({

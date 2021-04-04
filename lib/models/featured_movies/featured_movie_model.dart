@@ -1,4 +1,4 @@
-import 'package:helios_app/models/movie/movie_model.dart';
+import 'package:helios_app_flutter_x/models/movie/movie_model.dart';
 
 class FeaturedMovieModel {
   FeaturedMovieModel({

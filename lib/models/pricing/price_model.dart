@@ -1,4 +1,4 @@
-import 'package:helios_app/models/ticket/ticket_model.dart';
+import 'package:helios_app_flutter_x/models/ticket/ticket_model.dart';
 
 class PriceModel {
   PriceModel({

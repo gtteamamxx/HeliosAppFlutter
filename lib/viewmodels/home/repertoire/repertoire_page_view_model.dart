@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/repertoire/movie_repertoire.dart';
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
-import 'package:helios_app/redux/actions/home/repertoire/fetch_repertoire_action.dart';
-import 'package:helios_app/redux/actions/show_movie_detail_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/redux/home/repertoire/repertoire_page_state.dart';
+import 'package:helios_app_flutter_x/models/repertoire/movie_repertoire.dart';
+import 'package:helios_app_flutter_x/models/repertoire/repertoire_model.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/repertoire/fetch_repertoire_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/show_movie_detail_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/redux/home/repertoire/repertoire_page_state.dart';
 import 'package:redux/redux.dart';
 
 typedef MovieRepertoireTap = Function(MovieRepertoireModel repertoire);
@@ -32,8 +32,7 @@ class RepertoirePageViewModel {
       isError: state.isError,
       repertoire: state.repertoire,
       onRefreshTap: () => _refreshRepertoire(store),
-      onMovieRepertoireTap: (repertoire) =>
-          _showRepertoireDetails(store, repertoire),
+      onMovieRepertoireTap: (repertoire) => _showRepertoireDetails(store, repertoire),
     );
   }
 
@@ -41,8 +40,7 @@ class RepertoirePageViewModel {
     store.dispatch(FetchRepertoireAction());
   }
 
-  static _showRepertoireDetails(
-      Store<AppState> store, MovieRepertoireModel movieRepertoire) {
+  static _showRepertoireDetails(Store<AppState> store, MovieRepertoireModel movieRepertoire) {
     store.dispatch(ShowMovieDetailAction(movieRepertoire: movieRepertoire));
   }
 }

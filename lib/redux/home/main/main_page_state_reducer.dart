@@ -1,17 +1,17 @@
-import 'package:helios_app/redux/actions/home/main/change_repertoire_time_of_the_day_action.dart';
-import 'package:helios_app/redux/actions/home/main/error_fetching_announcements_light_action.dart';
-import 'package:helios_app/redux/actions/home/main/error_fetching_descripted_events_action.dart';
-import 'package:helios_app/redux/actions/home/main/error_fetching_featured_movies_action.dart';
-import 'package:helios_app/redux/actions/home/main/error_fetching_repertoire_for_time_of_the_day_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_announcements_light_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_descripted_events_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_featured_movies_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_repertoire_for_time_of_the_day_action.dart';
-import 'package:helios_app/redux/actions/home/main/finish_fetch_announcements_light_action.dart';
-import 'package:helios_app/redux/actions/home/main/finish_fetch_descripted_events_action.dart';
-import 'package:helios_app/redux/actions/home/main/finish_fetch_featured_movies.action.dart';
-import 'package:helios_app/redux/actions/home/main/finish_fetch_repertoire_for_time_of_the_day_action.dart';
-import 'package:helios_app/redux/home/main/main_page_state.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/change_repertoire_time_of_the_day_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/error_fetching_announcements_light_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/error_fetching_descripted_events_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/error_fetching_featured_movies_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/error_fetching_repertoire_for_time_of_the_day_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_announcements_light_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_descripted_events_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_featured_movies_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_repertoire_for_time_of_the_day_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/finish_fetch_announcements_light_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/finish_fetch_descripted_events_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/finish_fetch_featured_movies.action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/finish_fetch_repertoire_for_time_of_the_day_action.dart';
+import 'package:helios_app_flutter_x/redux/home/main/main_page_state.dart';
 
 MainPageState mainPageStateReducer(MainPageState state, dynamic action) {
   if (action is FetchFeaturedMoviesAction) {

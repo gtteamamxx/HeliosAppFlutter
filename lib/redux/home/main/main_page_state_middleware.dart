@@ -1,23 +1,22 @@
-import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
-import 'package:helios_app/other/service_locator.dart';
-import 'package:helios_app/other/services/abstract/cinema_service.dart';
-import 'package:helios_app/redux/actions/home/main/error_fetching_announcements_light_action.dart';
-import 'package:helios_app/redux/actions/home/main/error_fetching_descripted_events_action.dart';
-import 'package:helios_app/redux/actions/home/main/error_fetching_featured_movies_action.dart';
-import 'package:helios_app/redux/actions/home/main/error_fetching_repertoire_for_time_of_the_day_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_announcements_light_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_descripted_events_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_featured_movies_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_repertoire_for_time_of_the_day_action.dart';
-import 'package:helios_app/redux/actions/home/main/finish_fetch_announcements_light_action.dart';
-import 'package:helios_app/redux/actions/home/main/finish_fetch_descripted_events_action.dart';
-import 'package:helios_app/redux/actions/home/main/finish_fetch_featured_movies.action.dart';
-import 'package:helios_app/redux/actions/home/main/finish_fetch_repertoire_for_time_of_the_day_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/models/ui/home/main/time_of_the_day.dart';
+import 'package:helios_app_flutter_x/other/service_locator.dart';
+import 'package:helios_app_flutter_x/other/services/abstract/cinema_service.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/error_fetching_announcements_light_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/error_fetching_descripted_events_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/error_fetching_featured_movies_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/error_fetching_repertoire_for_time_of_the_day_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_announcements_light_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_descripted_events_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_featured_movies_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_repertoire_for_time_of_the_day_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/finish_fetch_announcements_light_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/finish_fetch_descripted_events_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/finish_fetch_featured_movies.action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/finish_fetch_repertoire_for_time_of_the_day_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
 import 'package:redux/redux.dart';
 
-void mainPageStateMiddleware(
-    Store<AppState> store, action, NextDispatcher next) {
+void mainPageStateMiddleware(Store<AppState> store, action, NextDispatcher next) {
   if (action is FetchFeaturedMoviesAction) {
     _fetchFeaturedMoviesAction(next);
   } else if (action is FetchRepertoireForTimeOfTheDayAction) {
@@ -49,8 +48,7 @@ void _fetchRepertoireAction(
 
   cinemaService
       .getTodayRepertoireForCinema(store.state.selectedCinema.id, timeOfTheDay)
-      .then((repertoire) => next(
-          FinishFetchRepertoireForTimeOfTheDayAction(repertoire: repertoire)))
+      .then((repertoire) => next(FinishFetchRepertoireForTimeOfTheDayAction(repertoire: repertoire)))
       .catchError((_) => next(ErrorFetchingRepertoireForTimeOfTheDayAction()));
 }
 
@@ -59,8 +57,7 @@ void _fetchFeaturedMoviesAction(NextDispatcher next) {
 
   cinemaService
       .getFeaturedMovies()
-      .then((featuredMovies) =>
-          next(FinishFetchFeaturedMoviesAction(featuredMovies)))
+      .then((featuredMovies) => next(FinishFetchFeaturedMoviesAction(featuredMovies)))
       .catchError((_) => next(ErrorFetchingFeaturedMoviesAction()));
 }
 
@@ -69,7 +66,6 @@ void _fetchAnnouncementsLight(NextDispatcher next) {
 
   cinemaService
       .getAnnouncementsLight()
-      .then((announcements) =>
-          next(FinishFetchAnnouncementsLightAction(announcements)))
+      .then((announcements) => next(FinishFetchAnnouncementsLightAction(announcements)))
       .catchError((_) => next(ErrorFetchingAnnouncementsLightAction()));
 }

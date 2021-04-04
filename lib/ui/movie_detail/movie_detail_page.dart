@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/other/helpers/constants.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/ui/common/error_button.dart';
-import 'package:helios_app/ui/common/headered_widget.dart';
-import 'package:helios_app/ui/common/helios_button.dart';
-import 'package:helios_app/ui/common/helios_cinema_name.dart';
-import 'package:helios_app/ui/common/helios_selection_button.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
-import 'package:helios_app/ui/common/movie_category.dart';
-import 'package:helios_app/ui/common/movie_header_hero.dart';
-import 'package:helios_app/ui/common/movie_hero.dart';
-import 'package:helios_app/ui/common/repertoire_days.dart';
-import 'package:helios_app/viewmodels/movie_detail/movie_detail_page_view_model.dart';
+import 'package:helios_app_flutter_x/other/helpers/constants.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/ui/common/error_button.dart';
+import 'package:helios_app_flutter_x/ui/common/headered_widget.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/ui/common/movie_category.dart';
+import 'package:helios_app_flutter_x/ui/common/movie_header_hero.dart';
+import 'package:helios_app_flutter_x/ui/common/movie_hero.dart';
+import 'package:helios_app_flutter_x/viewmodels/movie_detail/movie_detail_page_view_model.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,8 +19,6 @@ class MovieDetailPage extends StatefulWidget {
 }
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
-  int _selectedMovieRepertoireIndex = 0;
-  int _selectedPlayHourIndex = 0;
   ScrollController _scrollController = ScrollController();
 
   @override
@@ -85,23 +79,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildContentSection(
-              "Opis filmu", viewModel.movieRepertoire.movie.description),
-          _buildContentSection(
-              "Reżyseria",
-              viewModel.movieRepertoire.movie.directors
-                  .map((x) => x.name)
-                  .join(", ")),
-          _buildContentSection(
-              "Scenariusz",
-              viewModel.movieRepertoire.movie.screenWriters
-                  .map((x) => x.name)
-                  .join(", ")),
-          _buildContentSection(
-              "Obsada",
-              viewModel.movieRepertoire.movie.actors
-                  .map((x) => x.name)
-                  .join(", ")),
+          _buildContentSection("Opis filmu", viewModel.movieRepertoire.movie.description),
+          _buildContentSection("Reżyseria", viewModel.movieRepertoire.movie.directors.map((x) => x.name).join(", ")),
+          _buildContentSection("Scenariusz", viewModel.movieRepertoire.movie.screenWriters.map((x) => x.name).join(", ")),
+          _buildContentSection("Obsada", viewModel.movieRepertoire.movie.actors.map((x) => x.name).join(", ")),
           SizedBox(height: 10),
           HeliosText(
             "Galeria zdjęć",
@@ -117,7 +98,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     return ConstrainedBox(
       constraints: BoxConstraints.loose(Size.fromHeight(350)),
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.hardEdge,
         fit: StackFit.loose,
         children: [
           Positioned(
@@ -132,8 +113,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       id: viewModel.movieRepertoire.movie.id,
                       child: GestureDetector(
                         onTap: () async {
-                          String url =
-                              viewModel.movieRepertoire.movie.trailerUrl;
+                          String url = viewModel.movieRepertoire.movie.trailerUrl;
                           if (await canLaunch(url)) {
                             launch(url);
                           }
@@ -200,8 +180,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       fit: BoxFit.fill,
                     )
                   : GestureDetector(
-                      onTap: () => viewModel.onImageTap(
-                          viewModel.movieRepertoire.movie.image.url),
+                      onTap: () => viewModel.onImageTap(viewModel.movieRepertoire.movie.image.url),
                       child: MovieHero(
                         id: viewModel.movieRepertoire.movie.id,
                         child: FadeInImage.assetNetwork(
@@ -246,8 +225,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         ),
                         SizedBox(height: 10),
                         MovieCategory(
-                          categories:
-                              viewModel.movieRepertoire.movie.categories,
+                          categories: viewModel.movieRepertoire.movie.categories,
                           fontSize: 16,
                         ),
                       ],
@@ -274,8 +252,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             width: 250,
             margin: EdgeInsets.all(10),
             child: GestureDetector(
-              onTap: () => viewModel
-                  .onImageTap(viewModel.movieRepertoire.movie.images[item].url),
+              onTap: () => viewModel.onImageTap(viewModel.movieRepertoire.movie.images[item].url),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: FadeInImage.assetNetwork(
@@ -297,8 +274,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       additionalChild: Container(),
       title: "Wybierz datę",
       headerFontSize: 20,
-      headerPadding:
-          EdgeInsets.symmetric(horizontal: 10, vertical: 0).copyWith(top: 5),
+      headerPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0).copyWith(top: 5),
       child: (() {
         if (viewModel.isLoadingMovieRepertoire) {
           return _buildLoadingMovieRepertoire();
@@ -314,9 +290,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   _buildErrorMovieRepertoire(MovieDetailPageViewModel viewModel) {
     return Container(
       height: 200,
-      child: ErrorButton(
-          title: "Wystąpił problem podczas wczytywania repertuaru",
-          refreshClick: () => viewModel.onRefreshMovieRepertoireTap()),
+      child: ErrorButton(title: "Wystąpił problem podczas wczytywania repertuaru", refreshClick: () => viewModel.onRefreshMovieRepertoireTap()),
     );
   }
 

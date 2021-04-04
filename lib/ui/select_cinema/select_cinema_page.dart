@@ -3,15 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/models/cinema/cinema_model.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/redux/actions/app/change_app_bar_title_action.dart';
-import 'package:helios_app/redux/actions/app/change_visibility_back_button_action.dart';
-import 'package:helios_app/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
-import 'package:helios_app/redux/actions/select_cinema/fetch_cinemas_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
-import 'package:helios_app/viewmodels/select_cinema/select_cinema_view_model.dart';
+import 'package:helios_app_flutter_x/models/cinema/cinema_model.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/redux/actions/app/change_app_bar_title_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/app/change_visibility_back_button_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/app/change_visiblity_change_cinema_button_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/select_cinema/fetch_cinemas_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/viewmodels/select_cinema/select_cinema_view_model.dart';
+
 import 'package:rxdart/subjects.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -32,13 +33,10 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
       converter: (store) => SelectCinemaViewModel.fromStore(store),
       onInit: (store) {
         store.dispatch(ChangeAppBarTitleAction("Które kino chcesz odwiedzić?"));
-        store.dispatch(
-            ChangeVisibilityOfChangeCinemaButtonAction(isVisible: false));
+        store.dispatch(ChangeVisibilityOfChangeCinemaButtonAction(isVisible: false));
         store.dispatch(ChangeVisibilityOfBackButtonAction(isVisible: false));
         store.dispatch(FetchCinemasAction());
-        this.streamSubscription = searchCinemaSubject.stream
-            .debounce(Duration(milliseconds: 800))
-            .listen((fetchCinemasFunction) => fetchCinemasFunction());
+        this.streamSubscription = searchCinemaSubject.stream.debounce(Duration(milliseconds: 800)).listen((fetchCinemasFunction) => fetchCinemasFunction());
       },
       onDispose: (_) {
         streamSubscription.cancel();
@@ -72,14 +70,11 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
                                 itemCount: viewModel.cinemas.length,
                                 itemBuilder: (_, index) {
                                   return Container(
-                                    color: viewModel.isCinemaSelected(
-                                            viewModel.cinemas[index])
-                                        ? HeliosColors.selectedCinemaBackground
-                                            .withAlpha(100)
+                                    color: viewModel.isCinemaSelected(viewModel.cinemas[index])
+                                        ? HeliosColors.selectedCinemaBackground.withAlpha(100)
                                         : Colors.transparent,
                                     child: InkWell(
-                                      onTap: () => viewModel.onCinemaSelected(
-                                          viewModel.cinemas[index]),
+                                      onTap: () => viewModel.onCinemaSelected(viewModel.cinemas[index]),
                                       child: _buildCinemaNameWidget(
                                         viewModel.cinemas[index],
                                       ),
@@ -104,8 +99,7 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
       child: Material(
         color: Colors.transparent,
         child: TextField(
-          onChanged: (typedCinemaName) => searchCinemaSubject
-              .add(() => viewModel.onCinemaNameChanged(typedCinemaName)),
+          onChanged: (typedCinemaName) => searchCinemaSubject.add(() => viewModel.onCinemaNameChanged(typedCinemaName)),
           style: TextStyle(color: Colors.black45, fontSize: 20),
           decoration: InputDecoration(
             hintText: "Szukaj",
@@ -155,10 +149,7 @@ class _SelectCinemaPageState extends State<SelectCinemaPage> {
 
   _buildNoItemsWidget() {
     return Column(
-      children: <Widget>[
-        HeliosText("Nie mamy kin w tej lokalziacji"),
-        HeliosText("Spróbuj wpisać inną nazwę")
-      ],
+      children: <Widget>[HeliosText("Nie mamy kin w tej lokalziacji"), HeliosText("Spróbuj wpisać inną nazwę")],
     );
   }
 }

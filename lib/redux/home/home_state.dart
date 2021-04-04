@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/ui/home/page_enum.dart';
-import 'package:helios_app/redux/home/main/main_page_state.dart';
-import 'package:helios_app/redux/home/pricing/pricing_page_state.dart';
-import 'package:helios_app/redux/home/repertoire/repertoire_page_state.dart';
-import 'package:helios_app/ui/home/main/main_page.dart';
-import 'package:helios_app/ui/home/pricing/pricing_page.dart';
-import 'package:helios_app/ui/home/repertoire/repertoire_page.dart';
+import 'package:helios_app_flutter_x/models/ui/home/page_enum.dart';
+import 'package:helios_app_flutter_x/redux/home/main/main_page_state.dart';
+import 'package:helios_app_flutter_x/redux/home/pricing/pricing_page_state.dart';
+import 'package:helios_app_flutter_x/redux/home/repertoire/repertoire_page_state.dart';
+import 'package:helios_app_flutter_x/ui/home/main/main_page.dart';
+import 'package:helios_app_flutter_x/ui/home/pricing/pricing_page.dart';
+import 'package:helios_app_flutter_x/ui/home/repertoire/repertoire_page.dart';
 import 'package:meta/meta.dart';
 
 class HomeState {

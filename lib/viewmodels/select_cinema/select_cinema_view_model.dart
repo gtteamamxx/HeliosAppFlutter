@@ -1,8 +1,8 @@
-import 'package:helios_app/models/cinema/cinema_model.dart';
-import 'package:helios_app/redux/actions/navigate_action.dart';
-import 'package:helios_app/redux/actions/select_cinema/fetch_cinemas_action.dart';
-import 'package:helios_app/redux/actions/select_cinema/select_cinema_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/models/cinema/cinema_model.dart';
+import 'package:helios_app_flutter_x/redux/actions/navigate_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/select_cinema/fetch_cinemas_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/select_cinema/select_cinema_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
 import 'package:redux/redux.dart';
 
 typedef OnCinemaNameChanged = Function(String cinemaName);
@@ -27,8 +27,7 @@ class SelectCinemaViewModel {
     return SelectCinemaViewModel(
         cinemas: store.state.selectCinemaState.cinemas,
         isLoading: store.state.selectCinemaState.isLoading,
-        onCinemaNameChanged: (cinemaName) =>
-            _searchByCinemaName(cinemaName, store),
+        onCinemaNameChanged: (cinemaName) => _searchByCinemaName(cinemaName, store),
         onCinemaSelected: (cinema) => _selectCinema(cinema, store),
         selectedCinema: store.state.selectedCinema);
   }
@@ -38,8 +37,7 @@ class SelectCinemaViewModel {
     store.dispatch(NavigateAction(route: '/home'));
   }
 
-  static void _searchByCinemaName(
-      String typedCinemaName, Store<AppState> store) {
+  static void _searchByCinemaName(String typedCinemaName, Store<AppState> store) {
     store.dispatch(FetchCinemasAction(searchText: typedCinemaName));
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/category/category_model.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/models/category/category_model.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
 
 class MovieCategory extends StatelessWidget {
   MovieCategory({this.categories, this.fontSize});

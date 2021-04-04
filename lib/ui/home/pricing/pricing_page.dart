@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:helios_app/models/pricing/price_model.dart';
-import 'package:helios_app/models/pricing/pricing_model.dart';
-import 'package:helios_app/models/ticket/ticket_model.dart';
-import 'package:helios_app/other/helpers/constants.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/redux/actions/home/pricing/fetch_pricing_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/ui/common/error_button.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
-import 'package:helios_app/viewmodels/home/pricing/pricing_page_view_model.dart';
+import 'package:helios_app_flutter_x/models/pricing/price_model.dart';
+import 'package:helios_app_flutter_x/models/pricing/pricing_model.dart';
+import 'package:helios_app_flutter_x/models/ticket/ticket_model.dart';
+import 'package:helios_app_flutter_x/other/helpers/constants.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/pricing/fetch_pricing_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/ui/common/error_button.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/viewmodels/home/pricing/pricing_page_view_model.dart';
 
 class PricingPage extends StatefulWidget {
   @override
   _PricingPageState createState() => _PricingPageState();
 }
 
-class _PricingPageState extends State<PricingPage>
-    with SingleTickerProviderStateMixin {
+class _PricingPageState extends State<PricingPage> with SingleTickerProviderStateMixin {
   int _selectedPricingIndex = 0;
   int _lastSelectedIndex = 0;
   AnimationController _animationController;
@@ -28,17 +27,11 @@ class _PricingPageState extends State<PricingPage>
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 400))
-          ..addListener(() => setState(() {}));
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 400))..addListener(() => setState(() {}));
 
-    _changeColorAnimation = ColorTween(
-            begin: Colors.white, end: HeliosColors.pricingPagePricingTypeColor)
-        .animate(_animationController);
+    _changeColorAnimation = ColorTween(begin: Colors.white, end: HeliosColors.pricingPagePricingTypeColor).animate(_animationController);
 
-    _changeColorBackAnimation = ColorTween(
-            begin: HeliosColors.pricingPagePricingTypeColor, end: Colors.white)
-        .animate(_animationController);
+    _changeColorBackAnimation = ColorTween(begin: HeliosColors.pricingPagePricingTypeColor, end: Colors.white).animate(_animationController);
 
     super.initState();
   }
@@ -121,8 +114,7 @@ class _PricingPageState extends State<PricingPage>
   }
 
   _buildTicketsSections(PricingModel pricing) {
-    Map<TicketModel, List<PriceIndentifiedByDayModel>> ticketPriceDict =
-        _getTicketPriceDict(pricing);
+    Map<TicketModel, List<PriceIndentifiedByDayModel>> ticketPriceDict = _getTicketPriceDict(pricing);
     List<Widget> widgets = [];
 
     for (TicketModel ticket in ticketPriceDict.keys) {
@@ -139,8 +131,7 @@ class _PricingPageState extends State<PricingPage>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: _priceGridHeaderDaysIds.map((dayId) {
-            PriceIndentifiedByDayModel price = prices
-                .firstWhere((x) => x.priceDayId == dayId, orElse: () => null);
+            PriceIndentifiedByDayModel price = prices.firstWhere((x) => x.priceDayId == dayId, orElse: () => null);
             int index = _priceGridHeaderDaysIds.indexOf(dayId) + 1;
             return Expanded(
               child: price == null
@@ -149,7 +140,9 @@ class _PricingPageState extends State<PricingPage>
                       "${price.price.toStringAsFixed(2)} zł",
                       textAlign: index == _priceGridHeaderDaysIds.length
                           ? TextAlign.right
-                          : index == 1 ? TextAlign.left : TextAlign.center,
+                          : index == 1
+                              ? TextAlign.left
+                              : TextAlign.center,
                       fontSize: 13,
                       height: 0.7,
                     ),
@@ -242,24 +235,18 @@ class _PricingPageState extends State<PricingPage>
         return HeliosColors.pricingPagePricingTypeColor;
       }
     } else {
-      bool isAnimForrward =
-          _animationController.status == AnimationStatus.forward;
+      bool isAnimForrward = _animationController.status == AnimationStatus.forward;
       if (index == _selectedPricingIndex) {
-        return isAnimForrward
-            ? _changeColorBackAnimation.value
-            : _changeColorAnimation.value;
+        return isAnimForrward ? _changeColorBackAnimation.value : _changeColorAnimation.value;
       } else if (index == _lastSelectedIndex) {
-        return isAnimForrward
-            ? _changeColorAnimation.value
-            : _changeColorBackAnimation.value;
+        return isAnimForrward ? _changeColorAnimation.value : _changeColorBackAnimation.value;
       }
 
       return HeliosColors.pricingPagePricingTypeColor;
     }
   }
 
-  Map<TicketModel, List<PriceIndentifiedByDayModel>> _getTicketPriceDict(
-      PricingModel pricing) {
+  Map<TicketModel, List<PriceIndentifiedByDayModel>> _getTicketPriceDict(PricingModel pricing) {
     var tickets = Map<TicketModel, List<PriceIndentifiedByDayModel>>();
 
     for (var dayPrice in pricing.days.map((x) => [x.id, x.prices])) {
@@ -268,11 +255,9 @@ class _PricingPageState extends State<PricingPage>
 
       for (PriceModel price in prices) {
         if (!tickets.keys.any((x) => x.id == price.ticket.id)) {
-          tickets[price.ticket] = List<PriceIndentifiedByDayModel>()
-            ..add(mapToPriceIndentifiedByDayModel(dayId, price));
+          tickets[price.ticket] = []..add(mapToPriceIndentifiedByDayModel(dayId, price));
         } else {
-          List<PriceIndentifiedByDayModel> pair =
-              tickets[tickets.keys.firstWhere((x) => x.id == price.ticket.id)];
+          List<PriceIndentifiedByDayModel> pair = tickets[tickets.keys.firstWhere((x) => x.id == price.ticket.id)];
           pair.add(mapToPriceIndentifiedByDayModel(dayId, price));
         }
       }

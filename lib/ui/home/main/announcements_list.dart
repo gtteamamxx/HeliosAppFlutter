@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/announcment/announcment_model.dart';
-import 'package:helios_app/other/helpers/constants.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/ui/common/error_button.dart';
-import 'package:helios_app/ui/common/headered_widget.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/models/announcment/announcment_model.dart';
+import 'package:helios_app_flutter_x/other/helpers/constants.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/ui/common/error_button.dart';
+import 'package:helios_app_flutter_x/ui/common/headered_widget.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -37,7 +37,9 @@ class AnnouncementsList extends StatelessWidget {
           duration: Constants.fadeInDuration,
           child: this.isLoading
               ? _buildLoading()
-              : this.isError ? _buildError() : _buildAnnouncements(),
+              : this.isError
+                  ? _buildError()
+                  : _buildAnnouncements(),
         ),
       ),
     );

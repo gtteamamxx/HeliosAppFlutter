@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
 
 class HeliosSelectionButton extends StatelessWidget {
   HeliosSelectionButton({
@@ -39,9 +39,7 @@ class HeliosSelectionButton extends StatelessWidget {
           color: isSelected ? Colors.white : Colors.transparent,
           width: 2,
         ),
-        color: isSelected || this.staticBackgroundColor
-            ? this.backgroundColor ?? HeliosColors.backgroundFourth
-            : Colors.transparent,
+        color: isSelected || this.staticBackgroundColor ? this.backgroundColor ?? HeliosColors.backgroundFourth : Colors.transparent,
       ),
       child: InkWell(
         onTap: () {

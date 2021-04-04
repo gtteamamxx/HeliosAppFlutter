@@ -1,10 +1,9 @@
-import 'package:helios_app/redux/actions/movie_detail/error_fetching_movie_repertoire_action.dart';
-import 'package:helios_app/redux/actions/movie_detail/fetch_movie_repertoire_action.dart';
-import 'package:helios_app/redux/actions/movie_detail/finish_fetch_movie_repertoire_action.dart';
-import 'package:helios_app/redux/movie_detail/movie_detail_page_state.dart';
+import 'package:helios_app_flutter_x/redux/actions/movie_detail/error_fetching_movie_repertoire_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/movie_detail/fetch_movie_repertoire_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/movie_detail/finish_fetch_movie_repertoire_action.dart';
+import 'package:helios_app_flutter_x/redux/movie_detail/movie_detail_page_state.dart';
 
-MovieDetailPageState movieDetailPageStateReducer(
-    MovieDetailPageState state, action) {
+MovieDetailPageState movieDetailPageStateReducer(MovieDetailPageState state, action) {
   if (action is FetchMovieRepertoireAction) {
     return state.copyWith(
       isLoadingMovieRepertoire: true,

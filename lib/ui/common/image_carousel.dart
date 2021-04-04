@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/category/category_model.dart';
-import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
-import 'package:helios_app/other/helpers/constants.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/ui/common/error_button.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
-import 'package:helios_app/ui/common/movie_header_hero.dart';
+import 'package:helios_app_flutter_x/models/category/category_model.dart';
+import 'package:helios_app_flutter_x/models/featured_movies/featured_movie_model.dart';
+import 'package:helios_app_flutter_x/other/helpers/constants.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/ui/common/error_button.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/ui/common/movie_header_hero.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 typedef FeaturedMovieTap = void Function(FeaturedMovieModel featuredMovie);
@@ -51,12 +52,12 @@ class _ImageCarouselState extends State<ImageCarousel> {
             duration: Constants.fadeInDuration,
             child: widget.isLoading
                 ? _buildLoading(context)
-                : widget.isError ? _buildError() : _buildImageCarousel(),
+                : widget.isError
+                    ? _buildError()
+                    : _buildImageCarousel(),
           ),
           _buildPageDots(),
-          widget.isLoading || widget.isError
-              ? Container()
-              : _buildShowTrailer(),
+          widget.isLoading || widget.isError ? Container() : _buildShowTrailer(),
         ],
       ),
     );
@@ -177,9 +178,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   _buildPageDots() {
     const double size = 8;
-    int length = widget.children.length == 0 || widget.isError
-        ? 1
-        : widget.children.length;
+    int length = widget.children.length == 0 || widget.isError ? 1 : widget.children.length;
 
     return Positioned(
       bottom: 13,
@@ -199,9 +198,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
                   width: 1,
                   color: Colors.white.withAlpha(100),
                 ),
-                color: actualPageIndex == index
-                    ? Colors.white
-                    : Colors.transparent,
+                color: actualPageIndex == index ? Colors.white : Colors.transparent,
               ),
               margin: EdgeInsets.symmetric(horizontal: 5),
               child: InkWell(

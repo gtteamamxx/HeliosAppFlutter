@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/ui/home/page_enum.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/redux/actions/home/change_home_page_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/models/ui/home/page_enum.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/change_home_page_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
 import 'package:redux/redux.dart';
 
 typedef OnChangePage = void Function(int index);
@@ -36,12 +36,9 @@ class HomePageViewModel {
     return selectedPage.index;
   }
 
-  Widget buildNavigationItem(
-      {String title, IconData icon, PageEnum page, OnChangePage onTap}) {
+  Widget buildNavigationItem({String title, IconData icon, PageEnum page, OnChangePage onTap}) {
     bool isSelected = page == this.selectedPage;
-    Color color = isSelected
-        ? HeliosColors.homeIconActive
-        : HeliosColors.homeIconNotActive;
+    Color color = isSelected ? HeliosColors.homeIconActive : HeliosColors.homeIconNotActive;
 
     return InkWell(
       onTap: () {

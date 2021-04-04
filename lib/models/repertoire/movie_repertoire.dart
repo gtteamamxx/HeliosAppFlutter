@@ -1,5 +1,5 @@
-import 'package:helios_app/models/movie/movie_model.dart';
-import 'package:helios_app/models/play_hour/play_hour_model.dart';
+import 'package:helios_app_flutter_x/models/movie/movie_model.dart';
+import 'package:helios_app_flutter_x/models/play_hour/play_hour_model.dart';
 
 class MovieRepertoireModel {
   MovieRepertoireModel({

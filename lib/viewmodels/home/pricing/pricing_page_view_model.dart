@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/pricing/pricing_model.dart';
-import 'package:helios_app/redux/actions/home/pricing/fetch_pricing_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/redux/home/pricing/pricing_page_state.dart';
+import 'package:helios_app_flutter_x/models/pricing/pricing_model.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/pricing/fetch_pricing_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/redux/home/pricing/pricing_page_state.dart';
+
 import 'package:redux/redux.dart';
 
 class PricingPageViewModel {

@@ -1,7 +1,7 @@
-import 'package:helios_app/redux/actions/home/pricing/error_fetching_pricing_action.dart';
-import 'package:helios_app/redux/actions/home/pricing/fetch_pricing_action.dart';
-import 'package:helios_app/redux/actions/home/pricing/finish_fetch_pricing_action.dart';
-import 'package:helios_app/redux/home/pricing/pricing_page_state.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/pricing/error_fetching_pricing_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/pricing/fetch_pricing_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/pricing/finish_fetch_pricing_action.dart';
+import 'package:helios_app_flutter_x/redux/home/pricing/pricing_page_state.dart';
 
 PricingPageState pricingPageStateReducer(PricingPageState state, action) {
   if (action is FetchPricingAction) {

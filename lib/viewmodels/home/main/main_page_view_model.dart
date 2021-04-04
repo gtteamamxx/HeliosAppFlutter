@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/announcment/announcment_model.dart';
-import 'package:helios_app/models/event/event_descripted_model.dart';
-import 'package:helios_app/models/featured_movies/featured_movie_model.dart';
-import 'package:helios_app/models/repertoire/movie_repertoire.dart';
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
-import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
-import 'package:helios_app/redux/actions/home/main/change_repertoire_time_of_the_day_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_announcements_light_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_descripted_events_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_featured_movies_action.dart';
-import 'package:helios_app/redux/actions/home/main/fetch_repertoire_for_time_of_the_day_action.dart';
-import 'package:helios_app/redux/actions/show_movie_detail_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/redux/home/main/main_page_state.dart';
-import 'package:helios_app/ui/common/image_carousel.dart';
-import 'package:helios_app/ui/home/main/movie_repertoire_list.dart';
+import 'package:helios_app_flutter_x/models/announcment/announcment_model.dart';
+import 'package:helios_app_flutter_x/models/event/event_descripted_model.dart';
+import 'package:helios_app_flutter_x/models/featured_movies/featured_movie_model.dart';
+import 'package:helios_app_flutter_x/models/repertoire/movie_repertoire.dart';
+import 'package:helios_app_flutter_x/models/repertoire/repertoire_model.dart';
+import 'package:helios_app_flutter_x/models/ui/home/main/time_of_the_day.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/change_repertoire_time_of_the_day_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_announcements_light_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_descripted_events_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_featured_movies_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/home/main/fetch_repertoire_for_time_of_the_day_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/show_movie_detail_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/redux/home/main/main_page_state.dart';
+import 'package:helios_app_flutter_x/ui/common/image_carousel.dart';
+import 'package:helios_app_flutter_x/ui/home/main/movie_repertoire_list.dart';
 import 'package:redux/redux.dart';
 
 class MainPageViewModel {
@@ -77,10 +77,8 @@ class MainPageViewModel {
       todayRepertoire: state.todayRepertoire,
       isRepertoireLoading: state.isRepertoireLoading,
       isRepertoireError: state.isRepertoireError,
-      onRefreshRepertoire: () =>
-          _refreshRepertoire(store, state.selectedRepertoireTimeOfTheDay),
-      onRepertoireTimeOfTheDayChange: (timeOfTheDay) =>
-          _repertoireTimeOfTheDayChange(timeOfTheDay, store, state),
+      onRefreshRepertoire: () => _refreshRepertoire(store, state.selectedRepertoireTimeOfTheDay),
+      onRepertoireTimeOfTheDayChange: (timeOfTheDay) => _repertoireTimeOfTheDayChange(timeOfTheDay, store, state),
       events: state.events,
       isEventsLoading: state.isEventsLoading,
       isEventsError: state.isEventsError,
@@ -89,10 +87,8 @@ class MainPageViewModel {
       isAnnouncementsLoading: state.isAnnouncementsLoading,
       isAnnouncementsError: state.isAnnouncementsError,
       onRefreshAnnouncements: () => _refreshAnnouncements(store),
-      onFeaturedMovieTap: (featuredMovie) =>
-          _onFeaturedMovieTap(store, featuredMovie),
-      onMovieRepertoireTap: (movieRepertoire) =>
-          _onRepertoireTap(store, movieRepertoire),
+      onFeaturedMovieTap: (featuredMovie) => _onFeaturedMovieTap(store, featuredMovie),
+      onMovieRepertoireTap: (movieRepertoire) => _onRepertoireTap(store, movieRepertoire),
     );
   }
 
@@ -113,10 +109,8 @@ class MainPageViewModel {
     store.dispatch(FetchFeaturedMoviesAction());
   }
 
-  static _refreshRepertoire(
-      Store<AppState> store, TimeOfTheDayEnum selectedRepertoireTimeOfTheDay) {
-    store.dispatch(
-        FetchRepertoireForTimeOfTheDayAction(selectedRepertoireTimeOfTheDay));
+  static _refreshRepertoire(Store<AppState> store, TimeOfTheDayEnum selectedRepertoireTimeOfTheDay) {
+    store.dispatch(FetchRepertoireForTimeOfTheDayAction(selectedRepertoireTimeOfTheDay));
   }
 
   static _refreshEvents(Store<AppState> store) {
@@ -127,13 +121,11 @@ class MainPageViewModel {
     store.dispatch(FetchAnnouncementsLightAction());
   }
 
-  static _onFeaturedMovieTap(
-      Store<AppState> store, FeaturedMovieModel featuredMovie) {
+  static _onFeaturedMovieTap(Store<AppState> store, FeaturedMovieModel featuredMovie) {
     store.dispatch(ShowMovieDetailByIdAction(movieId: featuredMovie.movie.id));
   }
 
-  static _onRepertoireTap(
-      Store<AppState> store, MovieRepertoireModel movieRepertoire) {
+  static _onRepertoireTap(Store<AppState> store, MovieRepertoireModel movieRepertoire) {
     store.dispatch(ShowMovieDetailAction(movieRepertoire: movieRepertoire));
   }
 }

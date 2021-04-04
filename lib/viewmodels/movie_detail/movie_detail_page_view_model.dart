@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/repertoire/movie_repertoire.dart';
-import 'package:helios_app/redux/actions/movie_detail/fetch_movie_repertoire_action.dart';
-import 'package:helios_app/redux/actions/show_image_action.dart';
-import 'package:helios_app/redux/actions/show_select_places_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
-import 'package:helios_app/redux/movie_detail/movie_detail_page_state.dart';
+import 'package:helios_app_flutter_x/models/repertoire/movie_repertoire.dart';
+import 'package:helios_app_flutter_x/redux/actions/movie_detail/fetch_movie_repertoire_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/show_image_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/show_select_places_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/redux/movie_detail/movie_detail_page_state.dart';
 import 'package:redux/redux.dart';
 
 typedef ImageTap = Function(String url);
-typedef SelectMovieRepertoireTap = Function(
-    MovieRepertoireModel movieRepertoire, int playHourIndex);
+typedef SelectMovieRepertoireTap = Function(MovieRepertoireModel movieRepertoire, int playHourIndex);
 
 class MovieDetailPageViewModel {
   MovieDetailPageViewModel({
@@ -41,8 +40,7 @@ class MovieDetailPageViewModel {
       isLoadingMovieRepertoire: state.isLoadingMovieRepertoire,
       onRefreshMovieRepertoireTap: () => _refreshMovieRepertoire(store, state),
       selectedCinemaName: store.state.selectedCinema.name,
-      onSelectMovieRepertoireTap: (movieRepertoire, playHourIndex) =>
-          _movieRepertoireSelected(store, movieRepertoire, playHourIndex),
+      onSelectMovieRepertoireTap: (movieRepertoire, playHourIndex) => _movieRepertoireSelected(store, movieRepertoire, playHourIndex),
     );
   }
 
@@ -50,13 +48,11 @@ class MovieDetailPageViewModel {
     store.dispatch(ShowImageAction(imageUrl: url));
   }
 
-  static _refreshMovieRepertoire(
-      Store<AppState> store, MovieDetailPageState state) {
+  static _refreshMovieRepertoire(Store<AppState> store, MovieDetailPageState state) {
     if (state.isLoadingMovieRepertoire) {
       return;
     }
-    store.dispatch(
-        FetchMovieRepertoireAction(movieId: state.movieRepertoire.movie.id));
+    store.dispatch(FetchMovieRepertoireAction(movieId: state.movieRepertoire.movie.id));
   }
 
   static _movieRepertoireSelected(

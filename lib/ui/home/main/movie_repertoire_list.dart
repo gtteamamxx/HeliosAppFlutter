@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/repertoire/movie_repertoire.dart';
-import 'package:helios_app/models/ui/home/main/time_of_the_day.dart';
-import 'package:helios_app/other/helpers/colors_helper.dart';
-import 'package:helios_app/other/helpers/constants.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/ui/common/error_button.dart';
-import 'package:helios_app/ui/common/helios_selection_button.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
-import 'package:helios_app/ui/common/movie_category.dart';
-import 'package:helios_app/ui/common/movie_hero.dart';
-import 'package:helios_app/ui/common/play_hours_builder.dart';
+import 'package:helios_app_flutter_x/models/repertoire/movie_repertoire.dart';
+import 'package:helios_app_flutter_x/models/ui/home/main/time_of_the_day.dart';
+import 'package:helios_app_flutter_x/other/helpers/colors_helper.dart';
+import 'package:helios_app_flutter_x/other/helpers/constants.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/ui/common/error_button.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_selection_button.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/ui/common/movie_category.dart';
+import 'package:helios_app_flutter_x/ui/common/movie_hero.dart';
+import 'package:helios_app_flutter_x/ui/common/play_hours_builder.dart';
 
 typedef TimeOfTheDayChange = Function(TimeOfTheDayEnum timeOfTheDay);
 typedef MovieRepertoireTap = Function(MovieRepertoireModel movieRepertoire);
@@ -64,9 +64,7 @@ class MovieRepertoireList extends StatelessWidget {
             layoutBuilder: (widget, _) => widget,
             transitionBuilder: (widget, transition) {
               return FadeTransition(
-                opacity: this.isLoading
-                    ? Tween<double>(begin: 1, end: 1).animate(transition)
-                    : transition,
+                opacity: this.isLoading ? Tween<double>(begin: 1, end: 1).animate(transition) : transition,
                 child: widget,
               );
             },
@@ -116,13 +114,10 @@ class MovieRepertoireList extends StatelessWidget {
     int offsetIndex = 0;
 
     for (int i = 0; i < this.maximumSectionsNumber; ++i) {
-      int indexTo = offsetIndex + this.maximumItemsPerSection >
-              this.movieRepertoires.length
-          ? this.movieRepertoires.length
-          : offsetIndex + this.maximumItemsPerSection;
+      int indexTo =
+          offsetIndex + this.maximumItemsPerSection > this.movieRepertoires.length ? this.movieRepertoires.length : offsetIndex + this.maximumItemsPerSection;
 
-      List<MovieRepertoireModel> moviesForSection =
-          this.movieRepertoires.getRange(offsetIndex, indexTo).toList();
+      List<MovieRepertoireModel> moviesForSection = this.movieRepertoires.getRange(offsetIndex, indexTo).toList();
 
       offsetIndex = indexTo;
       bool isLastSection = offsetIndex == this.movieRepertoires.length;
@@ -155,17 +150,13 @@ class MovieRepertoireList extends StatelessWidget {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            HeliosText("Niestety, ale nie mamy filmów o tej porze dnia"),
-            HeliosText("Spróbuj wybrać inną")
-          ],
+          children: [HeliosText("Niestety, ale nie mamy filmów o tej porze dnia"), HeliosText("Spróbuj wybrać inną")],
         ),
       ),
     );
   }
 
-  _buildMoviesSection(
-      List<MovieRepertoireModel> movieRepertoires, Color backgroundColor) {
+  _buildMoviesSection(List<MovieRepertoireModel> movieRepertoires, Color backgroundColor) {
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: this.sectionHeight),
       child: Container(
@@ -206,10 +197,7 @@ class MovieRepertoireList extends StatelessWidget {
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                       stops: [0.0, 0.3],
-                                      colors: [
-                                        Colors.black54,
-                                        Colors.transparent
-                                      ],
+                                      colors: [Colors.black54, Colors.transparent],
                                     ),
                                   ),
                                 ),
@@ -223,11 +211,9 @@ class MovieRepertoireList extends StatelessWidget {
                                             vertical: 2,
                                           ),
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(4),
+                                            borderRadius: BorderRadius.circular(4),
                                             color: Color(
-                                              getColorHexFromStr(movieRepertoire
-                                                  .movie.labelHex),
+                                              getColorHexFromStr(movieRepertoire.movie.labelHex),
                                             ),
                                           ),
                                           child: HeliosText(

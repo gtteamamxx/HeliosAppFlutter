@@ -1,4 +1,4 @@
-import 'package:helios_app/models/pricing/price_day_model.dart';
+import 'package:helios_app_flutter_x/models/pricing/price_day_model.dart';
 
 class PricingModel {
   PricingModel({

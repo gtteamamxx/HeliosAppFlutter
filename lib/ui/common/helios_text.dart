@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/other/helpers/constants.dart';
+import 'package:helios_app_flutter_x/other/helpers/constants.dart';
 
 class HeliosText extends StatelessWidget {
   HeliosText(

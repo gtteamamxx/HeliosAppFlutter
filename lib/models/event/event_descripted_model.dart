@@ -1,4 +1,4 @@
-import 'package:helios_app/models/image/image_model.dart';
+import 'package:helios_app_flutter_x/models/image/image_model.dart';
 
 class EventDescriptedModel {
   EventDescriptedModel({

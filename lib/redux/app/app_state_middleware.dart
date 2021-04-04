@@ -1,18 +1,17 @@
-import 'package:helios_app/other/helpers/navigator_helper.dart';
-import 'package:helios_app/other/service_locator.dart';
-import 'package:helios_app/other/services/navigation_service.dart';
-import 'package:helios_app/redux/actions/app/change_app_bar_visibility_action.dart';
-import 'package:helios_app/redux/actions/app/change_visibility_back_button_action.dart';
-import 'package:helios_app/redux/actions/movie_detail/fetch_movie_repertoire_action.dart';
-import 'package:helios_app/redux/actions/navigate_action.dart';
-import 'package:helios_app/redux/actions/show_image_action.dart';
-import 'package:helios_app/redux/actions/show_movie_detail_action.dart';
-import 'package:helios_app/redux/actions/show_select_places_action.dart';
-import 'package:helios_app/redux/app/app_state.dart';
+import 'package:helios_app_flutter_x/other/helpers/navigator_helper.dart';
+import 'package:helios_app_flutter_x/other/service_locator.dart';
+import 'package:helios_app_flutter_x/other/services/navigation_service.dart';
+import 'package:helios_app_flutter_x/redux/actions/app/change_app_bar_visibility_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/app/change_visibility_back_button_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/movie_detail/fetch_movie_repertoire_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/navigate_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/show_image_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/show_movie_detail_action.dart';
+import 'package:helios_app_flutter_x/redux/actions/show_select_places_action.dart';
+import 'package:helios_app_flutter_x/redux/app/app_state.dart';
 import 'package:redux/redux.dart';
 
-void appStateMiddleware(
-    Store<AppState> store, dynamic action, NextDispatcher next) {
+void appStateMiddleware(Store<AppState> store, dynamic action, NextDispatcher next) {
   if (action is NavigateAction) {
     _navigateByRoute(action);
   } else if (action is ShowMovieDetailAction) {
@@ -28,8 +27,7 @@ void appStateMiddleware(
   }
 }
 
-void _showSelectPlacesAction(
-    Store<AppState> store, ShowSelectPlacesAction action) {
+void _showSelectPlacesAction(Store<AppState> store, ShowSelectPlacesAction action) {
   _navigateByRoute(NavigateAction(route: '/select-places'));
 }
 
@@ -56,8 +54,7 @@ void _showMovieDetails(Store<AppState> store, int movieId) {
 
 void _popWithHide(Store<AppState> store) {
   NavigatorHelper.navigatorKey.currentState.maybePop();
-  store.dispatch(
-      ChangeVisibilityOfBackButtonAction(isVisible: false, backAction: null));
+  store.dispatch(ChangeVisibilityOfBackButtonAction(isVisible: false, backAction: null));
 }
 
 _navigateByRoute(NavigateAction navigateAction) {

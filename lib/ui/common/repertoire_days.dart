@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:helios_app/models/repertoire/repertoire_model.dart';
-import 'package:helios_app/other/helpers/helios_colors.dart';
-import 'package:helios_app/ui/common/helios_selection_button.dart';
-import 'package:helios_app/ui/common/helios_text.dart';
+import 'package:helios_app_flutter_x/models/repertoire/repertoire_model.dart';
+import 'package:helios_app_flutter_x/other/helpers/helios_colors.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_selection_button.dart';
+import 'package:helios_app_flutter_x/ui/common/helios_text.dart';
 import 'package:intl/intl.dart';
 
 typedef SelectedDayChange = Function(int index);
@@ -40,9 +40,7 @@ class _RepertoireDaysState extends State<RepertoireDays> {
         itemBuilder: (context, item) {
           RepertoireModel repertoire = this.widget.repertoire[item];
           bool isSelected = item == _selectedDayIndex;
-          Color fontColor = isSelected
-              ? Colors.white
-              : this.widget.itemFontColor ?? HeliosColors.categoryFontColor;
+          Color fontColor = isSelected ? Colors.white : this.widget.itemFontColor ?? HeliosColors.categoryFontColor;
 
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
@@ -63,10 +61,7 @@ class _RepertoireDaysState extends State<RepertoireDays> {
                   children: <Widget>[
                     HeliosText(
                       _capitalize(
-                        DateFormat("EE",
-                                Localizations.localeOf(context).languageCode)
-                            .format(repertoire.date)
-                            .replaceFirst(".", ""),
+                        DateFormat("EE", Localizations.localeOf(context).languageCode).format(repertoire.date).replaceFirst(".", ""),
                       ),
                       color: fontColor,
                     ),
