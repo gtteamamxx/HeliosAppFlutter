@@ -4,6 +4,7 @@
 1. Flutter v2.0.4
 1. Redux
 
+(lq, compressed gif)
 ![Image 1](https://github.com/gtteamamxx/HeliosAppFlutter/blob/master/gif_helios.gif?raw=true)
 
 ![Image 1](https://github.com/gtteamamxx/HeliosAppFlutter/blob/master/Screenshot_0.png?raw=true)
